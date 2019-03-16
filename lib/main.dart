@@ -10,7 +10,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Rapide Achat',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -52,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
 @override
   void initState() {
     super.initState();
-      timer = new Timer.periodic(new Duration(seconds: 2), (Timer timer) async {
+      timer = new Timer(new Duration(seconds: 5), () async {
          Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -78,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset(
-              'assets/icon/icon.png',
+              'assets/images/icon/icon.png',
               height: 285.0,
               width: 285.0,
               alignment: Alignment.center,
