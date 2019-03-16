@@ -1,11 +1,10 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rapide_achat/accueil.dart';
+import 'package:rapide_achat/api/api.dart';
+import 'package:rapide_achat/register.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -27,7 +26,10 @@ class _LoginScreen3State extends State<LoginScreen3>
   TextEditingController signupEmailController = new TextEditingController();
   TextEditingController signupPasswordController = new TextEditingController();
   TextEditingController signupCPasswordController = new TextEditingController();
-  TextEditingController signupTelephoneController = new TextEditingController();
+  ApiRest api = new ApiRest();
+  bool _isLoading = false;
+  bool _isLoading1 = false;
+  bool _isLoading2 = false;
 
   @override
   void initState() {
@@ -35,57 +37,147 @@ class _LoginScreen3State extends State<LoginScreen3>
   }
 
   login () async {
-    final FirebaseUser user = await _auth.signInWithEmailAndPassword(
+    setState(() => _isLoading = true);
+    email =loginEmailController.text;
+    password =loginPasswordController.text;
+
+    if(email.isEmpty || password.isEmpty) {
+      setState(() => _isLoading = false);
+          Fluttertoast.showToast(
+            msg: "Remplissez tous les champs",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIos: 1,
+            backgroundColor: Colors.blue,
+            textColor: Colors.white,
+            fontSize: 16.0);
+    }
+
+    else {
+
+try {
+   final FirebaseUser user = await _auth.signInWithEmailAndPassword(
         email: loginEmailController.text,
         password: loginPasswordController.text,
     );
 
     if (user != null) {
-         Fluttertoast.showToast(
-              msg: user.email,
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.green[400],
-              textColor: Colors.white,
-              fontSize: 16.0);
+      setState(() => _isLoading = false);
+           Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AccueilPage(),
+          ),
+        );
     } 
-    else {
+ 
+} catch (e) {
+    setState(() => _isLoading = false);
        Fluttertoast.showToast(
-              msg: "error connect",
+              msg: "votre compte n'existe pas",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIos: 1,
               backgroundColor: Colors.red[400],
               textColor: Colors.white,
               fontSize: 16.0);
+}
 
+       
     }
+    
+  
 
   }
 
+  register () async {
+    setState(() => _isLoading1 = true);
+    password =signupPasswordController.text;
+    password1 =signupCPasswordController.text;
+    email1 =signupEmailController.text;
+
+    if (email1.isEmpty || password.isEmpty|| password1.isEmpty) {
+      setState(() => _isLoading1 = false);
+          Fluttertoast.showToast(
+            msg: "Remplissez tous les champs",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIos: 1,
+            backgroundColor: Colors.blue,
+            textColor: Colors.white,
+            fontSize: 16.0);
+    }
+
+else{
+   if (password1 ==password) {
+     try {
+       final FirebaseUser user = await _auth.createUserWithEmailAndPassword(
+      email: signupEmailController.text,
+      password: signupPasswordController.text,
+    );
+    if (user != null) {
+      setState(() => _isLoading1 = false);
+      setState(() {
+         Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => RegisterPage(connectType: "email"),
+          ),
+        );
+        
+      });
+    } 
+     } catch (e) {
+       setState(() => _isLoading1 = false);
+       Fluttertoast.showToast(
+              msg: "Cette adresse mail existe déjà",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIos: 1,
+              backgroundColor: Colors.red[900],
+              textColor: Colors.white,
+              fontSize: 16.0);
+     }
+        
+    }
+    else {
+      setState(() => _isLoading1 = false);
+       Fluttertoast.showToast(
+              msg: "Mots de passe non identiques",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIos: 1,
+              backgroundColor: Colors.red[400],
+              textColor: Colors.white,
+              fontSize: 16.0);
+    }
+}
+   
+  
+  }
+
   loginFacebook () async {
+    setState(() => _isLoading2 = true);
     final facebookLogin = FacebookLogin();
     final result = await facebookLogin.logInWithReadPermissions(['email','public_profile']);
-
+  try {
     switch (result.status) {
   case FacebookLoginStatus.loggedIn:
      final AuthCredential credential = FacebookAuthProvider.getCredential(
       accessToken: result.accessToken.token,
     );
+  
     final FirebaseUser user = await _auth.signInWithCredential(credential);
-   // Firestore.instance.document('users').setData();
-   // Firestore.instance.collection('user').document(user.uid).setData({'name': user.displayName, 'email': user.email, 'id': user.uid,'phone': null,'naissance':null,'ville':null});
-    Fluttertoast.showToast(
-              msg: user.displayName,
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.green[400],
-              textColor: Colors.white,
-              fontSize: 16.0);
+    setState(() => _isLoading2 = false);
+    Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => RegisterPage(connectType: "facebook"),
+          ),
+        );
     break;
   case FacebookLoginStatus.cancelledByUser:
+  setState(() => _isLoading2 = false);
     Fluttertoast.showToast(
               msg: "Facebook cancel",
               toastLength: Toast.LENGTH_SHORT,
@@ -96,8 +188,9 @@ class _LoginScreen3State extends State<LoginScreen3>
               fontSize: 16.0);
     break;
   case FacebookLoginStatus.error:
+  setState(() => _isLoading2 = false);
     Fluttertoast.showToast(
-              msg: "Fcaebook error",
+              msg: "Facebook error",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIos: 1,
@@ -106,6 +199,19 @@ class _LoginScreen3State extends State<LoginScreen3>
               fontSize: 16.0);
     break;
 }
+      
+    } catch (e) {
+      setState(() => _isLoading2 = false);
+       Fluttertoast.showToast(
+              msg: "Cette adresse mail existe déjà",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIos: 1,
+              backgroundColor: Colors.red[900],
+              textColor: Colors.white,
+              fontSize: 16.0);
+    }
+    
     
      
     
@@ -200,7 +306,7 @@ class _LoginScreen3State extends State<LoginScreen3>
             child: new Row(
               children: <Widget>[
                 new Expanded(
-                  child: new FlatButton(
+                  child:  new FlatButton(
                     shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)),
                     color: Colors.white,
@@ -298,6 +404,7 @@ class _LoginScreen3State extends State<LoginScreen3>
                     controller: loginEmailController,
                     obscureText: false,
                     textAlign: TextAlign.left,
+                    keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'votremail@xyz.com',
@@ -390,13 +497,13 @@ class _LoginScreen3State extends State<LoginScreen3>
             child: new Row(
               children: <Widget>[
                 new Expanded(
-                  child: new FlatButton(
+                  child:  new FlatButton(
                     shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(30.0),
                     ),
                     color: Colors.redAccent,
-                    onPressed: () => {},
-                    child: new Container(
+                    onPressed: login,
+                    child: _isLoading ? new CircularProgressIndicator(backgroundColor: Colors.white) : new Container(
                       padding: const EdgeInsets.symmetric(
                         vertical: 20.0,
                         horizontal: 20.0,
@@ -467,7 +574,7 @@ class _LoginScreen3State extends State<LoginScreen3>
                             ),
                             color: Color(0Xff3B5998),
                             onPressed: () => {},
-                            child: new Container(
+                            child: _isLoading2 ? new CircularProgressIndicator(backgroundColor: Colors.white) : new Container(
                               child: new Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
@@ -579,8 +686,9 @@ class _LoginScreen3State extends State<LoginScreen3>
                 new Expanded(
                   child: TextField(
                     controller: signupEmailController,
-                    obscureText: true,
+                    obscureText: false,
                     textAlign: TextAlign.left,
+                    keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'votremail@xyz.com',
@@ -592,59 +700,6 @@ class _LoginScreen3State extends State<LoginScreen3>
             ),
           ),
           Divider(
-            height: 24.0,
-          ),
-           new Row(
-            children: <Widget>[
-              new Expanded(
-                child: new Padding(
-                  padding: const EdgeInsets.only(left: 40.0),
-                  child: new Text(
-                    "TELEPHONE",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
-                      fontSize: 15.0,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          new Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 2.0),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                    color: Colors.redAccent,
-                    width: 0.5,
-                    style: BorderStyle.solid),
-              ),
-            ),
-            padding: const EdgeInsets.only(left: 0.0, right: 10.0),
-            child: new Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                new Expanded(
-                  child: TextField(
-                    controller: signupTelephoneController,
-                    obscureText: true,
-                    keyboardType: TextInputType.number,
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: '0000000',
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-           Divider(
             height: 24.0,
           ),
           new Row(
@@ -783,8 +838,8 @@ class _LoginScreen3State extends State<LoginScreen3>
                       borderRadius: new BorderRadius.circular(30.0),
                     ),
                     color: Colors.redAccent,
-                    onPressed: () => {},
-                    child: new Container(
+                    onPressed: register,
+                    child: _isLoading1 ? new CircularProgressIndicator(backgroundColor: Colors.white) : new Container(
                       padding: const EdgeInsets.symmetric(
                         vertical: 20.0,
                         horizontal: 20.0,

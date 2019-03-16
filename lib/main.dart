@@ -1,7 +1,11 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:rapide_achat/accueil.dart';
 import 'package:rapide_achat/login.dart';
+
+final FirebaseAuth _auth =  FirebaseAuth.instance;
 
 void main() => runApp(MyApp());
 
@@ -54,12 +58,24 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
       timer = new Timer(new Duration(seconds: 5), () async {
-         Navigator.pushReplacement(
+        FirebaseUser user = await _auth.currentUser();
+        if (user != null) {
+            Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                AccueilPage()), //MaterialPageRoute
+      );
+        }
+
+        else {
+             Navigator.pushReplacement(
         context,
         MaterialPageRoute(
             builder: (context) =>
                 LoginPage()), //MaterialPageRoute
       );
+        } 
     });
   }
 
