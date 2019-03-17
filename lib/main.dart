@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:rapide_achat/accueil.dart';
 import 'package:rapide_achat/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-final FirebaseAuth _auth =  FirebaseAuth.instance;
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 void main() => runApp(MyApp());
 
@@ -54,31 +56,39 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Timer timer;
 
-@override
+  @override
   void initState() {
     super.initState();
-      timer = new Timer(new Duration(seconds: 5), () async {
-        FirebaseUser user = await _auth.currentUser();
-        if (user != null) {
-            Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                AccueilPage()), //MaterialPageRoute
-      );
-        }
 
-        else {
-             Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                LoginPage()), //MaterialPageRoute
-      );
-        } 
+    timer = new Timer(new Duration(seconds: 5), () async {
+    /*  try {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        String expire = prefs.getString('expire');
+        DateFormat df = new DateFormat('yyyy-MM-dd HH:mm:ss');
+        DateTime now = df.parse(DateTime.now().toString());
+        DateTime e = DateTime.parse(expire);
+        var c = now.compareTo(e);
+        if (c > 0) {
+          prefs.remove('expire');
+        }
+      } catch (e) {}*/
+
+      FirebaseUser user = await _auth.currentUser();
+      if (user != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => AccueilPage()), //MaterialPageRoute
+        );
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => LoginPage()), //MaterialPageRoute
+        );
+      }
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +99,6 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-    
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -105,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
-      ), 
+      ),
     );
   }
 }

@@ -219,7 +219,7 @@ register() async {
                 new Expanded(
                   child: TextField(
                     controller: telephoneController,
-                    obscureText: true,
+                    obscureText: false,
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(

@@ -23,6 +23,7 @@ dependencies:
   firebase_core: ^0.3.0
   firebase_analytics: ^1.0.4
   carousel_slider: ^1.1.0
+  shared_preferences: ^0.5.1+2
   flutter:
     sdk: flutter
 
