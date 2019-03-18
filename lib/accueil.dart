@@ -42,6 +42,7 @@ class _AccueilPage extends State<AccueilPage> {
       );
     }
 
+
     void showMenuSelection(String value) async {
       if (<String>[_simpleValue1].contains(value)) _simpleValue = value;
 
@@ -70,12 +71,185 @@ class _AccueilPage extends State<AccueilPage> {
       body: ListView(
         children: <Widget>[
           Padding(
-              padding: EdgeInsets.symmetric(vertical: 15.0),
+              padding: EdgeInsets.symmetric(vertical: 11.0),
               child: Column(children: [
                 autoPlayDemo,
               ])),
+              new Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        image: DecorationImage(
+          colorFilter: new ColorFilter.mode(
+              Colors.black.withOpacity(0.05), BlendMode.dstATop),
+          image: AssetImage('assets/images/mountains.jpg'),
+          fit: BoxFit.cover,
+        ),
+        
+      ),
+      child: new Column(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(20.0),
+            child: Center(
+              child: Image.asset(
+                "assets/images/icon/icon.png",
+              ),
+            ),
+          ),
+          new Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Container(
+                child: Column(
+                  children: <Widget>[
+                      GestureDetector(
+                  onTap: () {},
+                  child: ClipOval(
+                    child: Container(
+                          color: Colors.transparent,
+            height: 120.0, // height of the button
+            width: 120.0, // width of the button
+            child: Center(child: Material(
+                elevation: 4.0,
+                shape: CircleBorder(),
+                color: Colors.white,
+                child: Ink.image(
+                  image: AssetImage('assets/images/15.jpg'),
+                  fit: BoxFit.cover,
+                  width: 120.0,
+                  height: 120.0,
+                  child: InkWell(
+                    onTap:  () {},
+                    child: null,
+                  ),
+                ),
+                
+              )
+              
+              ),
+                    ),
+                  ),
+                  
+                ),
+                 Divider(
+            color: Colors.white,
+          ),
+                Column(
+                  children: <Widget>[
+                    Text("Téléphones"),
+                  ],
+                ),
+                  ],
+                ),
+                
+                
+              ),
+               
+               Container(
+                 child: Column(
+                  children: <Widget>[
+                      GestureDetector(
+                  onTap: () {},
+                  child: ClipOval(
+                    child: Container(
+                          color: Colors.transparent,
+            height: 120.0, // height of the button
+            width: 120.0, // width of the button
+            child: Center(child: Material(
+                elevation: 4.0,
+                shape: CircleBorder(),
+                color: Colors.white,
+                child: Ink.image(
+                  image: AssetImage('assets/images/14.jpg'),
+                  fit: BoxFit.contain,
+                  width: 120.0,
+                  height: 120.0,
+                  child: InkWell(
+                    onTap:  () {},
+                    child: null,
+                  ),
+                ),
+                
+              )
+              
+              ),
+                    ),
+                  ),
+                  
+                ),
+                 Divider(
+            color: Colors.white,
+          ),
+                Column(
+                  children: <Widget>[
+                    Text("Ordinateurs"),
+                  ],
+                ),
+                  ],
+                ),
+
+               ),
+                
+            ],
+          ),
+          
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Container(
+                child: Column(
+                  children: <Widget>[
+                      GestureDetector(
+                  onTap: () {},
+                  child: ClipOval(
+                    child: Container(
+                          color: Colors.transparent,
+            height: 120.0, // height of the button
+            width: 120.0, // width of the button
+            child: Center(child: Material(
+                elevation: 4.0,
+                shape: CircleBorder(),
+                color: Colors.white,
+                child: Ink.image(
+                  image: AssetImage('assets/images/20.jpg'),
+                  fit: BoxFit.contain,
+                  width: 120.0,
+                  height: 120.0,
+                  child: InkWell(
+                    onTap:  () {},
+                    child: null,
+                  ),
+                ),
+                
+              )
+              
+              ),
+                    ),
+                  ),
+                  
+                ),
+                 Divider(
+            color: Colors.white,
+          ),
+                Column(
+                  children: <Widget>[
+                    Text("Tablettes"),
+                  ],
+                ),
+                  ],
+                ),
+                
+                
+              ),
+            ],
+            
+          ),
         ],
       ),
+              ),
+      
+        ],
+      ),     
     );
   }
 
@@ -85,6 +259,7 @@ class _AccueilPage extends State<AccueilPage> {
     autoPlay: true,
     autoPlayInterval: Duration(seconds: 3),
     enlargeCenterPage: false,
+    height: 200.0,
     items: map<Widget>(
       itemList,
       (index, i) {
