@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:rapide_achat/choix.dart';
 import 'package:rapide_achat/login.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -42,7 +43,6 @@ class _AccueilPage extends State<AccueilPage> {
       );
     }
 
-
     void showMenuSelection(String value) async {
       if (<String>[_simpleValue1].contains(value)) _simpleValue = value;
 
@@ -54,6 +54,9 @@ class _AccueilPage extends State<AccueilPage> {
 
     return new Scaffold(
       appBar: AppBar(
+        leading: new Container(
+          child: Image.asset('assets/images/icon/icon.png'),
+        ),
         title: Text("Rapide Achat"),
         backgroundColor: Colors.red[400],
         actions: <Widget>[
@@ -71,185 +74,73 @@ class _AccueilPage extends State<AccueilPage> {
       body: ListView(
         children: <Widget>[
           Padding(
-              padding: EdgeInsets.symmetric(vertical: 11.0),
+              padding: EdgeInsets.symmetric(vertical: 01.0),
               child: Column(children: [
                 autoPlayDemo,
+                new Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    image: DecorationImage(
+                      colorFilter: new ColorFilter.mode(
+                          Colors.black.withOpacity(0.10), BlendMode.dstATop),
+                      image: AssetImage('assets/images/15.jpg'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: new Column(
+                    children: <Widget>[
+                      Divider(
+                        color: Colors.transparent,
+                        height: 80,
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(20.0),
+                        child: Center(
+                          child: Image.asset(
+                            "assets/images/icon/icon.png",
+                          ),
+                        ),
+                      ),
+                      Center(
+                        heightFactor: 5,
+                        child: new FlatButton(
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(30.0)),
+                          color: Colors.redAccent,
+                          onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ChoixPage()), //MaterialPageRoute
+                              ),
+                          child: new Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 20.0,
+                              horizontal: 20.0,
+                            ),
+                            child: new Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                new Expanded(
+                                  child: Text(
+                                    "RESERVER",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ])),
-              new Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        image: DecorationImage(
-          colorFilter: new ColorFilter.mode(
-              Colors.black.withOpacity(0.05), BlendMode.dstATop),
-          image: AssetImage('assets/images/mountains.jpg'),
-          fit: BoxFit.cover,
-        ),
-        
-      ),
-      child: new Column(
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(20.0),
-            child: Center(
-              child: Image.asset(
-                "assets/images/icon/icon.png",
-              ),
-            ),
-          ),
-          new Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Container(
-                child: Column(
-                  children: <Widget>[
-                      GestureDetector(
-                  onTap: () {},
-                  child: ClipOval(
-                    child: Container(
-                          color: Colors.transparent,
-            height: 120.0, // height of the button
-            width: 120.0, // width of the button
-            child: Center(child: Material(
-                elevation: 4.0,
-                shape: CircleBorder(),
-                color: Colors.white,
-                child: Ink.image(
-                  image: AssetImage('assets/images/15.jpg'),
-                  fit: BoxFit.cover,
-                  width: 120.0,
-                  height: 120.0,
-                  child: InkWell(
-                    onTap:  () {},
-                    child: null,
-                  ),
-                ),
-                
-              )
-              
-              ),
-                    ),
-                  ),
-                  
-                ),
-                 Divider(
-            color: Colors.white,
-          ),
-                Column(
-                  children: <Widget>[
-                    Text("Téléphones"),
-                  ],
-                ),
-                  ],
-                ),
-                
-                
-              ),
-               
-               Container(
-                 child: Column(
-                  children: <Widget>[
-                      GestureDetector(
-                  onTap: () {},
-                  child: ClipOval(
-                    child: Container(
-                          color: Colors.transparent,
-            height: 120.0, // height of the button
-            width: 120.0, // width of the button
-            child: Center(child: Material(
-                elevation: 4.0,
-                shape: CircleBorder(),
-                color: Colors.white,
-                child: Ink.image(
-                  image: AssetImage('assets/images/14.jpg'),
-                  fit: BoxFit.contain,
-                  width: 120.0,
-                  height: 120.0,
-                  child: InkWell(
-                    onTap:  () {},
-                    child: null,
-                  ),
-                ),
-                
-              )
-              
-              ),
-                    ),
-                  ),
-                  
-                ),
-                 Divider(
-            color: Colors.white,
-          ),
-                Column(
-                  children: <Widget>[
-                    Text("Ordinateurs"),
-                  ],
-                ),
-                  ],
-                ),
-
-               ),
-                
-            ],
-          ),
-          
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Container(
-                child: Column(
-                  children: <Widget>[
-                      GestureDetector(
-                  onTap: () {},
-                  child: ClipOval(
-                    child: Container(
-                          color: Colors.transparent,
-            height: 120.0, // height of the button
-            width: 120.0, // width of the button
-            child: Center(child: Material(
-                elevation: 4.0,
-                shape: CircleBorder(),
-                color: Colors.white,
-                child: Ink.image(
-                  image: AssetImage('assets/images/20.jpg'),
-                  fit: BoxFit.contain,
-                  width: 120.0,
-                  height: 120.0,
-                  child: InkWell(
-                    onTap:  () {},
-                    child: null,
-                  ),
-                ),
-                
-              )
-              
-              ),
-                    ),
-                  ),
-                  
-                ),
-                 Divider(
-            color: Colors.white,
-          ),
-                Column(
-                  children: <Widget>[
-                    Text("Tablettes"),
-                  ],
-                ),
-                  ],
-                ),
-                
-                
-              ),
-            ],
-            
-          ),
         ],
       ),
-              ),
-      
-        ],
-      ),     
     );
   }
 

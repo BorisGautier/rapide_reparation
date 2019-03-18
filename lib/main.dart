@@ -110,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
               alignment: Alignment.center,
             ),
             CircularProgressIndicator(
-              backgroundColor: Colors.red,
+              backgroundColor: Colors.red[900],
             ),
           ],
         ),
