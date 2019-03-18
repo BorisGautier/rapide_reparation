@@ -58,7 +58,7 @@ class _AccueilPage extends State<AccueilPage> {
           child: Image.asset('assets/images/icon/icon.png'),
         ),
         title: Text("Rapide Achat"),
-        backgroundColor: Colors.red[400],
+        backgroundColor: Colors.red[900],
         actions: <Widget>[
           PopupMenuButton<String>(
             onSelected: showMenuSelection,
@@ -101,12 +101,21 @@ class _AccueilPage extends State<AccueilPage> {
                           ),
                         ),
                       ),
+                      Text(
+                        "Faites vos demandes de réparation en 3 étapes",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red[900],
+                          fontSize: 20,
+                        ),
+                      ),
                       Center(
                         heightFactor: 5,
                         child: new FlatButton(
                           shape: new RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(30.0)),
-                          color: Colors.redAccent,
+                          color: Colors.red[900],
                           onPressed: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(

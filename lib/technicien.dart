@@ -85,7 +85,7 @@ class _TechnicienPage extends State<TechnicienPage> {
           child: Image.asset('assets/images/icon/icon.png'),
         ),
         title: Text("Rapide Achat"),
-        backgroundColor: Colors.red[400],
+        backgroundColor: Colors.red[900],
         actions: <Widget>[
           PopupMenuButton<String>(
             onSelected: showMenuSelection,
@@ -99,33 +99,38 @@ class _TechnicienPage extends State<TechnicienPage> {
         ],
       ),
       body: Container(
-           decoration: BoxDecoration(
-                    color: Colors.white,
-                    image: DecorationImage(
-                      colorFilter: new ColorFilter.mode(
-                          Colors.black.withOpacity(0.10), BlendMode.dstATop),
-                      image: AssetImage('assets/images/12.jpg'),
-                      fit: BoxFit.cover,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          image: DecorationImage(
+            colorFilter: new ColorFilter.mode(
+                Colors.black.withOpacity(0.10), BlendMode.dstATop),
+            image: AssetImage('assets/images/12.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: ListView(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 01.0),
+              child: new Column(
+                children: <Widget>[
+                  autoPlayDemo,
+                  new Container(
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
                     ),
-                  ),
-       child: ListView(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 01.0),
-            child: new Column(
-              children: <Widget>[
-                autoPlayDemo,
-                new Container(
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                   
-                  ),
-                 
-                  child: new Column(
-                    children: <Widget>[
-                      
-                Divider(color: Colors.transparent,height: 20),
-                      e
+                    child: new Column(
+                      children: <Widget>[
+                        Divider(color: Colors.transparent, height: 20),
+                        Text("ETAPE 3/3",
+                            style: TextStyle(
+                                color: Colors.red[900],
+                                fontStyle: FontStyle.italic,
+                                fontSize: 27,
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center),
+                        Divider(color: Colors.transparent, height: 60),
+                        /*   e
                           ? Text("Le problème de votre" +
                               " " +
                               appareil +
@@ -142,147 +147,150 @@ class _TechnicienPage extends State<TechnicienPage> {
                               probleme +
                               ":" +
                               " " +
-                              ecran,textAlign: TextAlign.center),
-                      Divider(color: Colors.transparent,height: 60),
-                      new Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: const EdgeInsets.only(
-                            left: 30.0, right: 30.0, top: 30.0),
-                        alignment: Alignment.center,
-                        child: new Row(
+                              ecran,textAlign: TextAlign.center),*/
+                        new Row(
                           children: <Widget>[
                             new Expanded(
-                              child: new FlatButton(
-                                shape: new RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(30.0),
-                                ),
-                                color: Colors.redAccent,
-                                onPressed: () {},
-                                child: new Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 10.0,
-                                    horizontal: 10.0,
-                                  ),
-                                  child: new Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      new Expanded(
-                                        child: Text(
-                                          "RENDEZ-VOUS EN BOUTIQUE",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            new Expanded(
-                              child: new FlatButton(
-                                shape: new RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(30.0),
-                                ),
-                                color: Colors.redAccent,
-                                onPressed: () {},
-                                child: new Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 10.0,
-                                    horizontal: 10.0,
-                                  ),
-                                  child: new Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      new Expanded(
-                                        child: Text(
-                                          "TECHNICIEN A DOMICILE",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ],
+                              child: new Padding(
+                                padding: const EdgeInsets.only(left: 40.0),
+                                child: new Text(
+                                  "PLANIFIEZ L'INTERVENTION",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.red[900],
+                                    fontSize: 15.0,
                                   ),
                                 ),
                               ),
                             ),
                           ],
                         ),
-                      ),
-                      
-                      Divider(color: Colors.transparent,height: 60),
-                      new Row(
-                        children: <Widget>[
-                          new Expanded(
-                            child: new Padding(
-                              padding: const EdgeInsets.only(left: 40.0),
-                              child: new Text(
-                                "PLANIFIEZ L'INTERVENTION",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
+                        new Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: const EdgeInsets.only(
+                              left: 40.0, right: 40.0, top: 2.0),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
                                   color: Colors.redAccent,
-                                  fontSize: 15.0,
-                                ),
-                              ),
+                                  width: 0.5,
+                                  style: BorderStyle.solid),
                             ),
                           ),
-                        ],
-                      ),
-                      new Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: const EdgeInsets.only(
-                            left: 40.0, right: 40.0, top: 2.0),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                                color: Colors.redAccent,
-                                width: 0.5,
-                                style: BorderStyle.solid),
-                          ),
-                        ),
-                        padding: const EdgeInsets.only(left: 0.0, right: 10.0),
-                        child: new Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            new Expanded(
-                              child: DateTimePickerFormField(
-                                controller: dateController,
-                                inputType: inputType,
-                                format: DateFormat('yyyy-MM-dd'),
-                                editable: editable,
-                                obscureText: false,
-                                keyboardType: TextInputType.text,
-                                textAlign: TextAlign.left,
-                                decoration: InputDecoration(
-                                  prefixIcon: Padding(
-                                    padding: const EdgeInsetsDirectional.only(
-                                        start: 12.0),
-                                    child:
-                                        Icon(Icons.calendar_today), // myIcon is a 48px-wide widget.
+                          padding:
+                              const EdgeInsets.only(left: 0.0, right: 10.0),
+                          child: new Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              new Expanded(
+                                child: DateTimePickerFormField(
+                                  controller: dateController,
+                                  inputType: inputType,
+                                  format: DateFormat('yyyy-MM-dd'),
+                                  editable: editable,
+                                  obscureText: false,
+                                  keyboardType: TextInputType.text,
+                                  textAlign: TextAlign.left,
+                                  decoration: InputDecoration(
+                                    prefixIcon: Padding(
+                                      padding: const EdgeInsetsDirectional.only(
+                                          start: 12.0),
+                                      child: Icon(Icons
+                                          .calendar_today), // myIcon is a 48px-wide widget.
+                                    ),
+                                    border: InputBorder.none,
+                                    hintText: '1990-01-01',
+                                    hintStyle: TextStyle(color: Colors.grey),
                                   ),
-                                  border: InputBorder.none,
-                                  hintText: '1990-01-01',
-                                  hintStyle: TextStyle(color: Colors.grey),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      
-                    ],
+                        Divider(color: Colors.transparent, height: 60),
+                        new Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: const EdgeInsets.only(
+                              left: 30.0, right: 30.0, top: 30.0),
+                          alignment: Alignment.center,
+                          child: new Row(
+                            children: <Widget>[
+                              new Expanded(
+                                child: new FlatButton(
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(30.0),
+                                  ),
+                                  color: Colors.red[900],
+                                  onPressed: () {},
+                                  child: new Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 10.0,
+                                      horizontal: 10.0,
+                                    ),
+                                    child: new Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        new Expanded(
+                                          child: Text(
+                                            "RENDEZ-VOUS EN BOUTIQUE",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              new Expanded(
+                                child: new FlatButton(
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(30.0),
+                                  ),
+                                  color: Colors.red[900],
+                                  onPressed: () {},
+                                  child: new Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 10.0,
+                                      horizontal: 10.0,
+                                    ),
+                                    child: new Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        new Expanded(
+                                          child: Text(
+                                            "TECHNICIEN A DOMICILE",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Divider(color: Colors.transparent, height: 60),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
       ),
     );
   }

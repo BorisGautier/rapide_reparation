@@ -46,27 +46,30 @@ class _ChoixPage extends State<ChoixPage> {
     goTomodele(int i) {
       if (i == 1) {
         Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ModelePage(appareil: "telephone",)), //MaterialPageRoute
-      );
-      }
-      else if (i == 2) {
-           Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ModelePage(appareil: "ordinateur",)), //MaterialPageRoute
-      );
-      }
-      else if (i == 3) {
-           Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ModelePage(appareil: "tablette",)), //MaterialPageRoute
-      );
+          context,
+          MaterialPageRoute(
+              builder: (context) => ModelePage(
+                    appareil: "telephone",
+                  )), //MaterialPageRoute
+        );
+      } else if (i == 2) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ModelePage(
+                    appareil: "ordinateur",
+                  )), //MaterialPageRoute
+        );
+      } else if (i == 3) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ModelePage(
+                    appareil: "tablette",
+                  )), //MaterialPageRoute
+        );
       }
     }
-
 
     void showMenuSelection(String value) async {
       if (<String>[_simpleValue1].contains(value)) _simpleValue = value;
@@ -83,7 +86,7 @@ class _ChoixPage extends State<ChoixPage> {
           child: Image.asset('assets/images/icon/icon.png'),
         ),
         title: Text("Rapide Achat"),
-        backgroundColor: Colors.red[400],
+        backgroundColor: Colors.red[900],
         actions: <Widget>[
           PopupMenuButton<String>(
             onSelected: showMenuSelection,
@@ -102,181 +105,184 @@ class _ChoixPage extends State<ChoixPage> {
               padding: EdgeInsets.symmetric(vertical: 01.0),
               child: Column(children: [
                 autoPlayDemo,
-                 new Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        image: DecorationImage(
-          colorFilter: new ColorFilter.mode(
-              Colors.black.withOpacity(0.10), BlendMode.dstATop),
-          image: AssetImage('assets/images/14.jpg'),
-          fit: BoxFit.cover,
-        ),
-        
-      ),
-      child: new Column(
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(30.0),
-            child: Center(
-              child: Text("Que voulez vous reparer?" , style: TextStyle(fontStyle: FontStyle.italic),textAlign: TextAlign.center)
-            ),
-          ),
-          new Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Container(
-                child: Column(
-                  children: <Widget>[
-                      GestureDetector(
-                  onTap: () {},
-                  child: ClipOval(
-                    child: Container(
-                          color: Colors.transparent,
-            height: 120.0, // height of the button
-            width: 120.0, // width of the button
-            child: Center(child: Material(
-                elevation: 4.0,
-                shape: CircleBorder(),
-                color: Colors.white,
-                child: Ink.image(
-                  image: AssetImage('assets/images/icon/tel.png'),
-                  fit: BoxFit.contain,
-                  width: 120.0,
-                  height: 120.0,
-                  child: InkWell(
-                    onTap:  () {goTomodele(1);},
-                    child: null,
-                  ),
-                ),
-                
-              )
-              
-              ),
+                new Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    image: DecorationImage(
+                      colorFilter: new ColorFilter.mode(
+                          Colors.black.withOpacity(0.10), BlendMode.dstATop),
+                      image: AssetImage('assets/images/14.jpg'),
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  
-                ),
-                 Divider(
-            color: Colors.white,
-          ),
-                Column(
-                  children: <Widget>[
-                    Text("Téléphones"),
-                  ],
-                ),
-                  ],
-                ),
-                
-                
-              ),
-               
-               Container(
-                 child: Column(
-                  children: <Widget>[
-                      GestureDetector(
-                  onTap: () {},
-                  child: ClipOval(
-                    child: Container(
-                          color: Colors.transparent,
-            height: 120.0, // height of the button
-            width: 120.0, // width of the button
-            child: Center(child: Material(
-                elevation: 4.0,
-                shape: CircleBorder(),
-                color: Colors.white,
-                child: Ink.image(
-                  image: AssetImage('assets/images/icon/ordi.png'),
-                  fit: BoxFit.contain,
-                  width: 120.0,
-                  height: 120.0,
-                  child: InkWell(
-                    onTap:  () {goTomodele(2);},
-                    child: null,
+                  child: new Column(
+                    children: <Widget>[
+                      Divider(color: Colors.transparent, height: 20),
+                      Container(
+                        padding: EdgeInsets.all(0.0),
+                        child: Center(
+                            child: Text("ETAPE 1/3",
+                                style: TextStyle(
+                                    color: Colors.red[900],
+                                    fontStyle: FontStyle.italic,
+                                    fontSize: 27,
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center)),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(05.0),
+                        child: Center(
+                            child: Text(
+                                "Quel est votre type d'appareil à réparer ?",
+                                style: TextStyle(
+                                    fontStyle: FontStyle.italic, fontSize: 15),
+                                textAlign: TextAlign.center)),
+                      ),
+                      new Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Container(
+                            child: Column(
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: ClipOval(
+                                    child: Container(
+                                      color: Colors.transparent,
+                                      height: 120.0, // height of the button
+                                      width: 120.0, // width of the button
+                                      child: Center(
+                                          child: Material(
+                                        elevation: 4.0,
+                                        shape: CircleBorder(),
+                                        color: Colors.white,
+                                        child: Ink.image(
+                                          image: AssetImage(
+                                              'assets/images/icon/tel.png'),
+                                          fit: BoxFit.contain,
+                                          width: 120.0,
+                                          height: 120.0,
+                                          child: InkWell(
+                                            onTap: () {
+                                              goTomodele(1);
+                                            },
+                                            child: null,
+                                          ),
+                                        ),
+                                      )),
+                                    ),
+                                  ),
+                                ),
+                                Divider(
+                                  color: Colors.white,
+                                ),
+                                Column(
+                                  children: <Widget>[
+                                    Text("Téléphones"),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            child: Column(
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: ClipOval(
+                                    child: Container(
+                                      color: Colors.transparent,
+                                      height: 120.0, // height of the button
+                                      width: 120.0, // width of the button
+                                      child: Center(
+                                          child: Material(
+                                        elevation: 4.0,
+                                        shape: CircleBorder(),
+                                        color: Colors.white,
+                                        child: Ink.image(
+                                          image: AssetImage(
+                                              'assets/images/icon/ordi.png'),
+                                          fit: BoxFit.contain,
+                                          width: 120.0,
+                                          height: 120.0,
+                                          child: InkWell(
+                                            onTap: () {
+                                              goTomodele(2);
+                                            },
+                                            child: null,
+                                          ),
+                                        ),
+                                      )),
+                                    ),
+                                  ),
+                                ),
+                                Divider(
+                                  color: Colors.white,
+                                ),
+                                Column(
+                                  children: <Widget>[
+                                    Text("Ordinateurs"),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Container(
+                            child: Column(
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: ClipOval(
+                                    child: Container(
+                                      color: Colors.transparent,
+                                      height: 120.0, // height of the button
+                                      width: 120.0, // width of the button
+                                      child: Center(
+                                          child: Material(
+                                        elevation: 4.0,
+                                        shape: CircleBorder(),
+                                        color: Colors.white,
+                                        child: Ink.image(
+                                          image: AssetImage(
+                                              'assets/images/icon/tab.png'),
+                                          fit: BoxFit.contain,
+                                          width: 120.0,
+                                          height: 120.0,
+                                          child: InkWell(
+                                            onTap: () {
+                                              goTomodele(3);
+                                            },
+                                            child: null,
+                                          ),
+                                        ),
+                                      )),
+                                    ),
+                                  ),
+                                ),
+                                Divider(
+                                  color: Colors.white,
+                                ),
+                                Column(
+                                  children: <Widget>[
+                                    Text("Tablettes"),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                
-              )
-              
-              ),
-                    ),
-                  ),
-                  
-                ),
-                 Divider(
-            color: Colors.white,
-          ),
-                Column(
-                  children: <Widget>[
-                    Text("Ordinateurs"),
-                  ],
-                ),
-                  ],
-                ),
-
-               ),
-                
-            ],
-          ),
-          
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Container(
-                child: Column(
-                  children: <Widget>[
-                      GestureDetector(
-                  onTap: () {},
-                  child: ClipOval(
-                    child: Container(
-                          color: Colors.transparent,
-            height: 120.0, // height of the button
-            width: 120.0, // width of the button
-            child: Center(child: Material(
-                elevation: 4.0,
-                shape: CircleBorder(),
-                color: Colors.white,
-                child: Ink.image(
-                  image: AssetImage('assets/images/icon/tab.png'),
-                  fit: BoxFit.contain,
-                  width: 120.0,
-                  height: 120.0,
-                  child: InkWell(
-                    onTap:  () {goTomodele(3);},
-                    child: null,
-                  ),
-                ),
-                
-              )
-              
-              ),
-                    ),
-                  ),
-                  
-                ),
-                 Divider(
-            color: Colors.white,
-          ),
-                Column(
-                  children: <Widget>[
-                    Text("Tablettes"),
-                  ],
-                ),
-                  ],
-                ),
-                
-                
-              ),
-            ],
-            
-          ),
-        ],
-      ),
-              ),
               ])),
-             
-      
         ],
-      ),     
+      ),
     );
   }
 
