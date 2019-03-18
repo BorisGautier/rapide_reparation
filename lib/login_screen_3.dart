@@ -76,7 +76,9 @@ class _LoginScreen3State extends State<LoginScreen3>
                 keyboardType: TextInputType.emailAddress,
                 autofocus: true,
                 decoration: new InputDecoration(
-                    labelText: 'Votre Email', hintText: 'votremail@xyz.com'),
+                    labelText: 'Votre Email',
+                    hintText: 'votremail@xyz.com',
+                    fillColor: Colors.red[900]),
                 onChanged: (value) {
                   teamName = value;
                 },
@@ -85,7 +87,7 @@ class _LoginScreen3State extends State<LoginScreen3>
           ),
           actions: <Widget>[
             FlatButton(
-              child: Text('Valider'),
+              child: Text('Valider', style: TextStyle(color: Colors.red[900])),
               onPressed: () {
                 reset(teamName);
                 Navigator.of(context).pop();
@@ -135,7 +137,7 @@ class _LoginScreen3State extends State<LoginScreen3>
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIos: 1,
-            backgroundColor: Colors.red[400],
+            backgroundColor: Colors.red[900],
             textColor: Colors.white,
             fontSize: 16.0);
       }
@@ -194,7 +196,7 @@ class _LoginScreen3State extends State<LoginScreen3>
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIos: 1,
-            backgroundColor: Colors.red[400],
+            backgroundColor: Colors.red[900],
             textColor: Colors.white,
             fontSize: 16.0);
       }
@@ -219,7 +221,7 @@ class _LoginScreen3State extends State<LoginScreen3>
             final FirebaseUser user =
                 await _auth.signInWithCredential(credential);
             await prefs.setString('token', result.accessToken.token);
-          /*  DateFormat df = new DateFormat('yyyy-MM-dd HH:mm:ss');
+            /*  DateFormat df = new DateFormat('yyyy-MM-dd HH:mm:ss');
             DateTime e = df.parse(result.accessToken.expires.toString());
             String expire = e.toString();
             await prefs.setString('expire', expire);*/
@@ -293,7 +295,7 @@ class _LoginScreen3State extends State<LoginScreen3>
     return new Container(
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
-        color: Colors.redAccent,
+        color: Colors.red[900],
         image: DecorationImage(
           colorFilter: new ColorFilter.mode(
               Colors.black.withOpacity(0.1), BlendMode.dstATop),
@@ -328,7 +330,7 @@ class _LoginScreen3State extends State<LoginScreen3>
                   child: new OutlineButton(
                     shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)),
-                    color: Colors.redAccent,
+                    color: Colors.red[900],
                     highlightedBorderColor: Colors.white,
                     onPressed: () => gotoSignup(),
                     child: new Container(
@@ -381,7 +383,7 @@ class _LoginScreen3State extends State<LoginScreen3>
                               "CONNECTEZ VOUS",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  color: Colors.redAccent,
+                                  color: Colors.red[900],
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -418,7 +420,7 @@ class _LoginScreen3State extends State<LoginScreen3>
               child: Center(
                 child: Image.asset(
                   "assets/images/icon/icon.png",
-                  color: Colors.redAccent,
+                  color: Colors.red[900],
                 ),
               ),
             ),
@@ -431,7 +433,7 @@ class _LoginScreen3State extends State<LoginScreen3>
                       "EMAIL",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.redAccent,
+                        color: Colors.red[900],
                         fontSize: 15.0,
                       ),
                     ),
@@ -446,7 +448,7 @@ class _LoginScreen3State extends State<LoginScreen3>
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                      color: Colors.redAccent,
+                      color: Colors.red[900],
                       width: 0.5,
                       style: BorderStyle.solid),
                 ),
@@ -484,7 +486,7 @@ class _LoginScreen3State extends State<LoginScreen3>
                       "MOT DE PASSE",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.redAccent,
+                        color: Colors.red[900],
                         fontSize: 15.0,
                       ),
                     ),
@@ -499,7 +501,7 @@ class _LoginScreen3State extends State<LoginScreen3>
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                      color: Colors.redAccent,
+                      color: Colors.red[900],
                       width: 0.5,
                       style: BorderStyle.solid),
                 ),
@@ -537,7 +539,7 @@ class _LoginScreen3State extends State<LoginScreen3>
                       "Mot de passe oublié?",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.redAccent,
+                        color: Colors.red[900],
                         fontSize: 15.0,
                       ),
                       textAlign: TextAlign.end,
@@ -560,7 +562,7 @@ class _LoginScreen3State extends State<LoginScreen3>
                       shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0),
                       ),
-                      color: Colors.redAccent,
+                      color: Colors.red[900],
                       onPressed: login,
                       child: _isLoading
                           ? new CircularProgressIndicator(
@@ -713,7 +715,7 @@ class _LoginScreen3State extends State<LoginScreen3>
               child: Center(
                 child: Image.asset(
                   "assets/images/icon/icon.png",
-                  color: Colors.redAccent,
+                  color: Colors.red[900],
                 ),
               ),
             ),
@@ -726,7 +728,7 @@ class _LoginScreen3State extends State<LoginScreen3>
                       "EMAIL",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.redAccent,
+                        color: Colors.red[900],
                         fontSize: 15.0,
                       ),
                     ),
@@ -741,7 +743,7 @@ class _LoginScreen3State extends State<LoginScreen3>
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                      color: Colors.redAccent,
+                      color: Colors.red[900],
                       width: 0.5,
                       style: BorderStyle.solid),
                 ),
@@ -779,7 +781,7 @@ class _LoginScreen3State extends State<LoginScreen3>
                       "MOT DE PASSE",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.redAccent,
+                        color: Colors.red[900],
                         fontSize: 15.0,
                       ),
                     ),
@@ -794,7 +796,7 @@ class _LoginScreen3State extends State<LoginScreen3>
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                      color: Colors.redAccent,
+                      color: Colors.red[900],
                       width: 0.5,
                       style: BorderStyle.solid),
                 ),
@@ -831,7 +833,7 @@ class _LoginScreen3State extends State<LoginScreen3>
                       "CONFIRMER VOTRE MOT DE PASSE",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.redAccent,
+                        color: Colors.red[900],
                         fontSize: 15.0,
                       ),
                     ),
@@ -846,7 +848,7 @@ class _LoginScreen3State extends State<LoginScreen3>
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                      color: Colors.redAccent,
+                      color: Colors.red[900],
                       width: 0.5,
                       style: BorderStyle.solid),
                 ),
@@ -884,7 +886,7 @@ class _LoginScreen3State extends State<LoginScreen3>
                       "Avez vous déja un compte?",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.redAccent,
+                        color: Colors.red[900],
                         fontSize: 15.0,
                       ),
                       textAlign: TextAlign.end,
@@ -905,7 +907,7 @@ class _LoginScreen3State extends State<LoginScreen3>
                       shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0),
                       ),
-                      color: Colors.redAccent,
+                      color: Colors.red[900],
                       onPressed: register,
                       child: _isLoading1
                           ? new CircularProgressIndicator(
