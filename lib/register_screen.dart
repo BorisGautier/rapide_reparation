@@ -62,7 +62,10 @@ class _RegisterScreenState extends State<RegisterScreen>
       if (connectType == "facebook") {
         setState(() {
           if (currentUser != null) {
-            setState(() => _isLoading = false);
+           
+      api.registerF(currentUser.displayName, currentUser.email, ville, telephone, date, currentUser.uid).then((Response response) {
+      if (response.status == "success") {
+         setState(() => _isLoading = false);
             Fluttertoast.showToast(
                 msg: "Enregistrement terminé avec succès",
                 toastLength: Toast.LENGTH_SHORT,
@@ -77,9 +80,6 @@ class _RegisterScreenState extends State<RegisterScreen>
                 builder: (context) => AccueilPage(),
               ),
             );
-            /*  api.registerF(currentUser.displayName, currentUser.email, ville, telephone, date, currentUser.uid).then((Response response) {
-      if (response.status == "success") {
-        
       } else {
           Fluttertoast.showToast(
               msg: "Erreur lors de l'enregistrement",
@@ -90,8 +90,9 @@ class _RegisterScreenState extends State<RegisterScreen>
               textColor: Colors.white,
               fontSize: 16.0);
       }
-    });*/
-          } else {
+    });
+          } 
+          else {
             setState(() => _isLoading = false);
             Fluttertoast.showToast(
                 msg: "Erreur de connexion au compte",
@@ -103,10 +104,15 @@ class _RegisterScreenState extends State<RegisterScreen>
                 fontSize: 16.0);
           }
         });
-      } else {
+      } 
+      
+      else {
         setState(() {
           if (currentUser != null) {
-            setState(() => _isLoading = false);
+          
+     api.register(currentUser.email, currentUser.email, ville, telephone, date).then((Response response) {
+      if (response.status == "success") {
+           setState(() => _isLoading = false);
             Fluttertoast.showToast(
                 msg: "Enregistrement terminé avec succès",
                 toastLength: Toast.LENGTH_SHORT,
@@ -121,9 +127,6 @@ class _RegisterScreenState extends State<RegisterScreen>
                 builder: (context) => AccueilPage(),
               ),
             );
-            /*   api.register(currentUser.email, currentUser.email, ville, telephone, date).then((Response response) {
-      if (response.status == "success") {
-         
       } else {
           Fluttertoast.showToast(
               msg: "Erreur lors de l'enregistrement",
@@ -134,7 +137,7 @@ class _RegisterScreenState extends State<RegisterScreen>
               textColor: Colors.white,
               fontSize: 16.0);
       }
-    });*/
+    });
           } else {
             setState(() => _isLoading = false);
             Fluttertoast.showToast(
@@ -276,6 +279,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                         hintText: '1990-01-01',
                         hintStyle: TextStyle(color: Colors.grey),
                       ),
+                      onChanged: (dt) => setState(() => date1 = dt),
                     ),
                   ),
                 ],

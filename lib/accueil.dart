@@ -102,7 +102,7 @@ class _AccueilPage extends State<AccueilPage> {
                         ),
                       ),
                       Text(
-                        "Faites vos demandes de réparation en 3 étapes",
+                        "Planifiez votre réparation en 3 étapes",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -132,7 +132,7 @@ class _AccueilPage extends State<AccueilPage> {
                               children: <Widget>[
                                 new Expanded(
                                   child: Text(
-                                    "RESERVER",
+                                    "PLANIFIER",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.white,

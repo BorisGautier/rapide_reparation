@@ -2,8 +2,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:rapide_achat/detail.dart';
 import 'package:rapide_achat/login.dart';
+import 'package:rapide_achat/modele.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -26,23 +29,23 @@ List<T> map<T>(List list, Function handler) {
 
 class TechnicienPage extends StatefulWidget {
   TechnicienPage(
-      {Key key, this.appareil, this.modele, this.probleme, this.ecran})
+      {Key key, this.appareil, this.modele, this.probleme, this.ecran,this.pb})
       : super(key: key);
 
-  final String appareil, modele, probleme, ecran;
+  final String appareil, modele, probleme, ecran,pb;
   @override
   _TechnicienPage createState() =>
-      _TechnicienPage(appareil, modele, probleme, ecran);
+      _TechnicienPage(appareil, modele, probleme, ecran,pb);
 }
 
 class _TechnicienPage extends State<TechnicienPage> {
-  _TechnicienPage(this.appareil, this.modele, this.probleme, this.ecran);
-  final String appareil, modele, probleme, ecran;
+  _TechnicienPage(this.appareil, this.modele, this.probleme, this.ecran,this.pb);
+   String appareil, modele, probleme, ecran,pb;
   final String _simpleValue1 = 'logout';
-  String _simpleValue;
+  String _simpleValue,date;
   bool e = false;
 
-  InputType inputType = InputType.date;
+  InputType inputType = InputType.both;
   bool editable = true;
   DateTime date1;
 
@@ -56,6 +59,53 @@ class _TechnicienPage extends State<TechnicienPage> {
     } else {
       e = false;
     }
+     if (pb != null) {
+      probleme = pb;
+    } 
+  }
+
+  confirmerD() {
+    date =dateController.text;
+    if(date.isEmpty) {
+       Fluttertoast.showToast(
+            msg: "Choisissez une date",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIos: 1,
+            backgroundColor: Colors.blue[900],
+            textColor: Colors.white,
+            fontSize: 16.0);
+    }
+    else{
+       Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => DetailPage(appareil: appareil,date: date,ecran: ecran,modele: modele,pb: pb,probleme: probleme,rdv: "domicile",)), //MaterialPageRoute
+      );
+    }
+    
+  }
+
+  confirmerB() {
+    date =dateController.text;
+    if(date.isEmpty) {
+      Fluttertoast.showToast(
+            msg: "Choisissez une date",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIos: 1,
+            backgroundColor: Colors.blue[900],
+            textColor: Colors.white,
+            fontSize: 16.0);
+    }
+    else{
+       Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => DetailPage(appareil: appareil,date: date,ecran: ecran,modele: modele,pb: pb,probleme: probleme,rdv: "boutique",)), //MaterialPageRoute
+      );
+    }
+    
   }
 
   @override
@@ -122,13 +172,47 @@ class _TechnicienPage extends State<TechnicienPage> {
                     child: new Column(
                       children: <Widget>[
                         Divider(color: Colors.transparent, height: 20),
-                        Text("ETAPE 3/3",
-                            style: TextStyle(
-                                color: Colors.red[900],
-                                fontStyle: FontStyle.italic,
-                                fontSize: 27,
-                                fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center),
+                        Row(
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            Padding(padding: EdgeInsets.only(left: 10.0),
+                        child:  IconButton(
+                          icon: new Icon(Icons.backspace,color: Colors.red[900],),
+                          onPressed: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ModelePage(appareil: appareil)), //MaterialPageRoute
+                              );
+                          },
+                        ) ,
+                        ),
+                          Text("étape précedente",
+                        style: TextStyle(
+                            color: Colors.red[900],
+                            fontStyle: FontStyle.italic,
+                            fontSize: 6,),
+                        textAlign: TextAlign.center),
+                          ],
+                        ),
+                        
+                       Padding(
+                         padding: EdgeInsets.only(right: 60.0),
+                       ),
+                         Text("ETAPE 3/3",
+                        style: TextStyle(
+                            color: Colors.red[900],
+                            fontStyle: FontStyle.italic,
+                            fontSize: 27,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center),
+                      ],
+                    ),
+                        
+
+
                         Divider(color: Colors.transparent, height: 60),
                         /*   e
                           ? Text("Le problème de votre" +
@@ -188,7 +272,7 @@ class _TechnicienPage extends State<TechnicienPage> {
                                 child: DateTimePickerFormField(
                                   controller: dateController,
                                   inputType: inputType,
-                                  format: DateFormat('yyyy-MM-dd'),
+                                  format: DateFormat('yyyy-MM-dd HH:mm:ss'),
                                   editable: editable,
                                   obscureText: false,
                                   keyboardType: TextInputType.text,
@@ -201,9 +285,10 @@ class _TechnicienPage extends State<TechnicienPage> {
                                           .calendar_today), // myIcon is a 48px-wide widget.
                                     ),
                                     border: InputBorder.none,
-                                    hintText: '1990-01-01',
+                                    hintText: '1990-01-01 10:00:00',
                                     hintStyle: TextStyle(color: Colors.grey),
                                   ),
+                                  onChanged: (dt) => setState(() => date1 = dt),
                                 ),
                               ),
                             ],
@@ -224,7 +309,7 @@ class _TechnicienPage extends State<TechnicienPage> {
                                         new BorderRadius.circular(30.0),
                                   ),
                                   color: Colors.red[900],
-                                  onPressed: () {},
+                                  onPressed: confirmerB,
                                   child: new Container(
                                     padding: const EdgeInsets.symmetric(
                                       vertical: 10.0,
@@ -255,7 +340,7 @@ class _TechnicienPage extends State<TechnicienPage> {
                                         new BorderRadius.circular(30.0),
                                   ),
                                   color: Colors.red[900],
-                                  onPressed: () {},
+                                  onPressed: confirmerD,
                                   child: new Container(
                                     padding: const EdgeInsets.symmetric(
                                       vertical: 10.0,

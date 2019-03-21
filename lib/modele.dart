@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:rapide_achat/choix.dart';
 import 'package:rapide_achat/login.dart';
 import 'package:rapide_achat/technicien.dart';
 
@@ -14,19 +15,13 @@ final List<String> itemList = [
   'assets/images/15.jpeg'
 ];
 
-List _modelePhone = ["modele1", "modele2", "modele3", "modele4", "modele5"];
+List _modelePhone = ["Iphone6S", "Iphone7", "Samsung Galaxy S8"];
 
-List _modeleOrdi = ["modele11", "modele22", "modele33", "modele44", "modele55"];
+List _modeleOrdi = ["Galaxy Tab 5", "Galaxy Tab 6", "Galaxy Tab 7"];
 
-List _modeleTab = [
-  "modele111",
-  "modele222",
-  "modele333",
-  "modele444",
-  "modele555"
-];
+List _modeleTab = ["Galaxy Tab 5", "Galaxy Tab 6", "Galaxy Tab 7"];
 
-List _degat = ["Connecteur", "Ecran cassé"];
+List _degat = ["Connecteur", "Ecran brisé","Batterie défectueuse pour Iphone 6S","Clavier HS"];
 
 List<DropdownMenuItem<String>> _dropDownMenuItems, _dropPb;
 String _currentModele, _currentProbleme;
@@ -53,10 +48,14 @@ class _ModelePage extends State<ModelePage> {
   final String appareil;
   final String _simpleValue1 = 'logout';
   String _simpleValue;
-  String modele, probleme, ecran;
+  String modele, probleme, ecran,pb;
   bool blanc = false;
   bool noir = false;
   bool c = false;
+  bool m = false;
+  bool t = false;
+
+  TextEditingController pbController = new TextEditingController();
 
   List<DropdownMenuItem<String>> getDropDownMenuItemsProbleme() {
     List<DropdownMenuItem<String>> items = new List();
@@ -71,21 +70,14 @@ class _ModelePage extends State<ModelePage> {
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
     List<DropdownMenuItem<String>> items = new List();
-    if (appareil == "telephone") {
+    if (appareil == "smartphone") {
       for (String mod in _modelePhone) {
         // here we are creating the drop down menu items, you can customize the item right here
         // but I'll just use a simple text for this
         items.add(new DropdownMenuItem(value: mod, child: new Text(mod)));
       }
       return items;
-    } else if (appareil == "ordinateur") {
-      for (String mod in _modeleOrdi) {
-        // here we are creating the drop down menu items, you can customize the item right here
-        // but I'll just use a simple text for this
-        items.add(new DropdownMenuItem(value: mod, child: new Text(mod)));
-      }
-      return items;
-    } else if (appareil == "tablette") {
+    }  else if (appareil == "tablette") {
       for (String mod in _modeleTab) {
         // here we are creating the drop down menu items, you can customize the item right here
         // but I'll just use a simple text for this
@@ -97,13 +89,57 @@ class _ModelePage extends State<ModelePage> {
 
   @override
   void initState() {
-    _dropDownMenuItems = getDropDownMenuItems();
+    if(appareil == "ordinateur") {
+      m=true;
+      t=true;
+    }
+    else if (appareil == "tablette") {
+      m=false;
+      t=true;
+       _dropDownMenuItems = getDropDownMenuItems();
     _currentModele = _dropDownMenuItems[0].value;
     modele = _currentModele;
-    _dropPb = getDropDownMenuItemsProbleme();
+    }
+    else if(appareil == "smartphone") {
+      _dropPb = getDropDownMenuItemsProbleme();
     _currentProbleme = _dropPb[0].value;
     probleme = _currentProbleme;
+     _dropDownMenuItems = getDropDownMenuItems();
+    _currentModele = _dropDownMenuItems[0].value;
+    modele = _currentModele;
+    }
+  
     super.initState();
+  }
+
+  suivant() {
+    pb =pbController.text;
+    if(pb.isEmpty) {
+       Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TechnicienPage(
+                                      appareil: appareil,
+                                      modele: modele,
+                                      probleme: probleme,
+                                      ecran: ecran,
+                                      pb : null)), //MaterialPageRoute
+                            );
+    }
+
+    else {
+       Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TechnicienPage(
+                                      appareil: appareil,
+                                      modele: modele,
+                                      probleme: probleme,
+                                      ecran: ecran,
+                                      pb : pb)), //MaterialPageRoute
+                            );
+    }
+    
   }
 
   @override
@@ -216,18 +252,58 @@ class _ModelePage extends State<ModelePage> {
                       color: Colors.transparent,
                       height: 20,
                     ),
-                    Text("ETAPE 2/3",
+                    Row(
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            Padding(padding: EdgeInsets.only(left: 10.0),
+                        child:  IconButton(
+                          icon: new Icon(Icons.backspace,color: Colors.red[900],),
+                          onPressed: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ChoixPage()), //MaterialPageRoute
+                              );
+                          },
+                        ) ,
+                        ),
+                          Text("étape précedente",
+                        style: TextStyle(
+                            color: Colors.red[900],
+                            fontStyle: FontStyle.italic,
+                            fontSize: 6,),
+                        textAlign: TextAlign.center),
+                          ],
+                        ),
+                        
+                       Padding(
+                         padding: EdgeInsets.only(right: 60.0),
+                       ),
+                         Text("ETAPE 2/3",
                         style: TextStyle(
                             color: Colors.red[900],
                             fontStyle: FontStyle.italic,
                             fontSize: 27,
                             fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center),
-                    Divider(
+                      ],
+                    ),
+                   
+
+                        m != t ?   Divider(color: Colors.transparent) : Text(
+                          appareil+" "+"en panne",
+                          style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.bold)),
+                  m ? Divider(
+                      color: Colors.transparent,
+                    ) :  Divider(
                       color: Colors.transparent,
                       height: 10,
                     ),
-                    Container(
+                   m ? Divider(color: Colors.transparent) : Container(
                       child: Text(
                           "Choississez le modèle de votre" + " " + appareil,
                           style: TextStyle(
@@ -238,7 +314,7 @@ class _ModelePage extends State<ModelePage> {
                       color: Colors.transparent,
                       height: 10,
                     ),
-                    DropdownButton(
+                  m ? Divider(color: Colors.transparent) :  DropdownButton(
                       elevation: 5,
                       value: _currentModele,
                       items: _dropDownMenuItems,
@@ -247,38 +323,86 @@ class _ModelePage extends State<ModelePage> {
                     Divider(
                       color: Colors.transparent,
                     ),
-                    Text("Quel est votre problème?",
+                   t   ? Divider(color: Colors.transparent) : Text("Quelle est la panne de votre "+" "+appareil+" "+"?",
                         style: TextStyle(
                             fontStyle: FontStyle.italic,
                             fontWeight: FontWeight.bold)),
+                  
                     Divider(
                       color: Colors.transparent,
                     ),
-                    DropdownButton(
+                   t  ? Divider(color: Colors.transparent) : DropdownButton(
                       elevation: 5,
                       value: _currentProbleme,
                       items: _dropPb,
                       onChanged: changedDropDownItemProbleme,
                     ),
-                    Divider(
-                      color: Colors.transparent,
-                    ),
                     c ? row : Divider(color: Colors.transparent),
+                     new Row(
+              children: <Widget>[
+                new Expanded(
+                  child: new Padding(
+                    padding: const EdgeInsets.only(left: 40.0),
+                    child: t ? new Text(
+                      "Panne Particulière?",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red[900],
+                        fontSize: 15.0,
+                      ),
+                    ) : new Text(
+                      "Votre problème n'est pas listé? Mentionnez le",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red[900],
+                        fontSize: 13.0,
+                      ),
+                    ),
+                  ),
+                ),
+          
+              ],
+            ),
+            new Container(
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 2.0),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                      color: Colors.red[900],
+                      width: 0.5,
+                      style: BorderStyle.solid),
+                ),
+              ),
+              padding: const EdgeInsets.only(left: 0.0, right: 10.0),
+              child: new Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  new Expanded(
+                    child: TextField(
+                      controller: pbController,
+                      obscureText: false,
+                      textAlign: TextAlign.left,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'votre problème',
+                        hintStyle: TextStyle(color: Colors.grey),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+              m ? Divider(color: Colors.transparent,height: 30) : Divider(),
                     Center(
-                      heightFactor: 2,
+                      heightFactor: 1.5,
                       child: new FlatButton(
                         shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(30.0)),
                         color: Colors.red[900],
-                        onPressed: () => Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => TechnicienPage(
-                                      appareil: appareil,
-                                      modele: modele,
-                                      probleme: probleme,
-                                      ecran: ecran)), //MaterialPageRoute
-                            ),
+                        onPressed: suivant,
                         child: new Container(
                           padding: const EdgeInsets.symmetric(
                             vertical: 20.0,
@@ -325,6 +449,14 @@ class _ModelePage extends State<ModelePage> {
         c = true;
         probleme = _currentProbleme;
       } else if (_currentProbleme == _dropPb[0].value) {
+        c = false;
+        probleme = _currentProbleme;
+      }
+      else if (_currentProbleme == _dropPb[2].value) {
+        c = false;
+        probleme = _currentProbleme;
+      }
+      else if (_currentProbleme == _dropPb[3].value) {
         c = false;
         probleme = _currentProbleme;
       }

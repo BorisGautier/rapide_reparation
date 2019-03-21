@@ -6,8 +6,10 @@ import 'package:intl/intl.dart';
 import 'package:rapide_achat/accueil.dart';
 import 'package:rapide_achat/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
+final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
 void main() => runApp(MyApp());
 
@@ -59,7 +61,23 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-
+     _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+      },
+    );
+     _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(sound: true, badge: true, alert: true));
+    _firebaseMessaging.onIosSettingsRegistered
+        .listen((IosNotificationSettings settings) {
+      print("Settings registered: $settings");
+    });
     timer = new Timer(new Duration(seconds: 5), () async {
       /*  try {
         SharedPreferences prefs = await SharedPreferences.getInstance();

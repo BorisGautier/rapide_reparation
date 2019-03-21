@@ -45,15 +45,15 @@ class _ChoixPage extends State<ChoixPage> {
 
     goTomodele(int i) {
       if (i == 1) {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) => ModelePage(
-                    appareil: "telephone",
+                    appareil: "smartphone",
                   )), //MaterialPageRoute
         );
       } else if (i == 2) {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) => ModelePage(
@@ -178,7 +178,7 @@ class _ChoixPage extends State<ChoixPage> {
                                 ),
                                 Column(
                                   children: <Widget>[
-                                    Text("Téléphones"),
+                                    Text("Smartphone"),
                                   ],
                                 ),
                               ],
