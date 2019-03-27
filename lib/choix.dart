@@ -128,7 +128,7 @@ class _ChoixPage extends State<ChoixPage> {
                                     fontSize: 27,
                                     fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center)),
-                      ),
+                      ), 
                       Container(
                         padding: EdgeInsets.all(05.0),
                         child: Center(
@@ -138,6 +138,8 @@ class _ChoixPage extends State<ChoixPage> {
                                     fontStyle: FontStyle.italic, fontSize: 15),
                                 textAlign: TextAlign.center)),
                       ),
+                      
+                      Divider(color: Colors.transparent, height: 20),
                       new Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[

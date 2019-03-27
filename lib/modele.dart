@@ -269,17 +269,11 @@ class _ModelePage extends State<ModelePage> {
                           },
                         ) ,
                         ),
-                          Text("étape précedente",
-                        style: TextStyle(
-                            color: Colors.red[900],
-                            fontStyle: FontStyle.italic,
-                            fontSize: 6,),
-                        textAlign: TextAlign.center),
                           ],
                         ),
                         
                        Padding(
-                         padding: EdgeInsets.only(right: 60.0),
+                         padding: EdgeInsets.only(right: 70.0),
                        ),
                          Text("ETAPE 2/3",
                         style: TextStyle(
@@ -296,7 +290,9 @@ class _ModelePage extends State<ModelePage> {
                           appareil+" "+"en panne",
                           style: TextStyle(
                               fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.bold)),
+                              color: Colors.red[900],
+                              fontWeight: FontWeight.bold)),   
+                      Divider(color: Colors.transparent, height: 20),
                   m ? Divider(
                       color: Colors.transparent,
                     ) :  Divider(
@@ -322,6 +318,7 @@ class _ModelePage extends State<ModelePage> {
                     ),
                     Divider(
                       color: Colors.transparent,
+                      height: 25,
                     ),
                    t   ? Divider(color: Colors.transparent) : Text("Quelle est la panne de votre "+" "+appareil+" "+"?",
                         style: TextStyle(
@@ -351,7 +348,7 @@ class _ModelePage extends State<ModelePage> {
                         fontSize: 15.0,
                       ),
                     ) : new Text(
-                      "Votre problème n'est pas listé? Mentionnez le",
+                      "Votre problème n'est pas listé?",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.red[900],
@@ -398,7 +395,10 @@ class _ModelePage extends State<ModelePage> {
               m ? Divider(color: Colors.transparent,height: 30) : Divider(),
                     Center(
                       heightFactor: 1.5,
-                      child: new FlatButton(
+                      child: new SizedBox(
+                        width: 200,
+                        child:  new RaisedButton(
+                          elevation: 10,
                         shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(30.0)),
                         color: Colors.red[900],
@@ -423,7 +423,9 @@ class _ModelePage extends State<ModelePage> {
                             ],
                           ),
                         ),
+                      ) ,
                       ),
+                     
                     ),
                   ],
                 ),

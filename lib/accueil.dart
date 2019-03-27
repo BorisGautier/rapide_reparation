@@ -101,6 +101,10 @@ class _AccueilPage extends State<AccueilPage> {
                           ),
                         ),
                       ),
+                       Divider(
+                        color: Colors.transparent,
+                        height: 35,
+                      ),
                       Text(
                         "Planifiez votre réparation en 3 étapes",
                         textAlign: TextAlign.center,
@@ -111,8 +115,11 @@ class _AccueilPage extends State<AccueilPage> {
                         ),
                       ),
                       Center(
-                        heightFactor: 5,
-                        child: new FlatButton(
+                        heightFactor: 4,
+                        child: new SizedBox(
+                          width: 200,
+                          child: new RaisedButton(
+                            elevation: 10,
                           shape: new RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(30.0)),
                           color: Colors.red[900],
@@ -142,7 +149,10 @@ class _AccueilPage extends State<AccueilPage> {
                               ],
                             ),
                           ),
+                        ) ,
                         ),
+                        
+                        
                       ),
                     ],
                   ),

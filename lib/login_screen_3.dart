@@ -161,7 +161,18 @@ class _LoginScreen3State extends State<LoginScreen3>
           textColor: Colors.white,
           fontSize: 16.0);
     } else {
-      if (password1 == password) {
+      if(password.length < 6 ) {
+          setState(() => _isLoading1 = false);
+      Fluttertoast.showToast(
+          msg: "Votre mot de passe doit avoir au moins 6 caratères",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIos: 1,
+          backgroundColor: Colors.blue,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      } else {
+          if (password1 == password) {
         try {
           final FirebaseUser user = await _auth.createUserWithEmailAndPassword(
             email: signupEmailController.text,
@@ -189,7 +200,8 @@ class _LoginScreen3State extends State<LoginScreen3>
               textColor: Colors.white,
               fontSize: 16.0);
         }
-      } else {
+      } 
+      else {
         setState(() => _isLoading1 = false);
         Fluttertoast.showToast(
             msg: "Mots de passe non identiques",
@@ -200,6 +212,8 @@ class _LoginScreen3State extends State<LoginScreen3>
             textColor: Colors.white,
             fontSize: 16.0);
       }
+      }
+      
     }
   }
 

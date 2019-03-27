@@ -189,17 +189,11 @@ class _TechnicienPage extends State<TechnicienPage> {
                           },
                         ) ,
                         ),
-                          Text("étape précedente",
-                        style: TextStyle(
-                            color: Colors.red[900],
-                            fontStyle: FontStyle.italic,
-                            fontSize: 6,),
-                        textAlign: TextAlign.center),
                           ],
                         ),
                         
                        Padding(
-                         padding: EdgeInsets.only(right: 60.0),
+                         padding: EdgeInsets.only(right: 70.0),
                        ),
                          Text("ETAPE 3/3",
                         style: TextStyle(
@@ -294,79 +288,106 @@ class _TechnicienPage extends State<TechnicienPage> {
                             ],
                           ),
                         ),
-                        Divider(color: Colors.transparent, height: 60),
-                        new Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.only(
-                              left: 30.0, right: 30.0, top: 30.0),
-                          alignment: Alignment.center,
-                          child: new Row(
-                            children: <Widget>[
-                              new Expanded(
-                                child: new FlatButton(
-                                  shape: new RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(30.0),
-                                  ),
-                                  color: Colors.red[900],
-                                  onPressed: confirmerB,
-                                  child: new Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 10.0,
-                                      horizontal: 10.0,
-                                    ),
-                                    child: new Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        new Expanded(
-                                          child: Text(
-                                            "RENDEZ-VOUS EN BOUTIQUE",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
+                        Divider(color: Colors.transparent, height: 40),
+                         new Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Container(
+                            child: Column(
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: ClipOval(
+                                    child: Container(
+                                      color: Colors.transparent,
+                                      height: 120.0, // height of the button
+                                      width: 120.0, // width of the button
+                                      child: Center(
+                                          child: Material(
+                                        elevation: 4.0,
+                                        shape: CircleBorder(),
+                                        color: Colors.white,
+                                        child: Ink.image(
+                                          image: AssetImage(
+                                              'assets/images/shop.png'),
+                                          fit: BoxFit.contain,
+                                          width: 120.0,
+                                          height: 120.0,
+                                          child: InkWell(
+                                            onTap: () {
+                                              confirmerB();
+                                            },
+                                            child: null,
                                           ),
                                         ),
-                                      ],
+                                      )),
                                     ),
                                   ),
                                 ),
-                              ),
-                              new Expanded(
-                                child: new FlatButton(
-                                  shape: new RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(30.0),
-                                  ),
-                                  color: Colors.red[900],
-                                  onPressed: confirmerD,
-                                  child: new Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 10.0,
-                                      horizontal: 10.0,
-                                    ),
-                                    child: new Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        new Expanded(
-                                          child: Text(
-                                            "TECHNICIEN A DOMICILE",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                Divider(
+                                  color: Colors.white,
                                 ),
-                              ),
-                            ],
+                                Column(
+                                  children: <Widget>[
+                                    Text("Rendez-Vous à la boutique",
+                                    style: TextStyle(
+                                      color: Colors.red[900],
+                                      fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
+                          Container(
+                            child: Column(
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: ClipOval(
+                                    child: Container(
+                                      color: Colors.transparent,
+                                      height: 120.0, // height of the button
+                                      width: 120.0, // width of the button
+                                      child: Center(
+                                          child: Material(
+                                        elevation: 4.0,
+                                        shape: CircleBorder(),
+                                        color: Colors.white,
+                                        child: Ink.image(
+                                          image: AssetImage(
+                                              'assets/images/home.png'),
+                                          fit: BoxFit.contain,
+                                          width: 120.0,
+                                          height: 120.0,
+                                          child: InkWell(
+                                            onTap: () {
+                                              confirmerD();
+                                            },
+                                            child: null,
+                                          ),
+                                        ),
+                                      )),
+                                    ),
+                                  ),
+                                ),
+                                Divider(
+                                  color: Colors.white,
+                                ),
+                                Column(
+                                  children: <Widget>[
+                                    Text("Technicien à domicile",
+                                    style: TextStyle(
+                                      color: Colors.red[900],
+                                      fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                         Divider(color: Colors.transparent, height: 60),
                       ],
                     ),
