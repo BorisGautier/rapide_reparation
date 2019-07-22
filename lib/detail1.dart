@@ -34,19 +34,19 @@ List<T> map<T>(List list, Function handler) {
   return result;
 }
 
-class DetailPage extends StatefulWidget {
-  DetailPage(
-      {Key key, this.appareil, this.modele, this.probleme, this.ecran,this.pb,this.rdv,this.date,this.societe,this.prix,this.adresse})
+class Detail1Page extends StatefulWidget {
+  Detail1Page(
+      {Key key, this.appareil, this.modele, this.probleme, this.ecran,this.pb,this.rdv,this.date,this.societe,this.prix})
       : super(key: key);
 
-  final String appareil, modele, probleme, ecran,pb,rdv,date,societe,prix,adresse;
+  final String appareil, modele, probleme, ecran,pb,rdv,date,societe,prix;
   @override
-  _DetailPage createState() => _DetailPage(appareil, modele, probleme, ecran,pb,rdv,date,societe,prix,adresse);
+  _Detail1Page createState() => _Detail1Page(appareil, modele, probleme, ecran,pb,rdv,date,societe,prix);
 }
 
-class _DetailPage extends State<DetailPage> {
-   _DetailPage(this.appareil, this.modele, this.probleme, this.ecran,this.pb,this.rdv,this.date,this.societe,this.prix,this.adresse);
-   String appareil, modele, probleme, ecran,pb,rdv,date,societe,prix,adresse;
+class _Detail1Page extends State<Detail1Page> {
+   _Detail1Page(this.appareil, this.modele, this.probleme, this.ecran,this.pb,this.rdv,this.date,this.societe,this.prix);
+   String appareil, modele, probleme, ecran,pb,rdv,date,societe,prix;
   final String _simpleValue1 = 'logout';
   String _simpleValue,email,r,t;
   bool e,p,m = false;
@@ -56,50 +56,19 @@ class _DetailPage extends State<DetailPage> {
   bool _isLoading1 = false;
   ApiRest api = new ApiRest();
   String d;
-  double dist;
   int pri;
-  bool rd1 = false;
-  bool rd2 = false;
-  DateTime day;
+    DateTime day;
 
 
-
-    String format(double n) {
-  return n.toStringAsFixed(n.truncateToDouble() == n ? 0 : 6);
-}
-
- getD() async {
-    Position position = await Geolocator()
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-  double  long = position.longitude;
-    double lat = position.latitude;
-
-    String lo = format(long);
-    String la = format(lat);
-
-          api.getd(societe, lo, la).then((Dist distance) {
-            if (distance.status == "success") {
-              dist = distance.distance;
-              if (dist > 5) {
-                pri = int.parse(prix) + 30;
-                rd2 = true;
-              } else {
-                pri = int.parse(prix) + 20;
-             
-              }
-            }
-          });
-  }
 
 
 
     @override
   void initState()  {
     super.initState();
-    day = DateTime.parse(date);
-     getD();
     setState(() => _isLoading = true);
-     Timer(new Duration(milliseconds: 2000), () async {
+    day = DateTime.parse(date);
+     Timer(new Duration(milliseconds: 1500), () async {
         FirebaseUser user = await _auth.currentUser();
         email = user.email;
         if(modele == null) {
@@ -114,8 +83,6 @@ class _DetailPage extends State<DetailPage> {
       e = true;
     } else {
       e = false;
-      
-      
     }
     }
     if(rdv == "domicile") {
@@ -126,7 +93,7 @@ class _DetailPage extends State<DetailPage> {
       r = "Rendez-vous à la boutique";
       rd =false;
     }
-   
+    pri = int.parse(prix);
         setState(() => _isLoading = false);
         });
     
@@ -143,7 +110,7 @@ class _DetailPage extends State<DetailPage> {
                  Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => StripePage(appareil: appareil,date: date,ecran: ecran,modele: modele,pb: pb,probleme: probleme,rdv: rdv,societe:societe,adresse: adresse,prix: pri.toString())
+                builder: (context) => StripePage(appareil: appareil,date: date,ecran: ecran,modele: modele,pb: pb,probleme: probleme,rdv: rdv,societe:societe,prix: prix),
               ),
             );
     }
@@ -263,12 +230,13 @@ class _DetailPage extends State<DetailPage> {
                       ),
                       Divider(color: Colors.transparent,height: 15),
 
-                            Container(            
+                       Container(            
             // height: MediaQuery.of(context).size.height,
             child: Padding(
               padding: const EdgeInsets.all(14.0),
               child: Table(
                 border: TableBorder.all(width: 1.0, color: Colors.black),
+              
                 children: [
                   TableRow(children: [
                     TableCell(
@@ -279,8 +247,8 @@ class _DetailPage extends State<DetailPage> {
                         ],
                       ),
                     ),
-                     TableCell(
-                      child: Row(
+                    TableCell(
+                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           new Text(email),
@@ -288,13 +256,13 @@ class _DetailPage extends State<DetailPage> {
                       ),
                     ),
                   ]),
-                  TableRow(children: [
+                  TableRow(
+                    children: [
                     TableCell(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           new Text('Appareil'),
-                         
                         ],
                       ),
                     ),
@@ -313,15 +281,15 @@ class _DetailPage extends State<DetailPage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           new Text('Problème'),
-                           
+                         
                         ],
                       ),
                     ),
-                      TableCell(
+                     TableCell(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                            p ? Text("PROBLEME AVEC VOTRE :"+" "+appareil) : e ? new Text(probleme) : new Text(probleme+" "+":"+" "+ecran),
+                          p ? Text("PROBLEME AVEC VOTRE :"+" "+appareil) : e ? new Text(probleme) : new Text(probleme+" "+":"+" "+ecran),
                         ],
                       ),
                     ),
@@ -335,7 +303,7 @@ class _DetailPage extends State<DetailPage> {
                         ],
                       ),
                     ),
-                    TableCell(
+                     TableCell(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
@@ -350,52 +318,15 @@ class _DetailPage extends State<DetailPage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           new Text('Date Rendez-vous'),
-                        
+            
                         ],
                       ),
                     ),
-                     TableCell(
+                      TableCell(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                          new Text(day.day.toString()+"-"+day.month.toString()+"-"+day.year.toString()+" à "+day.hour.toString()+":"+day.minute.toString()),
-                        ],
-                      ),
-                    ),
-                    ]),
-                        TableRow(children: [
-                    TableCell(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          new Text('Frais de réparation'),
-                        ],
-                      ),
-                    ),
-                    TableCell(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                         new Text(prix+"€"),
-                        ],
-                      ),
-                    ),
-                    ]),
-                        TableRow(children: [
-                    TableCell(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          new Text('Frais de déplacement'),
-                        
-                        ],
-                      ),
-                    ),
-                       TableCell(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                        rd2 ? new Text("30€") : new Text("20€"),
                         ],
                       ),
                     ),
@@ -413,11 +344,11 @@ class _DetailPage extends State<DetailPage> {
                         ],
                       ),
                     ),
-                       TableCell(
+                     TableCell(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                         new Text(pri.toString()+"€",textAlign: TextAlign.center,style: TextStyle(
+                         new Text(prix+"€",style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.red[900],
                           fontSize: 15,
@@ -430,10 +361,8 @@ class _DetailPage extends State<DetailPage> {
                     )
                     )
                     ),
-
-
-/*
-                      Text("VOTRE ADRESSE EMAIL :"+" "+email,textAlign: TextAlign.center),
+                  
+         /*             Text("VOTRE ADRESSE EMAIL :"+" "+email,textAlign: TextAlign.center),
                       Divider(color: Colors.transparent,height: 15),
               m ? Text("VOTRE APPAREIL :"+" "+appareil,textAlign: TextAlign.center) : Text("VOTRE APPAREIL :"+" "+appareil+" "+"modèle"+" "+modele,textAlign: TextAlign.center),
                       Divider(color: Colors.transparent,height: 15),
@@ -443,12 +372,9 @@ class _DetailPage extends State<DetailPage> {
                    Divider(color: Colors.transparent,height: 15),
                    Text("RENDEZ-VOUS PRIS POUR LE :"+" "+date,textAlign: TextAlign.center),
                    Divider(color: Colors.transparent,height: 25),
-                 Text("Les Frais de réparation sont de :"+prix+"€",style: TextStyle(fontStyle: FontStyle.italic,color: Colors.red[900])), 
-                    Divider(color: Colors.transparent,height: 5),
-                    Text("les frais de déplacement sont de 10€",style: TextStyle(fontStyle: FontStyle.italic,color: Colors.red[900])),
-          Divider(color: Colors.transparent,height: 5),
-          rd ? Text("Votre réparation vous coutera au total "+pri.toString()+"€",style: TextStyle(fontStyle: FontStyle.italic,color: Colors.red[900]),) : Divider(color: Colors.transparent,height: 5),
-                    */
+          rd ? Text("NB: l'assistance à domicile vous coutera "+pri.toString()+"€",style: TextStyle(fontStyle: FontStyle.italic,color: Colors.red[900]),) : Divider(color: Colors.transparent,height: 5),
+                   */  
+                     
                       Center(
                         heightFactor: 1.5,
                         child: new FlatButton(
@@ -484,6 +410,7 @@ class _DetailPage extends State<DetailPage> {
                   ),
                 ),
               ])),
+              
         ],
       ),
     );

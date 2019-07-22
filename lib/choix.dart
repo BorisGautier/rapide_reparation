@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:rapide_achat/home.dart';
 import 'package:rapide_achat/login.dart';
 import 'package:rapide_achat/modele.dart';
 
@@ -39,8 +40,19 @@ class _ChoixPage extends State<ChoixPage> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => LoginPage()), //MaterialPageRoute
+            builder: (context) => HomeScreen()), //MaterialPageRoute
       );
+    }
+
+    toast() {
+        Fluttertoast.showToast(
+                    msg: "Bientot disponible",
+                    toastLength: Toast.LENGTH_LONG,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIos: 1,
+                    backgroundColor: Colors.green[400],
+                    textColor: Colors.white,
+                    fontSize: 16.0);
     }
 
     goTomodele(int i) {
@@ -61,7 +73,7 @@ class _ChoixPage extends State<ChoixPage> {
                   )), //MaterialPageRoute
         );
       } else if (i == 3) {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) => ModelePage(
@@ -125,7 +137,7 @@ class _ChoixPage extends State<ChoixPage> {
                                 style: TextStyle(
                                     color: Colors.red[900],
                                     fontStyle: FontStyle.italic,
-                                    fontSize: 27,
+                                    fontSize: 20,
                                     fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center)),
                       ), 
@@ -133,13 +145,13 @@ class _ChoixPage extends State<ChoixPage> {
                         padding: EdgeInsets.all(05.0),
                         child: Center(
                             child: Text(
-                                "Quel est votre type d'appareil à réparer ?",
+                                "Quel appareil souhaitez-vous réparer ?",
                                 style: TextStyle(
                                     fontStyle: FontStyle.italic, fontSize: 15),
                                 textAlign: TextAlign.center)),
                       ),
                       
-                      Divider(color: Colors.transparent, height: 20),
+                      Divider(color: Colors.transparent, height: 15),
                       new Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
@@ -160,7 +172,7 @@ class _ChoixPage extends State<ChoixPage> {
                                         color: Colors.white,
                                         child: Ink.image(
                                           image: AssetImage(
-                                              'assets/images/icon/tel.png'),
+                                              'assets/images/smartphone.jpg'),
                                           fit: BoxFit.contain,
                                           width: 120.0,
                                           height: 120.0,
@@ -203,13 +215,14 @@ class _ChoixPage extends State<ChoixPage> {
                                         color: Colors.white,
                                         child: Ink.image(
                                           image: AssetImage(
-                                              'assets/images/icon/ordi.png'),
+                                              'assets/images/ordi.jpg'),
                                           fit: BoxFit.contain,
                                           width: 120.0,
                                           height: 120.0,
                                           child: InkWell(
                                             onTap: () {
                                               goTomodele(2);
+                                             //toast();
                                             },
                                             child: null,
                                           ),
@@ -251,13 +264,14 @@ class _ChoixPage extends State<ChoixPage> {
                                         color: Colors.white,
                                         child: Ink.image(
                                           image: AssetImage(
-                                              'assets/images/icon/tab.png'),
+                                              'assets/images/tab.jpg'),
                                           fit: BoxFit.contain,
                                           width: 120.0,
                                           height: 120.0,
                                           child: InkWell(
                                             onTap: () {
                                               goTomodele(3);
+                                            //toast();
                                             },
                                             child: null,
                                           ),

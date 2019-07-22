@@ -4,19 +4,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:intl/intl.dart';
 import 'package:rapide_achat/accueil.dart';
+import 'package:rapide_achat/accueilPro.dart';
 import 'package:rapide_achat/api/api.dart';
 import 'package:rapide_achat/register.dart';
+import 'package:rapide_achat/register1.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
-class LoginScreen3 extends StatefulWidget {
+class LoginScreen4 extends StatefulWidget {
   @override
-  _LoginScreen3State createState() => new _LoginScreen3State();
+  _LoginScreen4State createState() => new _LoginScreen4State();
 }
 
-class _LoginScreen3State extends State<LoginScreen3>
+class _LoginScreen4State extends State<LoginScreen4>
     with TickerProviderStateMixin {
   String email, password, email1, password1, cpassword, telephone;
 
@@ -126,7 +128,7 @@ class _LoginScreen3State extends State<LoginScreen3>
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => AccueilPage(),
+              builder: (context) => AccueilProPage(),
             ),
           );
         }
@@ -184,7 +186,7 @@ class _LoginScreen3State extends State<LoginScreen3>
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => RegisterPage(connectType: "email"),
+                  builder: (context) => RegisterPage1(connectType: "email"),
                 ),
               );
             });
@@ -243,7 +245,7 @@ class _LoginScreen3State extends State<LoginScreen3>
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => RegisterPage(connectType: "facebook"),
+                builder: (context) => RegisterPage1(connectType: "facebook"),
               ),
             );
             break;
@@ -290,7 +292,7 @@ class _LoginScreen3State extends State<LoginScreen3>
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => AccueilPage(),
+            builder: (context) => AccueilProPage(),
           ),
         );
       } else {
@@ -298,7 +300,7 @@ class _LoginScreen3State extends State<LoginScreen3>
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => AccueilPage(),
+            builder: (context) => AccueilProPage(),
           ),
         );
       }
@@ -619,90 +621,10 @@ class _LoginScreen3State extends State<LoginScreen3>
                           BoxDecoration(border: Border.all(width: 0.25)),
                     ),
                   ),
-                  Text(
-                    "OU CONNECTEZ VOUS AVEC",
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  new Expanded(
-                    child: new Container(
-                      margin: EdgeInsets.all(8.0),
-                      decoration:
-                          BoxDecoration(border: Border.all(width: 0.25)),
-                    ),
-                  ),
+             
                 ],
               ),
             ),
-            new Container(
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 20.0),
-              child: new Row(
-                children: <Widget>[
-                  new Expanded(
-                    child: new Container(
-                      margin: EdgeInsets.only(right: 8.0),
-                      alignment: Alignment.center,
-                      child: new Row(
-                        children: <Widget>[
-                          new Expanded(
-                            child: new FlatButton(
-                              shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(30.0),
-                              ),
-                              color: Color(0Xff3B5998),
-                              onPressed: () => {},
-                              child: _isLoading2
-                                  ? new CircularProgressIndicator(
-                                      backgroundColor: Colors.white)
-                                  : new Container(
-                                      child: new Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          new Expanded(
-                                            child: new FlatButton(
-                                              onPressed: loginFacebook,
-                                              padding: EdgeInsets.only(
-                                                top: 20.0,
-                                                bottom: 20.0,
-                                              ),
-                                              child: new Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Icon(
-                                                    const IconData(0xea90,
-                                                        fontFamily: 'icomoon'),
-                                                    color: Colors.white,
-                                                    size: 15.0,
-                                                  ),
-                                                  Text(
-                                                    "FACEBOOK",
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )
           ],
         ),
       ),
@@ -890,7 +812,7 @@ class _LoginScreen3State extends State<LoginScreen3>
             Divider(
               height: 24.0,
             ),
-            new Container(
+              new Container(
               width: MediaQuery.of(context).size.width,
               margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
               alignment: Alignment.center,
@@ -916,7 +838,7 @@ class _LoginScreen3State extends State<LoginScreen3>
                                 children: <Widget>[
                                   new Expanded(
                                     child: Text(
-                                      "CREER MON COMPTE",
+                                      "CREER MON COMPTE ENTREPRISE",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: Colors.white,
@@ -951,7 +873,7 @@ class _LoginScreen3State extends State<LoginScreen3>
                 ),
               ],
             ),
-            
+          
           ],
         ),
       ),

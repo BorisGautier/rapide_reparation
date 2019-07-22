@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rapide_achat/choix.dart';
+import 'package:rapide_achat/home.dart';
 import 'package:rapide_achat/login.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -39,7 +40,7 @@ class _AccueilPage extends State<AccueilPage> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => LoginPage()), //MaterialPageRoute
+            builder: (context) => HomeScreen()), //MaterialPageRoute
       );
     }
 
@@ -91,10 +92,10 @@ class _AccueilPage extends State<AccueilPage> {
                     children: <Widget>[
                       Divider(
                         color: Colors.transparent,
-                        height: 80,
+                        height: 30,
                       ),
                       Container(
-                        padding: EdgeInsets.all(20.0),
+                        padding: EdgeInsets.all(10.0),
                         child: Center(
                           child: Image.asset(
                             "assets/images/icon/icon.png",
@@ -123,7 +124,7 @@ class _AccueilPage extends State<AccueilPage> {
                           shape: new RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(30.0)),
                           color: Colors.red[900],
-                          onPressed: () => Navigator.push(
+                          onPressed: () => Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>

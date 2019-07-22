@@ -2,7 +2,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rapide_achat/choix.dart';
+import 'package:rapide_achat/home.dart';
 import 'package:rapide_achat/login.dart';
+import 'package:rapide_achat/societe.dart';
 import 'package:rapide_achat/technicien.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -15,13 +17,13 @@ final List<String> itemList = [
   'assets/images/15.jpeg'
 ];
 
-List _modelePhone = ["Iphone6S", "Iphone7", "Samsung Galaxy S8"];
+List _modelePhone = ["Iphone5"];
 
-List _modeleOrdi = ["Galaxy Tab 5", "Galaxy Tab 6", "Galaxy Tab 7"];
+List _modeleOrdi = [];
 
-List _modeleTab = ["Galaxy Tab 5", "Galaxy Tab 6", "Galaxy Tab 7"];
+List _modeleTab = [];
 
-List _degat = ["Connecteur", "Ecran brisé","Batterie défectueuse pour Iphone 6S","Clavier HS"];
+List _degat = ["Ecran", "Batterie","Connecteur"];
 
 List<DropdownMenuItem<String>> _dropDownMenuItems, _dropPb;
 String _currentModele, _currentProbleme;
@@ -48,7 +50,7 @@ class _ModelePage extends State<ModelePage> {
   final String appareil;
   final String _simpleValue1 = 'logout';
   String _simpleValue;
-  String modele, probleme, ecran,pb;
+  String modele, probleme, ecran,pb,prix;
   bool blanc = false;
   bool noir = false;
   bool c = false;
@@ -115,7 +117,10 @@ class _ModelePage extends State<ModelePage> {
   suivant() {
     pb =pbController.text;
     if(pb.isEmpty) {
-       Navigator.pushReplacement(
+       if(modele == "Iphone5" && probleme == "Ecran") {
+        prix = "91";
+
+            Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => TechnicienPage(
@@ -123,8 +128,41 @@ class _ModelePage extends State<ModelePage> {
                                       modele: modele,
                                       probleme: probleme,
                                       ecran: ecran,
+                                      prix: prix,
                                       pb : null)), //MaterialPageRoute
                             );
+      }
+      else if(modele == "Iphone5" && probleme == "Batterie") {
+        prix = "77";
+
+            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TechnicienPage(
+                                      appareil: appareil,
+                                      modele: modele,
+                                      probleme: probleme,
+                                      ecran: ecran,
+                                      prix: prix,
+                                      pb : null)), //MaterialPageRoute
+                            );
+      }
+          else if(modele == "Iphone5" && probleme == "Connecteur") {
+        prix = "90";
+
+            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TechnicienPage(
+                                      appareil: appareil,
+                                      modele: modele,
+                                      probleme: probleme,
+                                      ecran: ecran,
+                                      prix: prix,
+                                      pb : null)), //MaterialPageRoute
+                            );
+      }
+   
     }
 
     else {
@@ -136,7 +174,8 @@ class _ModelePage extends State<ModelePage> {
                                       modele: modele,
                                       probleme: probleme,
                                       ecran: ecran,
-                                      pb : pb)), //MaterialPageRoute
+                                      pb : pb,
+                                      prix:prix)), //MaterialPageRoute
                             );
     }
     
@@ -198,7 +237,7 @@ class _ModelePage extends State<ModelePage> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => LoginPage()), //MaterialPageRoute
+            builder: (context) => HomeScreen()), //MaterialPageRoute
       );
     }
 
@@ -273,7 +312,7 @@ class _ModelePage extends State<ModelePage> {
                         ),
                         
                        Padding(
-                         padding: EdgeInsets.only(right: 70.0),
+                         padding: EdgeInsets.only(right: 63.0),
                        ),
                          Text("ETAPE 2/3",
                         style: TextStyle(
@@ -335,7 +374,7 @@ class _ModelePage extends State<ModelePage> {
                       onChanged: changedDropDownItemProbleme,
                     ),
                     c ? row : Divider(color: Colors.transparent),
-                     new Row(
+                  /*   new Row(
               children: <Widget>[
                 new Expanded(
                   child: new Padding(
@@ -359,8 +398,8 @@ class _ModelePage extends State<ModelePage> {
                 ),
           
               ],
-            ),
-            new Container(
+                     ),*/
+          /*  new Container(
               width: MediaQuery.of(context).size.width,
               margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 2.0),
               alignment: Alignment.center,
@@ -391,7 +430,7 @@ class _ModelePage extends State<ModelePage> {
                   ),
                 ],
               ),
-            ),
+            ),*/
               m ? Divider(color: Colors.transparent,height: 30) : Divider(),
                     Center(
                       heightFactor: 1.5,
@@ -448,7 +487,7 @@ class _ModelePage extends State<ModelePage> {
     setState(() {
       _currentProbleme = selectPb;
       if (_currentProbleme == _dropPb[1].value) {
-        c = true;
+        c = false;
         probleme = _currentProbleme;
       } else if (_currentProbleme == _dropPb[0].value) {
         c = false;
