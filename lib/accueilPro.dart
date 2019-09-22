@@ -3,16 +3,9 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rapide_achat/api/api.dart';
-import 'package:rapide_achat/choix.dart';
 import 'package:rapide_achat/home.dart';
-import 'package:rapide_achat/login.dart';
 import 'package:rapide_achat/models/reservationResponse.dart';
-import 'package:rapide_achat/models/response.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-final FirebaseAuth _auth = FirebaseAuth.instance;
 
 final List<String> itemList = [
   'assets/images/11.jpg',
@@ -43,8 +36,8 @@ class _AccueilProPage extends State<AccueilProPage> {
   ApiRest api = new ApiRest();
 
  Future _getReservation() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String ent = (prefs.getString('ent'));
+   // SharedPreferences prefs = await SharedPreferences.getInstance();
+   // String ent = (prefs.getString('ent'));
 
     api.getReseration("Rapide Réparation").then((ReservationResponse reservationresponse) {
       setState(() {
@@ -121,7 +114,7 @@ class _AccueilProPage extends State<AccueilProPage> {
        itemCount: reservationF.length,
                                 itemBuilder: (context, index) {
 
-                                  confirme(String id) {
+                                /*  confirme(String id) {
                                     // String id = reservationF[index].id;
                                     api.confirmer(id).then((Response response) {
                                       setState(() {
@@ -137,7 +130,7 @@ class _AccueilProPage extends State<AccueilProPage> {
                                         }
                                       });
                                     });
-                                  }
+                                  }*/
           return  Card(
                                     elevation: 5.0,
                                     child: ListTile(

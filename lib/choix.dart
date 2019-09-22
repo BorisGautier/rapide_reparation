@@ -1,15 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rapide_achat/home.dart';
-import 'package:rapide_achat/login.dart';
-import 'package:rapide_achat/modele.dart';
 import 'package:rapide_achat/ordi.dart';
 import 'package:rapide_achat/tablette.dart';
 import 'package:rapide_achat/telephone.dart';
-
-final FirebaseAuth _auth = FirebaseAuth.instance;
 
 final List<String> itemList = [
   'assets/images/11.jpg',
@@ -47,7 +42,7 @@ class _ChoixPage extends State<ChoixPage> {
       );
     }
 
-    toast() {
+   /* toast() {
         Fluttertoast.showToast(
                     msg: "Bientot disponible",
                     toastLength: Toast.LENGTH_LONG,
@@ -56,7 +51,7 @@ class _ChoixPage extends State<ChoixPage> {
                     backgroundColor: Colors.green[400],
                     textColor: Colors.white,
                     fontSize: 16.0);
-    }
+    }*/
 
     goTomodele(int i) {
       if (i == 1) {

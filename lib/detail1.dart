@@ -3,20 +3,11 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:rapide_achat/accueil.dart';
 import 'package:rapide_achat/home.dart';
-import 'package:rapide_achat/login.dart';
 import 'package:rapide_achat/api/api.dart';
-import 'package:rapide_achat/models/response.dart';
 import 'package:rapide_achat/stripe.dart';
 
-import 'models/distance.dart';
-
 final FirebaseAuth _auth = FirebaseAuth.instance;
-
-
 
 final List<String> itemList = [
   'assets/images/11.jpg',
@@ -37,86 +28,122 @@ List<T> map<T>(List list, Function handler) {
 
 class Detail1Page extends StatefulWidget {
   Detail1Page(
-      {Key key, this.appareil, this.modele, this.probleme, this.ecran,this.pb,this.rdv,this.date,this.societe,this.prix})
+      {Key key,
+      this.appareil,
+      this.modele,
+      this.probleme,
+      this.ecran,
+      this.pb,
+      this.rdv,
+      this.date,
+      this.societe,
+      this.prix})
       : super(key: key);
 
-  final String appareil, modele, probleme, ecran,pb,rdv,date,societe,prix;
+  final String appareil, modele, probleme, ecran, pb, rdv, date, societe, prix;
   @override
-  _Detail1Page createState() => _Detail1Page(appareil, modele, probleme, ecran,pb,rdv,date,societe,prix);
+  _Detail1Page createState() => _Detail1Page(
+      appareil, modele, probleme, ecran, pb, rdv, date, societe, prix);
 }
 
 class _Detail1Page extends State<Detail1Page> {
-   _Detail1Page(this.appareil, this.modele, this.probleme, this.ecran,this.pb,this.rdv,this.date,this.societe,this.prix);
-   String appareil, modele, probleme, ecran,pb,rdv,date,societe,prix;
+  _Detail1Page(this.appareil, this.modele, this.probleme, this.ecran, this.pb,
+      this.rdv, this.date, this.societe, this.prix);
+  String appareil, modele, probleme, ecran, pb, rdv, date, societe, prix;
   final String _simpleValue1 = 'logout';
-  String _simpleValue,email,r,t;
-  bool e,p,m = false;
+  String _simpleValue, email, r, t;
+  bool e, p, m = false;
   bool rd = false;
   Timer timer;
   bool _isLoading = false;
   bool _isLoading1 = false;
   ApiRest api = new ApiRest();
   String d;
-  int pri;
-    DateTime day;
+  int pri, x;
+  DateTime day;
 
-
-
-
-
-    @override
-  void initState()  {
+  @override
+  void initState() {
     super.initState();
+
+    setState(() {
+      x = int.parse(prix) + 20;
+    });
     setState(() => _isLoading = true);
     day = DateTime.parse(date);
-     Timer(new Duration(milliseconds: 1500), () async {
-        FirebaseUser user = await _auth.currentUser();
-        email = user.email;
-        if(modele == null) {
-      modele = "";
-      m=true;
-    }
-     if (probleme == null) {
-      p = true;
-    } else {
-      p = false;
-       if (ecran == null) {
-      e = true;
-    } else {
-      e = false;
-    }
-    }
-    if(rdv == "domicile") {
-      r = "Technicien à domicile";
-      rd =true;
-    }
-    else {
-      r = "Rendez-vous à la boutique";
-      rd =false;
-    }
-    pri = int.parse(prix);
-        setState(() => _isLoading = false);
-        });
-    
-    
+    Timer(new Duration(milliseconds: 1500), () async {
+      FirebaseUser user = await _auth.currentUser();
+      email = user.email;
+      if (modele == null) {
+        modele = "";
+        m = true;
+      }
+      if (probleme == null) {
+        p = true;
+      } else {
+        p = false;
+        if (ecran == null) {
+          e = true;
+        } else {
+          e = false;
+        }
+      }
+      if (rdv == "domicile") {
+        r = "Technicien à domicile";
+        rd = true;
+      } else {
+        r = "Rendez-vous à la boutique";
+        rd = false;
+      }
+      pri = int.parse(prix);
+      setState(() => _isLoading = false);
+    });
   }
-
-
 
   confirmer() {
     setState(() => _isLoading1 = true);
-    if(rdv == "domicile") {
+    if (rdv == "domicile") {
       setState(() => _isLoading1 = false);
 
-                 Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => StripePage(appareil: appareil,date: date,ecran: ecran,modele: modele,pb: pb,probleme: probleme,rdv: rdv,societe:societe,prix: prix),
-              ),
-            );
-    }
-    else{
-      setState(() {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => StripePage(
+              appareil: appareil,
+              date: date,
+              ecran: ecran,
+              modele: modele,
+              pb: pb,
+              probleme: probleme,
+              rdv: rdv,
+              societe: societe,
+              prix: prix),
+        ),
+      );
+    } else {
+      setState(() => _isLoading1 = false);
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => StripePage(
+              appareil: appareil,
+              date: date,
+              adresse: "",
+              code: "",
+              etage: "",
+              infos: "",
+              ecran: ecran,
+              modele: modele,
+              pb: pb,
+              probleme: probleme,
+              rdv: rdv,
+              societe: societe,
+              prix: x.toString()),
+        ),
+      );
+
+      /*   setState(() {
         api.reservation(appareil, email, modele, probleme, rdv, date, "token",societe,"Rapide achat","","","").then((Response response){
           if (response.status == "success") {
             setState(() => _isLoading1 = false);
@@ -136,10 +163,8 @@ class _Detail1Page extends State<Detail1Page> {
             );
           }
         });
-      });
+      });*/
     }
-     
-    
   }
 
 /*  getEmail() async {
@@ -165,7 +190,6 @@ class _Detail1Page extends State<Detail1Page> {
       );
     }
 
-
     void showMenuSelection(String value) async {
       if (<String>[_simpleValue1].contains(value)) _simpleValue = value;
 
@@ -186,185 +210,296 @@ class _Detail1Page extends State<Detail1Page> {
           PopupMenuButton<String>(
             onSelected: showMenuSelection,
             itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
-                  const PopupMenuItem<String>(
-                      value: 'logout', child: Text('Deconnexion')),
-                  /*  const PopupMenuItem<String>(
+              const PopupMenuItem<String>(
+                  value: 'logout', child: Text('Deconnexion')),
+              /*  const PopupMenuItem<String>(
                       value: 'setting', child: Text('Paramètres')),*/
-                ],
+            ],
           )
         ],
       ),
-      body: _isLoading? Center(child:new CircularProgressIndicator())  : ListView(
-        children: <Widget>[
-          Padding(
-              padding: EdgeInsets.symmetric(vertical: 01.0),
-              child: Column(children: [
-                autoPlayDemo,
-                new Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    image: DecorationImage(
-                      colorFilter: new ColorFilter.mode(
-                          Colors.black.withOpacity(0.10), BlendMode.dstATop),
-                      image: AssetImage('assets/images/15.jpg'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  child: new Column(
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.all(20.0),
-                        child: Center(
-                          child: Image.asset(
-                            "assets/images/icon/rr.jpg",
-                            height: 80,
+      body: _isLoading
+          ? Center(child: new CircularProgressIndicator())
+          : ListView(
+              children: <Widget>[
+                Padding(
+                    padding: EdgeInsets.symmetric(vertical: 01.0),
+                    child: Column(children: [
+                      autoPlayDemo,
+                      new Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          image: DecorationImage(
+                            colorFilter: new ColorFilter.mode(
+                                Colors.black.withOpacity(0.10),
+                                BlendMode.dstATop),
+                            image: AssetImage('assets/images/15.jpg'),
+                            fit: BoxFit.cover,
                           ),
                         ),
-                      ),
-                      Text(
-                        "Récapitulatif de votre demande de réparation",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red[900],
-                          fontSize: 15,
-                        ),
-                      ),
-                      Divider(color: Colors.transparent,height: 15),
+                        child: new Column(
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.all(20.0),
+                              child: Center(
+                                child: Image.asset(
+                                  "assets/images/icon/rr.jpg",
+                                  height: 80,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              "Récapitulatif de votre demande de réparation",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red[900],
+                                fontSize: 15,
+                              ),
+                            ),
+                            Divider(color: Colors.transparent, height: 15),
+                            Container(
+                                // height: MediaQuery.of(context).size.height,
+                                child: Padding(
+                                    padding: const EdgeInsets.all(14.0),
+                                    child: Table(
+                                      border: TableBorder.all(
+                                          width: 1.0, color: Colors.black),
+                                      children: [
+                                        TableRow(children: [
+                                          TableCell(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                new Text(" " + 'Adresse Mail'),
+                                              ],
+                                            ),
+                                          ),
+                                          TableCell(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                new Text(" " + email),
+                                              ],
+                                            ),
+                                          ),
+                                        ]),
+                                        TableRow(children: [
+                                          TableCell(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                new Text(" " + 'Appareil'),
+                                              ],
+                                            ),
+                                          ),
+                                          TableCell(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                m
+                                                    ? new Text(" " + appareil)
+                                                    : new Text(" " +
+                                                        appareil +
+                                                        " " +
+                                                        modele),
+                                              ],
+                                            ),
+                                          ),
+                                        ]),
+                                        TableRow(children: [
+                                          TableCell(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                new Text(" " + 'Problème'),
+                                              ],
+                                            ),
+                                          ),
+                                          TableCell(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                p
+                                                    ? Text(" " +
+                                                        "PROBLEME AVEC VOTRE :" +
+                                                        " " +
+                                                        appareil)
+                                                    : e
+                                                        ? new Text(
+                                                            " " + probleme)
+                                                        : new Text(" " +
+                                                            probleme +
+                                                            " " +
+                                                            ":" +
+                                                            " " +
+                                                            ecran),
+                                              ],
+                                            ),
+                                          ),
+                                        ]),
+                                        TableRow(children: [
+                                          TableCell(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                new Text(" " + 'Rendez-vous'),
+                                              ],
+                                            ),
+                                          ),
+                                          TableCell(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                new Text(" " + r),
+                                              ],
+                                            ),
+                                          ),
+                                        ]),
+                                        TableRow(children: [
+                                          TableCell(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                new Text(
+                                                    " " + 'Date Rendez-vous'),
+                                              ],
+                                            ),
+                                          ),
+                                          TableCell(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                new Text(" " +
+                                                    day.day.toString() +
+                                                    "-" +
+                                                    day.month.toString() +
+                                                    "-" +
+                                                    day.year.toString() +
+                                                    " à " +
+                                                    day.hour.toString() +
+                                                    ":" +
+                                                    day.minute.toString()),
+                                              ],
+                                            ),
+                                          ),
+                                        ]),
+                                         TableRow(children: [
+                                          TableCell(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                new Text(
+                                                  " " + 'Prix de la pièce',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.red[900],
+                                                    fontSize: 15,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          TableCell(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                new Text(
+                                                  " " + prix + "€",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.red[900],
+                                                    fontSize: 15,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ]),
+                                        TableRow(children: [
+                                          TableCell(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                new Text(
+                                                  " " + 'Main d\'oeuvre',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.red[900],
+                                                    fontSize: 15,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          TableCell(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                new Text(
+                                                  " " + "20" + "€",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.red[900],
+                                                    fontSize: 15,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ]),
+                                        TableRow(children: [
+                                          TableCell(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                new Text(
+                                                  " " + 'Prix total',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.red[900],
+                                                    fontSize: 15,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          TableCell(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                new Text(
+                                                  " " + x.toString() + "€",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.red[900],
+                                                    fontSize: 15,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ]),
+                                      ],
+                                    ))),
 
-                       Container(            
-            // height: MediaQuery.of(context).size.height,
-            child: Padding(
-              padding: const EdgeInsets.all(14.0),
-              child: Table(
-                border: TableBorder.all(width: 1.0, color: Colors.black),
-              
-                children: [
-                  TableRow(children: [
-                    TableCell(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          new Text(" "+'Adresse Mail'),
-                        ],
-                      ),
-                    ),
-                    TableCell(
-                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          new Text(" "+email),
-                        ],
-                      ),
-                    ),
-                  ]),
-                  TableRow(
-                    children: [
-                    TableCell(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          new Text(" "+'Appareil'),
-                        ],
-                      ),
-                    ),
-                      TableCell(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                           m ? new Text(" "+appareil) : new Text(" "+appareil+" "+modele),
-                        ],
-                      ),
-                    ),
-                  ]),
-                  TableRow(children: [
-                    TableCell(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          new Text(" "+'Problème'),
-                         
-                        ],
-                      ),
-                    ),
-                     TableCell(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          p ? Text(" "+"PROBLEME AVEC VOTRE :"+" "+appareil) : e ? new Text(" "+probleme) : new Text(" "+probleme+" "+":"+" "+ecran),
-                        ],
-                      ),
-                    ),
-                  ]),
-                  TableRow(children: [
-                    TableCell(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          new Text(" "+'Rendez-vous'),
-                        ],
-                      ),
-                    ),
-                     TableCell(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                         new Text(" "+r),
-                        ],
-                      ),
-                    ),
-                    ]),
-                      TableRow(children: [
-                    TableCell(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          new Text(" "+'Date Rendez-vous'),
-            
-                        ],
-                      ),
-                    ),
-                      TableCell(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                         new Text(" "+day.day.toString()+"-"+day.month.toString()+"-"+day.year.toString()+" à "+day.hour.toString()+":"+day.minute.toString()),
-                        ],
-                      ),
-                    ),
-                    ]),
-                       TableRow(children: [
-                    TableCell(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          new Text(" "+'Prix total',style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red[900],
-                          fontSize: 15,
-                        ),),
-                        ],
-                      ),
-                    ),
-                     TableCell(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                         new Text(" "+prix+"€",style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red[900],
-                          fontSize: 15,
-                        ),),
-                        ],
-                      ),
-                    ),
-                    ]),
-                ],
-                    )
-                    )
-                    ),
-                  
-         /*             Text("VOTRE ADRESSE EMAIL :"+" "+email,textAlign: TextAlign.center),
+                            /*             Text("VOTRE ADRESSE EMAIL :"+" "+email,textAlign: TextAlign.center),
                       Divider(color: Colors.transparent,height: 15),
               m ? Text("VOTRE APPAREIL :"+" "+appareil,textAlign: TextAlign.center) : Text("VOTRE APPAREIL :"+" "+appareil+" "+"modèle"+" "+modele,textAlign: TextAlign.center),
                       Divider(color: Colors.transparent,height: 15),
@@ -375,46 +510,48 @@ class _Detail1Page extends State<Detail1Page> {
                    Text("RENDEZ-VOUS PRIS POUR LE :"+" "+date,textAlign: TextAlign.center),
                    Divider(color: Colors.transparent,height: 25),
           rd ? Text("NB: l'assistance à domicile vous coutera "+pri.toString()+"€",style: TextStyle(fontStyle: FontStyle.italic,color: Colors.red[900]),) : Divider(color: Colors.transparent,height: 5),
-                   */  
-                     
-                      Center(
-                        heightFactor: 1.5,
-                        child: new FlatButton(
-                          shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0)),
-                          color: Colors.red[900],
-                          onPressed: confirmer,
-                          child: _isLoading1
-                          ? new CircularProgressIndicator()
-                          : new Container(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 20.0,
-                              horizontal: 20.0,
+                   */
+
+                            Center(
+                              heightFactor: 1.5,
+                              child: new FlatButton(
+                                shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(30.0)),
+                                color: Colors.red[900],
+                                onPressed: confirmer,
+                                child: _isLoading1
+                                    ? new CircularProgressIndicator()
+                                    : new Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 20.0,
+                                          horizontal: 20.0,
+                                        ),
+                                        child: new Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            new Expanded(
+                                              child: Text(
+                                                "CONFIRMER",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                              ),
                             ),
-                            child: new Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                new Expanded(
-                                  child: Text(
-                                    "CONFIRMER",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ])),
-              
-        ],
-      ),
+                    ])),
+              ],
+            ),
     );
   }
 

@@ -1,5 +1,4 @@
-import 'package:braintree/braintree.dart';
-import 'package:braintree_payment/braintree_payment.dart';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,11 +6,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rapide_achat/accueil.dart';
 import 'package:rapide_achat/api/api.dart';
 import 'package:rapide_achat/home.dart';
-import 'package:rapide_achat/login.dart';
 import 'package:rapide_achat/models/response.dart';
 import 'package:rapide_achat/paypal.dart';
 import 'package:stripe_payment/stripe_payment.dart';
-import 'package:flutter/services.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -349,16 +346,6 @@ class _StripePageState extends State<StripePage> {
                 .then((Response response) {
               if (response.status != "failed") {
                 setState(() => _isLoading1 = false);
-
-                 api
-                .reservation(appareil, currentUser.email, modele, probleme, rdv,
-                    date, "token", societe, adresse,code,etage,infos)
-                .then((Response response) {
-              if (response.status == "success") {
-                setState(() => _isLoading = false);
-             
-              }
-            });
                
                 Navigator.pushReplacement(
                   context,

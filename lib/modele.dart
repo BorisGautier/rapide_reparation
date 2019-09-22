@@ -3,11 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rapide_achat/choix.dart';
 import 'package:rapide_achat/home.dart';
-import 'package:rapide_achat/login.dart';
-import 'package:rapide_achat/societe.dart';
 import 'package:rapide_achat/technicien.dart';
-
-final FirebaseAuth _auth = FirebaseAuth.instance;
 
 final List<String> itemList = [
   'assets/images/11.jpg',

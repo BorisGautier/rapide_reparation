@@ -1,9 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:rapide_achat/login.dart';
 import 'package:rapide_achat/loginEnt.dart';
-
-final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -18,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen>
     super.initState();
   }
 
-Widget HomePage() {
+Widget homePage() {
     return new Container(
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
@@ -143,7 +141,7 @@ Widget HomePage() {
         child: PageView(
           controller: _controller,
           physics: new AlwaysScrollableScrollPhysics(),
-          children: <Widget>[HomePage()],
+          children: <Widget>[homePage()],
           scrollDirection: Axis.horizontal,
         ));
   }

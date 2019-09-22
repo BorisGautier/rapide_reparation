@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:intl/intl.dart';
 import 'package:rapide_achat/accueil.dart';
 import 'package:rapide_achat/api/api.dart';
 import 'package:rapide_achat/register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 

@@ -1,12 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rapide_achat/choix.dart';
 import 'package:rapide_achat/home.dart';
-import 'package:rapide_achat/login.dart';
-
-final FirebaseAuth _auth = FirebaseAuth.instance;
 
 final List<String> itemList = [
   'assets/images/11.jpg',

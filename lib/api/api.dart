@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:rapide_achat/models/distance.dart';
 import 'package:rapide_achat/models/nominatimResponse.dart';
@@ -47,7 +46,6 @@ class ApiRest {
     return http.get(PRODUIT_URL+"?"+categorie+"="+id).then((http.Response response) {
        final String res = response.body;
       if (response.statusCode == 200) {
-        var j = json.decode(res);
           return new ProduitResponse.fromMap(json.decode(res));
         } else {
           throw new Exception("Error while fetching data");
