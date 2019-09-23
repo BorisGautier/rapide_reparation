@@ -15,8 +15,8 @@ class _GraphState extends State<Graph> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 3143));
+    controller = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 3143));
     animation = Tween(begin: 0.0, end: 1.0).animate(
         CurvedAnimation(parent: controller, curve: Interval(0.0, 1.0)));
 
@@ -35,17 +35,20 @@ class _GraphState extends State<Graph> with SingleTickerProviderStateMixin {
           painter: GraphPaint(controller.value),
           child: Container(height: 200.0, color: Colors.black12),
         ),
-
         Positioned(
           left: MediaQuery.of(context).size.width - 5,
-          top: sin((controller.value * 360 - MediaQuery.of(context).size.width) % 360 * Vector.degrees2Radians) * 0.9 * 100 + 100,
+          top:
+              sin((controller.value * 360 - MediaQuery.of(context).size.width) %
+                          360 *
+                          Vector.degrees2Radians) *
+                      0.9 *
+                      100 +
+                  100,
           child: Container(
             width: 10.0,
             height: 10.0,
-            decoration: BoxDecoration(
-              color: Colors.redAccent,
-              shape: BoxShape.circle
-            ),
+            decoration:
+                BoxDecoration(color: Colors.redAccent, shape: BoxShape.circle),
           ),
         )
       ],
@@ -66,12 +69,22 @@ class GraphPaint extends CustomPainter {
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
 
-    for (int i = 0; i <= size.width; i+=1) {
+    for (int i = 0; i <= size.width; i += 1) {
       canvas.drawLine(
-          new Offset(i.toDouble(),
-              (sin((time * 360 - i) % 360 * Vector.degrees2Radians) * 0.9 * size.height/2 + size.height/2)),
-          new Offset(i.toDouble(),
-              (sin((time * 360 - i) % 360 * Vector.degrees2Radians) * 0.9 * size.height/2 + size.height/2)),
+          new Offset(
+              i.toDouble(),
+              (sin((time * 360 - i) % 360 * Vector.degrees2Radians) *
+                      0.9 *
+                      size.height /
+                      2 +
+                  size.height / 2)),
+          new Offset(
+              i.toDouble(),
+              (sin((time * 360 - i) % 360 * Vector.degrees2Radians) *
+                      0.9 *
+                      size.height /
+                      2 +
+                  size.height / 2)),
           p1);
     }
   }

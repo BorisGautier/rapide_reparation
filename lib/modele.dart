@@ -19,7 +19,7 @@ List _modeleOrdi = [];
 
 List _modeleTab = [];
 
-List _degat = ["Ecran", "Batterie","Connecteur"];
+List _degat = ["Ecran", "Batterie", "Connecteur"];
 
 List<DropdownMenuItem<String>> _dropDownMenuItems, _dropPb;
 String _currentModele, _currentProbleme;
@@ -46,7 +46,7 @@ class _ModelePage extends State<ModelePage> {
   final String appareil;
   final String _simpleValue1 = 'logout';
   String _simpleValue;
-  String modele, probleme, ecran,pb,prix;
+  String modele, probleme, ecran, pb, prix;
   bool blanc = false;
   bool noir = false;
   bool c = false;
@@ -75,7 +75,7 @@ class _ModelePage extends State<ModelePage> {
         items.add(new DropdownMenuItem(value: mod, child: new Text(mod)));
       }
       return items;
-    }  else if (appareil == "tablette") {
+    } else if (appareil == "tablette") {
       for (String mod in _modeleTab) {
         // here we are creating the drop down menu items, you can customize the item right here
         // but I'll just use a simple text for this
@@ -87,94 +87,86 @@ class _ModelePage extends State<ModelePage> {
 
   @override
   void initState() {
-    if(appareil == "ordinateur") {
-      m=true;
-      t=true;
-    }
-    else if (appareil == "tablette") {
-      m=false;
-      t=true;
-       _dropDownMenuItems = getDropDownMenuItems();
-    _currentModele = _dropDownMenuItems[0].value;
-    modele = _currentModele;
-    }
-    else if(appareil == "smartphone") {
+    if (appareil == "ordinateur") {
+      m = true;
+      t = true;
+    } else if (appareil == "tablette") {
+      m = false;
+      t = true;
+      _dropDownMenuItems = getDropDownMenuItems();
+      _currentModele = _dropDownMenuItems[0].value;
+      modele = _currentModele;
+    } else if (appareil == "smartphone") {
       _dropPb = getDropDownMenuItemsProbleme();
-    _currentProbleme = _dropPb[0].value;
-    probleme = _currentProbleme;
-     _dropDownMenuItems = getDropDownMenuItems();
-    _currentModele = _dropDownMenuItems[0].value;
-    modele = _currentModele;
+      _currentProbleme = _dropPb[0].value;
+      probleme = _currentProbleme;
+      _dropDownMenuItems = getDropDownMenuItems();
+      _currentModele = _dropDownMenuItems[0].value;
+      modele = _currentModele;
     }
-  
+
     super.initState();
   }
 
   suivant() {
-    pb =pbController.text;
-    if(pb.isEmpty) {
-       if(modele == "Iphone5" && probleme == "Ecran") {
+    pb = pbController.text;
+    if (pb.isEmpty) {
+      if (modele == "Iphone5" && probleme == "Ecran") {
         prix = "91";
 
-            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => TechnicienPage(
-                                      appareil: appareil,
-                                      modele: modele,
-                                      probleme: probleme,
-                                      ecran: ecran,
-                                      prix: prix,
-                                      pb : null)), //MaterialPageRoute
-                            );
-      }
-      else if(modele == "Iphone5" && probleme == "Batterie") {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => TechnicienPage(
+                  appareil: appareil,
+                  modele: modele,
+                  probleme: probleme,
+                  ecran: ecran,
+                  prix: prix,
+                  pb: null)), //MaterialPageRoute
+        );
+      } else if (modele == "Iphone5" && probleme == "Batterie") {
         prix = "77";
 
-            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => TechnicienPage(
-                                      appareil: appareil,
-                                      modele: modele,
-                                      probleme: probleme,
-                                      ecran: ecran,
-                                      prix: prix,
-                                      pb : null)), //MaterialPageRoute
-                            );
-      }
-          else if(modele == "Iphone5" && probleme == "Connecteur") {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => TechnicienPage(
+                  appareil: appareil,
+                  modele: modele,
+                  probleme: probleme,
+                  ecran: ecran,
+                  prix: prix,
+                  pb: null)), //MaterialPageRoute
+        );
+      } else if (modele == "Iphone5" && probleme == "Connecteur") {
         prix = "90";
 
-            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => TechnicienPage(
-                                      appareil: appareil,
-                                      modele: modele,
-                                      probleme: probleme,
-                                      ecran: ecran,
-                                      prix: prix,
-                                      pb : null)), //MaterialPageRoute
-                            );
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => TechnicienPage(
+                  appareil: appareil,
+                  modele: modele,
+                  probleme: probleme,
+                  ecran: ecran,
+                  prix: prix,
+                  pb: null)), //MaterialPageRoute
+        );
       }
-   
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => TechnicienPage(
+                appareil: appareil,
+                modele: modele,
+                probleme: probleme,
+                ecran: ecran,
+                pb: pb,
+                prix: prix)), //MaterialPageRoute
+      );
     }
-
-    else {
-       Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => TechnicienPage(
-                                      appareil: appareil,
-                                      modele: modele,
-                                      probleme: probleme,
-                                      ecran: ecran,
-                                      pb : pb,
-                                      prix:prix)), //MaterialPageRoute
-                            );
-    }
-    
   }
 
   @override
@@ -257,11 +249,11 @@ class _ModelePage extends State<ModelePage> {
           PopupMenuButton<String>(
             onSelected: showMenuSelection,
             itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
-                  const PopupMenuItem<String>(
-                      value: 'logout', child: Text('Deconnexion')),
-                  /*  const PopupMenuItem<String>(
+              const PopupMenuItem<String>(
+                  value: 'logout', child: Text('Deconnexion')),
+              /*  const PopupMenuItem<String>(
                       value: 'setting', child: Text('Paramètres')),*/
-                ],
+            ],
           )
         ],
       ),
@@ -291,86 +283,104 @@ class _ModelePage extends State<ModelePage> {
                       children: <Widget>[
                         Column(
                           children: <Widget>[
-                            Padding(padding: EdgeInsets.only(left: 10.0),
-                        child:  IconButton(
-                          icon: new Icon(Icons.backspace,color: Colors.red[900],),
-                          onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        ChoixPage()), //MaterialPageRoute
-                              );
-                          },
-                        ) ,
-                        ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 10.0),
+                              child: IconButton(
+                                icon: new Icon(
+                                  Icons.backspace,
+                                  color: Colors.red[900],
+                                ),
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            ChoixPage()), //MaterialPageRoute
+                                  );
+                                },
+                              ),
+                            ),
                           ],
                         ),
-                        
-                       Padding(
-                         padding: EdgeInsets.only(right: 63.0),
-                       ),
-                         Text("ETAPE 2/3",
-                        style: TextStyle(
-                            color: Colors.red[900],
-                            fontStyle: FontStyle.italic,
-                            fontSize: 27,
-                            fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center),
+                        Padding(
+                          padding: EdgeInsets.only(right: 63.0),
+                        ),
+                        Text("ETAPE 2/3",
+                            style: TextStyle(
+                                color: Colors.red[900],
+                                fontStyle: FontStyle.italic,
+                                fontSize: 27,
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center),
                       ],
                     ),
-                   
-
-                        m != t ?   Divider(color: Colors.transparent) : Text(
-                          appareil+" "+"en panne",
-                          style: TextStyle(
-                              fontStyle: FontStyle.italic,
-                              color: Colors.red[900],
-                              fontWeight: FontWeight.bold)),   
-                      Divider(color: Colors.transparent, height: 20),
-                  m ? Divider(
-                      color: Colors.transparent,
-                    ) :  Divider(
-                      color: Colors.transparent,
-                      height: 10,
-                    ),
-                   m ? Divider(color: Colors.transparent) : Container(
-                      child: Text(
-                          "Choississez le modèle de votre" + " " + appareil,
-                          style: TextStyle(
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.bold)),
-                    ),
+                    m != t
+                        ? Divider(color: Colors.transparent)
+                        : Text(appareil + " " + "en panne",
+                            style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                color: Colors.red[900],
+                                fontWeight: FontWeight.bold)),
+                    Divider(color: Colors.transparent, height: 20),
+                    m
+                        ? Divider(
+                            color: Colors.transparent,
+                          )
+                        : Divider(
+                            color: Colors.transparent,
+                            height: 10,
+                          ),
+                    m
+                        ? Divider(color: Colors.transparent)
+                        : Container(
+                            child: Text(
+                                "Choississez le modèle de votre" +
+                                    " " +
+                                    appareil,
+                                style: TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.bold)),
+                          ),
                     Divider(
                       color: Colors.transparent,
                       height: 10,
                     ),
-                  m ? Divider(color: Colors.transparent) :  DropdownButton(
-                      elevation: 5,
-                      value: _currentModele,
-                      items: _dropDownMenuItems,
-                      onChanged: changedDropDownItem,
-                    ),
+                    m
+                        ? Divider(color: Colors.transparent)
+                        : DropdownButton(
+                            elevation: 5,
+                            value: _currentModele,
+                            items: _dropDownMenuItems,
+                            onChanged: changedDropDownItem,
+                          ),
                     Divider(
                       color: Colors.transparent,
                       height: 25,
                     ),
-                   t   ? Divider(color: Colors.transparent) : Text("Quelle est la panne de votre "+" "+appareil+" "+"?",
-                        style: TextStyle(
-                            fontStyle: FontStyle.italic,
-                            fontWeight: FontWeight.bold)),
-                  
+                    t
+                        ? Divider(color: Colors.transparent)
+                        : Text(
+                            "Quelle est la panne de votre " +
+                                " " +
+                                appareil +
+                                " " +
+                                "?",
+                            style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.bold)),
                     Divider(
                       color: Colors.transparent,
                     ),
-                   t  ? Divider(color: Colors.transparent) : DropdownButton(
-                      elevation: 5,
-                      value: _currentProbleme,
-                      items: _dropPb,
-                      onChanged: changedDropDownItemProbleme,
-                    ),
+                    t
+                        ? Divider(color: Colors.transparent)
+                        : DropdownButton(
+                            elevation: 5,
+                            value: _currentProbleme,
+                            items: _dropPb,
+                            onChanged: changedDropDownItemProbleme,
+                          ),
                     c ? row : Divider(color: Colors.transparent),
-                  /*   new Row(
+                    /*   new Row(
               children: <Widget>[
                 new Expanded(
                   child: new Padding(
@@ -395,7 +405,7 @@ class _ModelePage extends State<ModelePage> {
           
               ],
                      ),*/
-          /*  new Container(
+                    /*  new Container(
               width: MediaQuery.of(context).size.width,
               margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 2.0),
               alignment: Alignment.center,
@@ -427,40 +437,41 @@ class _ModelePage extends State<ModelePage> {
                 ],
               ),
             ),*/
-              m ? Divider(color: Colors.transparent,height: 30) : Divider(),
+                    m
+                        ? Divider(color: Colors.transparent, height: 30)
+                        : Divider(),
                     Center(
                       heightFactor: 1.5,
                       child: new SizedBox(
                         width: 200,
-                        child:  new RaisedButton(
+                        child: new RaisedButton(
                           elevation: 10,
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(30.0)),
-                        color: Colors.red[900],
-                        onPressed: suivant,
-                        child: new Container(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 20.0,
-                            horizontal: 20.0,
-                          ),
-                          child: new Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              new Expanded(
-                                child: Text(
-                                  "SUIVANT",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(30.0)),
+                          color: Colors.red[900],
+                          onPressed: suivant,
+                          child: new Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 20.0,
+                              horizontal: 20.0,
+                            ),
+                            child: new Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                new Expanded(
+                                  child: Text(
+                                    "SUIVANT",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ) ,
                       ),
-                     
                     ),
                   ],
                 ),
@@ -488,12 +499,10 @@ class _ModelePage extends State<ModelePage> {
       } else if (_currentProbleme == _dropPb[0].value) {
         c = false;
         probleme = _currentProbleme;
-      }
-      else if (_currentProbleme == _dropPb[2].value) {
+      } else if (_currentProbleme == _dropPb[2].value) {
         c = false;
         probleme = _currentProbleme;
-      }
-      else if (_currentProbleme == _dropPb[3].value) {
+      } else if (_currentProbleme == _dropPb[3].value) {
         c = false;
         probleme = _currentProbleme;
       }

@@ -16,7 +16,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:rapide_achat/models/response.dart';
 import 'package:rapide_achat/register2.dart';
 
-
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class RegisterScreen2 extends StatefulWidget {
@@ -39,13 +38,12 @@ class _RegisterScreenState2 extends State<RegisterScreen2>
   bool editable = true;
   DateTime date1;
 
-  String file,file1,nomTechnicien,tof1,tof2;
+  String file, file1, nomTechnicien, tof1, tof2;
 
   TextEditingController controllerName = new TextEditingController();
 
-  File cv,diplome;
+  File cv, diplome;
 
- 
   ApiRest api = new ApiRest();
 
   @override
@@ -53,16 +51,15 @@ class _RegisterScreenState2 extends State<RegisterScreen2>
     super.initState();
   }
 
-
- register() async {
+  register() async {
     setState(() => _isLoading = true);
-     List<int> imageBytes = await cv.readAsBytesSync();
-     List<int> imageBytes1 = await diplome.readAsBytesSync();
-     tof1 = base64Encode(imageBytes);
-     tof2 = base64Encode(imageBytes1);
-     nomTechnicien = controllerName.text;
-     file = cv.path.split("/").last;
-     file1 = diplome.path.split("/").last;
+    List<int> imageBytes = await cv.readAsBytesSync();
+    List<int> imageBytes1 = await diplome.readAsBytesSync();
+    tof1 = base64Encode(imageBytes);
+    tof2 = base64Encode(imageBytes1);
+    nomTechnicien = controllerName.text;
+    file = cv.path.split("/").last;
+    file1 = diplome.path.split("/").last;
 
     if (nomTechnicien.isEmpty) {
       setState(() => _isLoading = false);
@@ -77,51 +74,51 @@ class _RegisterScreenState2 extends State<RegisterScreen2>
     } else {
       final FirebaseUser currentUser = await _auth.currentUser();
 
-        setState(() {
-          if (currentUser != null) {
-          
-     api.registerT(nomTechnicien,ent,"a,"+tof1, "a,"+tof2).then((Response response) {
-      if (response.status == "success") {
-           setState(() => _isLoading = false);
-            Fluttertoast.showToast(
-                msg: "Enregistrement du technicien terminé avec succès",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIos: 1,
-                backgroundColor: Colors.green[400],
-                textColor: Colors.white,
-                fontSize: 16.0);
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => RegisterPage2(),
-              ),
-            );
-      } else {
-         setState(() => _isLoading = false);
+      setState(() {
+        if (currentUser != null) {
+          api
+              .registerT(nomTechnicien, ent, "a," + tof1, "a," + tof2)
+              .then((Response response) {
+            if (response.status == "success") {
+              setState(() => _isLoading = false);
+              Fluttertoast.showToast(
+                  msg: "Enregistrement du technicien terminé avec succès",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIos: 1,
+                  backgroundColor: Colors.green[400],
+                  textColor: Colors.white,
+                  fontSize: 16.0);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RegisterPage2(),
+                ),
+              );
+            } else {
+              setState(() => _isLoading = false);
+              Fluttertoast.showToast(
+                  msg: "Erreur lors de l'enregistrement",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIos: 1,
+                  backgroundColor: Colors.red[400],
+                  textColor: Colors.white,
+                  fontSize: 16.0);
+            }
+          });
+        } else {
+          setState(() => _isLoading = false);
           Fluttertoast.showToast(
-              msg: "Erreur lors de l'enregistrement",
+              msg: "Erreur de connexion au compte",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIos: 1,
               backgroundColor: Colors.red[400],
               textColor: Colors.white,
               fontSize: 16.0);
-      }
-    });
-          } else {
-            setState(() => _isLoading = false);
-            Fluttertoast.showToast(
-                msg: "Erreur de connexion au compte",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIos: 1,
-                backgroundColor: Colors.red[400],
-                textColor: Colors.white,
-                fontSize: 16.0);
-          }
-        });
-      
+        }
+      });
     }
   }
 
@@ -142,9 +139,7 @@ class _RegisterScreenState2 extends State<RegisterScreen2>
           children: <Widget>[
             Container(
               padding: EdgeInsets.all(80.0),
-              child: Center(
-               
-              ),
+              child: Center(),
             ),
             new Row(
               children: <Widget>[
@@ -233,41 +228,44 @@ class _RegisterScreenState2 extends State<RegisterScreen2>
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                 cv == null ? new Expanded(
-                    child: TextField(
-                      onTap:getImage ,
-                          keyboardType: TextInputType.text,
-                          style: TextStyle(
-                              fontFamily: "WorkSansSemiBold",
-                              fontSize: 16.0,
-                              color: Colors.black),
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            icon: Icon(
-                              FontAwesomeIcons.file,
-                              color: Colors.black,
-                            ),
-                            hintText: "Image CV",
-                            hintStyle: TextStyle(
-                                fontFamily: "WorkSansSemiBold", fontSize: 16.0),
-                                suffixIcon: GestureDetector(
-                              onTap: getImage,
-                              child: Icon(
-                                FontAwesomeIcons.image,
-                                size: 15.0,
+                  cv == null
+                      ? new Expanded(
+                          child: TextField(
+                            onTap: getImage,
+                            keyboardType: TextInputType.text,
+                            style: TextStyle(
+                                fontFamily: "WorkSansSemiBold",
+                                fontSize: 16.0,
+                                color: Colors.black),
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              icon: Icon(
+                                FontAwesomeIcons.file,
                                 color: Colors.black,
                               ),
+                              hintText: "Image CV",
+                              hintStyle: TextStyle(
+                                  fontFamily: "WorkSansSemiBold",
+                                  fontSize: 16.0),
+                              suffixIcon: GestureDetector(
+                                onTap: getImage,
+                                child: Icon(
+                                  FontAwesomeIcons.image,
+                                  size: 15.0,
+                                  color: Colors.black,
+                                ),
+                              ),
                             ),
+                            onChanged: (dt) => setState(() => file = dt),
                           ),
-                          onChanged: (dt) => setState(() => file = dt),
+                        )
+                      : Container(
+                          width: 100,
+                          height: 100,
+                          child: Card(
+                            child: Image.file(cv),
+                          ),
                         ),
-                  ):  Container(
-              width: 100,
-              height: 100,
-              child: Card(
-              child:Image.file(cv),
-            ),
-            ),
                 ],
               ),
             ),
@@ -308,41 +306,44 @@ class _RegisterScreenState2 extends State<RegisterScreen2>
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                 diplome == null ? new Expanded(
-                    child: TextField(
-                      onTap:getImage1 ,
-                          keyboardType: TextInputType.text,
-                          style: TextStyle(
-                              fontFamily: "WorkSansSemiBold",
-                              fontSize: 16.0,
-                              color: Colors.black),
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            icon: Icon(
-                              FontAwesomeIcons.file,
-                              color: Colors.black,
-                            ),
-                            hintText: "Diplome",
-                            hintStyle: TextStyle(
-                                fontFamily: "WorkSansSemiBold", fontSize: 16.0),
-                                suffixIcon: GestureDetector(
-                              onTap: getImage,
-                              child: Icon(
-                                FontAwesomeIcons.image,
-                                size: 15.0,
+                  diplome == null
+                      ? new Expanded(
+                          child: TextField(
+                            onTap: getImage1,
+                            keyboardType: TextInputType.text,
+                            style: TextStyle(
+                                fontFamily: "WorkSansSemiBold",
+                                fontSize: 16.0,
+                                color: Colors.black),
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              icon: Icon(
+                                FontAwesomeIcons.file,
                                 color: Colors.black,
                               ),
+                              hintText: "Diplome",
+                              hintStyle: TextStyle(
+                                  fontFamily: "WorkSansSemiBold",
+                                  fontSize: 16.0),
+                              suffixIcon: GestureDetector(
+                                onTap: getImage,
+                                child: Icon(
+                                  FontAwesomeIcons.image,
+                                  size: 15.0,
+                                  color: Colors.black,
+                                ),
+                              ),
                             ),
+                            onChanged: (dt) => setState(() => file1 = dt),
                           ),
-                          onChanged: (dt) => setState(() => file1 = dt),
+                        )
+                      : Container(
+                          width: 100,
+                          height: 100,
+                          child: Card(
+                            child: Image.file(diplome),
+                          ),
                         ),
-                  ):  Container(
-              width: 100,
-              height: 100,
-              child: Card(
-              child:Image.file(diplome),
-            ),
-            ),
                 ],
               ),
             ),
@@ -387,21 +388,20 @@ class _RegisterScreenState2 extends State<RegisterScreen2>
                             ),
                     ),
                   ),
-
-                   new Expanded(
+                  new Expanded(
                     child: new FlatButton(
                       shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0),
                       ),
                       color: Colors.redAccent,
                       onPressed: () {
-                         Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AccueilProPage(),
-              ),
-            );
-                      } ,
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AccueilProPage(),
+                          ),
+                        );
+                      },
                       child: _isLoading1
                           ? new CircularProgressIndicator(
                               backgroundColor: Colors.white)
@@ -492,16 +492,18 @@ class _RegisterScreenState2 extends State<RegisterScreen2>
   }
 
   Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery,maxHeight: 250,maxWidth:400);
-  
+    var image = await ImagePicker.pickImage(
+        source: ImageSource.gallery, maxHeight: 250, maxWidth: 400);
+
     setState(() {
       cv = image;
     });
   }
 
-   Future getImage1() async {
-    var image1 = await ImagePicker.pickImage(source: ImageSource.gallery,maxHeight: 250,maxWidth:400);
-  
+  Future getImage1() async {
+    var image1 = await ImagePicker.pickImage(
+        source: ImageSource.gallery, maxHeight: 250, maxWidth: 400);
+
     setState(() {
       diplome = image1;
     });

@@ -60,11 +60,11 @@ class _AccueilPage extends State<AccueilPage> {
           PopupMenuButton<String>(
             onSelected: showMenuSelection,
             itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
-                  const PopupMenuItem<String>(
-                      value: 'logout', child: Text('Deconnexion')),
-                  /*  const PopupMenuItem<String>(
+              const PopupMenuItem<String>(
+                  value: 'logout', child: Text('Deconnexion')),
+              /*  const PopupMenuItem<String>(
                       value: 'setting', child: Text('Paramètres')),*/
-                ],
+            ],
           )
         ],
       ),
@@ -99,7 +99,7 @@ class _AccueilPage extends State<AccueilPage> {
                           ),
                         ),
                       ),
-                       Divider(
+                      Divider(
                         color: Colors.transparent,
                         height: 35,
                       ),
@@ -118,39 +118,37 @@ class _AccueilPage extends State<AccueilPage> {
                           width: 200,
                           child: new RaisedButton(
                             elevation: 10,
-                          shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0)),
-                          color: Colors.red[900],
-                          onPressed: () => Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        ChoixPage()), //MaterialPageRoute
-                              ),
-                          child: new Container(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 20.0,
-                              horizontal: 20.0,
+                            shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(30.0)),
+                            color: Colors.red[900],
+                            onPressed: () => Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ChoixPage()), //MaterialPageRoute
                             ),
-                            child: new Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                new Expanded(
-                                  child: Text(
-                                    "PLANIFIER",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
+                            child: new Container(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 20.0,
+                                horizontal: 20.0,
+                              ),
+                              child: new Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  new Expanded(
+                                    child: Text(
+                                      "PLANIFIER",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
-                        ) ,
                         ),
-                        
-                        
                       ),
                     ],
                   ),

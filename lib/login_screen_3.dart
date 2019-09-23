@@ -159,38 +159,50 @@ class _LoginScreen3State extends State<LoginScreen3>
           textColor: Colors.white,
           fontSize: 16.0);
     } else {
-      if(password.length < 6 ) {
-          setState(() => _isLoading1 = false);
-      Fluttertoast.showToast(
-          msg: "Votre mot de passe doit avoir au moins 6 caratères",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIos: 1,
-          backgroundColor: Colors.blue,
-          textColor: Colors.white,
-          fontSize: 16.0);
+      if (password.length < 6) {
+        setState(() => _isLoading1 = false);
+        Fluttertoast.showToast(
+            msg: "Votre mot de passe doit avoir au moins 6 caratères",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIos: 1,
+            backgroundColor: Colors.blue,
+            textColor: Colors.white,
+            fontSize: 16.0);
       } else {
-          if (password1 == password) {
-        try {
-          final FirebaseUser user = await _auth.createUserWithEmailAndPassword(
-            email: signupEmailController.text,
-            password: signupPasswordController.text,
-          );
-          if (user != null) {
+        if (password1 == password) {
+          try {
+            final FirebaseUser user =
+                await _auth.createUserWithEmailAndPassword(
+              email: signupEmailController.text,
+              password: signupPasswordController.text,
+            );
+            if (user != null) {
+              setState(() => _isLoading1 = false);
+              setState(() {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RegisterPage(connectType: "email"),
+                  ),
+                );
+              });
+            }
+          } catch (e) {
             setState(() => _isLoading1 = false);
-            setState(() {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => RegisterPage(connectType: "email"),
-                ),
-              );
-            });
+            Fluttertoast.showToast(
+                msg: "Cette adresse mail existe déjà",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIos: 1,
+                backgroundColor: Colors.red[900],
+                textColor: Colors.white,
+                fontSize: 16.0);
           }
-        } catch (e) {
+        } else {
           setState(() => _isLoading1 = false);
           Fluttertoast.showToast(
-              msg: "Cette adresse mail existe déjà",
+              msg: "Mots de passe non identiques",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIos: 1,
@@ -198,20 +210,7 @@ class _LoginScreen3State extends State<LoginScreen3>
               textColor: Colors.white,
               fontSize: 16.0);
         }
-      } 
-      else {
-        setState(() => _isLoading1 = false);
-        Fluttertoast.showToast(
-            msg: "Mots de passe non identiques",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIos: 1,
-            backgroundColor: Colors.red[900],
-            textColor: Colors.white,
-            fontSize: 16.0);
       }
-      }
-      
     }
   }
 
@@ -319,9 +318,7 @@ class _LoginScreen3State extends State<LoginScreen3>
         children: <Widget>[
           Container(
             padding: EdgeInsets.only(top: 250.0),
-            child: Center(
-              
-            ),
+            child: Center(),
           ),
           Container(
             padding: EdgeInsets.only(top: 20.0),
@@ -426,9 +423,7 @@ class _LoginScreen3State extends State<LoginScreen3>
           children: <Widget>[
             Container(
               padding: EdgeInsets.all(120.0),
-              child: Center(
-                
-              ),
+              child: Center(),
             ),
             new Row(
               children: <Widget>[
@@ -718,9 +713,7 @@ class _LoginScreen3State extends State<LoginScreen3>
           children: <Widget>[
             Container(
               padding: EdgeInsets.all(80.0),
-              child: Center(
-                
-              ),
+              child: Center(),
             ),
             new Row(
               children: <Widget>[
@@ -940,7 +933,6 @@ class _LoginScreen3State extends State<LoginScreen3>
                 ),
               ],
             ),
-            
           ],
         ),
       ),

@@ -4,18 +4,17 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:rapide_achat/home.dart';
 
 class PayPalPage extends StatefulWidget {
-    PayPalPage({Key key, this.url}) : super(key: key);
+  PayPalPage({Key key, this.url}) : super(key: key);
   final String url;
   @override
   _PayPalPage createState() => _PayPalPage(url);
 }
 
 class _PayPalPage extends State<PayPalPage> {
-    _PayPalPage(this.url);
+  _PayPalPage(this.url);
   String url;
   final String _simpleValue1 = 'logout';
   String _simpleValue;
-
 
   void showMenuSelection(String value) async {
     if (<String>[_simpleValue1].contains(value)) _simpleValue = value;
@@ -33,7 +32,6 @@ class _PayPalPage extends State<PayPalPage> {
       MaterialPageRoute(builder: (context) => HomeScreen()), //MaterialPageRoute
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +60,6 @@ class _PayPalPage extends State<PayPalPage> {
       withJavascript: true,
       withZoom: true,
       hidden: true,
-      
     );
   }
 }

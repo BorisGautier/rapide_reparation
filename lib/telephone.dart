@@ -1,4 +1,3 @@
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +5,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rapide_achat/choix.dart';
 import 'package:rapide_achat/home.dart';
 import 'package:rapide_achat/phoneList.dart';
-
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -21,7 +19,19 @@ List iphone = [
 List huawei = ["Honnor", "Mate", "Nova", "Autres"];
 List htc = [""];
 List blackberry = [""];
-List samsung = ["S", "Note","J","Mega","Trend","C","A","Ace","Core","Grand","Xcover"];
+List samsung = [
+  "S",
+  "Note",
+  "J",
+  "Mega",
+  "Trend",
+  "C",
+  "A",
+  "Ace",
+  "Core",
+  "Grand",
+  "Xcover"
+];
 
 List<DropdownMenuItem<String>> _dropDownMenuItems;
 String _currentModele;
@@ -402,11 +412,10 @@ class _TelephonePage extends State<TelephonePage> {
         } else if (_currentModele == _dropDownMenuItems[1].value) {
           modele = "446";
           bu = true;
-        }
-        else if (_currentModele == _dropDownMenuItems[2].value) {
+        } else if (_currentModele == _dropDownMenuItems[2].value) {
           modele = "527";
           bu = true;
-        }  else if (_currentModele == _dropDownMenuItems[3].value) {
+        } else if (_currentModele == _dropDownMenuItems[3].value) {
           modele = "528";
           bu = true;
         } else if (_currentModele == _dropDownMenuItems[4].value) {
@@ -418,11 +427,10 @@ class _TelephonePage extends State<TelephonePage> {
         } else if (_currentModele == _dropDownMenuItems[6].value) {
           modele = "531";
           bu = true;
-        }
-        else if (_currentModele == _dropDownMenuItems[7].value) {
+        } else if (_currentModele == _dropDownMenuItems[7].value) {
           modele = "532";
           bu = true;
-        }  else if (_currentModele == _dropDownMenuItems[8].value) {
+        } else if (_currentModele == _dropDownMenuItems[8].value) {
           modele = "533";
           bu = true;
         } else if (_currentModele == _dropDownMenuItems[9].value) {

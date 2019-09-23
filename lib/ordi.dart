@@ -1,4 +1,3 @@
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +5,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rapide_achat/choix.dart';
 import 'package:rapide_achat/home.dart';
 import 'package:rapide_achat/phoneList.dart';
-
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -17,8 +15,6 @@ List lenovo = [""];
 List toshiba = [""];
 
 List hp = [""];
-
-
 
 List<DropdownMenuItem<String>> _dropDownMenuItems;
 String _currentModele;
@@ -92,7 +88,7 @@ class _OrdiPage extends State<OrdiPage> {
         items.add(new DropdownMenuItem(value: mod, child: new Text(mod)));
       }
       return items;
-    } 
+    }
   }
 
   void showMenuSelection(String value) async {
@@ -213,13 +209,13 @@ class _OrdiPage extends State<OrdiPage> {
                               "Toshiba",
                             ),
                           ),
-                           DropdownMenuItem<String>(
+                          DropdownMenuItem<String>(
                             value: "404",
                             child: Text(
                               "Imac",
                             ),
                           ),
-                           DropdownMenuItem<String>(
+                          DropdownMenuItem<String>(
                             value: "411",
                             child: Text(
                               "Lenovo",
@@ -239,12 +235,12 @@ class _OrdiPage extends State<OrdiPage> {
                               setState(() => i = true);
                             }
 
-                             if (value == "405") {
+                            if (value == "405") {
                               _dropDownMenuItems = getDropDownMenuItems();
                               setState(() => i = true);
                             }
 
-                             if (value == "411") {
+                            if (value == "411") {
                               _dropDownMenuItems = getDropDownMenuItems();
                               setState(() => i = true);
                             }
@@ -346,16 +342,16 @@ class _OrdiPage extends State<OrdiPage> {
       if (val == "403") {
         modele = _currentModele;
         bu = true;
-      }  else if (val == "404") {
+      } else if (val == "404") {
         modele = _currentModele;
         bu = true;
-      }  else if (val == "405") {
+      } else if (val == "405") {
         modele = _currentModele;
         bu = true;
-      }  else if (val == "411") {
+      } else if (val == "411") {
         modele = _currentModele;
         bu = true;
-      } 
+      }
     });
   }
 

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:rapide_achat/login.dart';
 import 'package:rapide_achat/loginEnt.dart';
@@ -8,15 +7,13 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => new _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-    with TickerProviderStateMixin {
-
-      @override
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+  @override
   void initState() {
     super.initState();
   }
 
-Widget homePage() {
+  Widget homePage() {
     return new Container(
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
@@ -32,9 +29,7 @@ Widget homePage() {
         children: <Widget>[
           Container(
             padding: EdgeInsets.only(top: 180.0),
-            child: Center(
-              
-            ),
+            child: Center(),
           ),
           Container(
             padding: EdgeInsets.only(top: 80.0),
@@ -42,7 +37,7 @@ Widget homePage() {
               mainAxisAlignment: MainAxisAlignment.center,
             ),
           ),
-           new Container(
+          new Container(
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
             alignment: Alignment.center,
@@ -53,12 +48,14 @@ Widget homePage() {
                     shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)),
                     color: Colors.white,
-                    onPressed: () { Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => LoginENT(),
-                ),
-              );},
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginENT(),
+                        ),
+                      );
+                    },
                     child: new Container(
                       padding: const EdgeInsets.symmetric(
                         vertical: 20.0,
@@ -95,12 +92,14 @@ Widget homePage() {
                     shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)),
                     color: Colors.white,
-                    onPressed: () { Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => LoginPage(),
-                ),
-              );},
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginPage(),
+                        ),
+                      );
+                    },
                     child: new Container(
                       padding: const EdgeInsets.symmetric(
                         vertical: 20.0,
@@ -131,7 +130,7 @@ Widget homePage() {
     );
   }
 
- PageController _controller =
+  PageController _controller =
       new PageController(initialPage: 1, viewportFraction: 1.0);
 
   @override
@@ -145,5 +144,4 @@ Widget homePage() {
           scrollDirection: Axis.horizontal,
         ));
   }
-
-    }
+}

@@ -35,19 +35,18 @@ class _AccueilProPage extends State<AccueilProPage> {
   bool _isLoading = false;
   ApiRest api = new ApiRest();
 
- Future _getReservation() async {
-   // SharedPreferences prefs = await SharedPreferences.getInstance();
-   // String ent = (prefs.getString('ent'));
+  Future _getReservation() async {
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    // String ent = (prefs.getString('ent'));
 
-    api.getReseration("Rapide Réparation").then((ReservationResponse reservationresponse) {
+    api
+        .getReseration("Rapide Réparation")
+        .then((ReservationResponse reservationresponse) {
       setState(() {
         if (reservationresponse.status == "success") {
-          
-               
           reservationF = reservationresponse.reservation;
-          
-            setState(() => _isLoading = false);
-          
+
+          setState(() => _isLoading = false);
         }
       });
     });
@@ -56,11 +55,10 @@ class _AccueilProPage extends State<AccueilProPage> {
   @override
   void initState() {
     super.initState();
-    timer =Timer(new Duration(milliseconds: 3000), ()  {
+    timer = Timer(new Duration(milliseconds: 3000), () {
       setState(() => _isLoading = true);
-         _getReservation();
+      _getReservation();
     });
-    
   }
 
   @override
@@ -102,19 +100,20 @@ class _AccueilProPage extends State<AccueilProPage> {
           PopupMenuButton<String>(
             onSelected: showMenuSelection,
             itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
-                  const PopupMenuItem<String>(
-                      value: 'logout', child: Text('Deconnexion')),
-                  /*  const PopupMenuItem<String>(
+              const PopupMenuItem<String>(
+                  value: 'logout', child: Text('Deconnexion')),
+              /*  const PopupMenuItem<String>(
                       value: 'setting', child: Text('Paramètres')),*/
-                ],
+            ],
           )
         ],
       ),
-      body: _isLoading ? Center(child:new CircularProgressIndicator()) : ListView.builder(
-       itemCount: reservationF.length,
-                                itemBuilder: (context, index) {
-
-                                /*  confirme(String id) {
+      body: _isLoading
+          ? Center(child: new CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: reservationF.length,
+              itemBuilder: (context, index) {
+                /*  confirme(String id) {
                                     // String id = reservationF[index].id;
                                     api.confirmer(id).then((Response response) {
                                       setState(() {
@@ -131,29 +130,30 @@ class _AccueilProPage extends State<AccueilProPage> {
                                       });
                                     });
                                   }*/
-          return  Card(
-                                    elevation: 5.0,
-                                    child: ListTile(
-                                      title: Text(
-                                        reservationF[index].modele,
-                                        style: TextStyle(
-                                            fontStyle: FontStyle.italic,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      subtitle:Text(
-                                       "problème: "+reservationF[index].probleme+" "+"Date de la reservation: "+reservationF[index].date,
-                                        style: TextStyle(
-                                            fontStyle: FontStyle.italic,),
-                                      ) ,
-                                   
-                                      
-                                    ),
-                                    );
-                                
-          
-        },
-      ),
-    /*  ListView.builder(
+                return Card(
+                  elevation: 5.0,
+                  child: ListTile(
+                    title: Text(
+                      reservationF[index].modele,
+                      style: TextStyle(
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(
+                      "problème: " +
+                          reservationF[index].probleme +
+                          " " +
+                          "Date de la reservation: " +
+                          reservationF[index].date,
+                      style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+      /*  ListView.builder(
                                 itemCount: reservationF.length,
                                 itemBuilder: (context, index) {
 
@@ -231,8 +231,7 @@ class _AccueilProPage extends State<AccueilProPage> {
                                  
                                 }
       ),*/
-      
-      
+
       /*ListView(
         children: <Widget>[
           Padding(

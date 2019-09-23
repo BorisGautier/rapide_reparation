@@ -10,14 +10,14 @@ class RegisterPage2 extends StatefulWidget {
 }
 
 class _RegisterPageState2 extends State<RegisterPage2> {
-   _RegisterPageState2(this.ent);
+  _RegisterPageState2(this.ent);
   final String ent;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          child: RegisterScreen2(ent: ent),
-        ),
+        child: RegisterScreen2(ent: ent),
+      ),
     );
   }
 }

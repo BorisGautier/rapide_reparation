@@ -1,4 +1,3 @@
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,14 +6,11 @@ import 'package:rapide_achat/choix.dart';
 import 'package:rapide_achat/home.dart';
 import 'package:rapide_achat/phoneList.dart';
 
-
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
-List samsung = ["J","Trend","A","Ace","Core","Xcover"];
+List samsung = ["J", "Trend", "A", "Ace", "Core", "Xcover"];
 
 List ipad = [""];
-
-
 
 List<DropdownMenuItem<String>> _dropDownMenuItems;
 String _currentModele;
@@ -74,7 +70,7 @@ class _TablettePage extends State<TablettePage> {
         items.add(new DropdownMenuItem(value: mod, child: new Text(mod)));
       }
       return items;
-    } 
+    }
   }
 
   void showMenuSelection(String value) async {
@@ -323,10 +319,10 @@ class _TablettePage extends State<TablettePage> {
           modele = "527";
           bu = true;
         }
-      }  else if (val == "413") {
+      } else if (val == "413") {
         modele = _currentModele;
         bu = true;
-      } 
+      }
     });
   }
 

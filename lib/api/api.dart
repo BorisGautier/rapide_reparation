@@ -12,51 +12,56 @@ import 'package:rapide_achat/models/societeResponse.dart';
 class ApiRest {
   static final REGISTERF_URL =
       "http://rapideachat.sjpcommunity.cm/public/registerf";
-      static final REGISTER_URL =
+  static final REGISTER_URL =
       "http://rapideachat.sjpcommunity.cm/public/register";
-      static final RESERVATION_URL =
+  static final RESERVATION_URL =
       "http://rapideachat.sjpcommunity.cm/public/reservation";
-       static final REGISTERE_URL =
+  static final REGISTERE_URL =
       "http://rapideachat.sjpcommunity.cm/public/registere";
-       static final REGISTERES_URL =
+  static final REGISTERES_URL =
       "http://rapideachat.sjpcommunity.cm/public/registeres";
-       static final REGISTERT_URL =
+  static final REGISTERT_URL =
       "http://rapideachat.sjpcommunity.cm/public/registeret";
-      static final GETSOCIETE_URL =
-      "http://rapideachat.sjpcommunity.cm/public/getsociete"; 
-       static final GETRESERVATION_URL =
+  static final GETSOCIETE_URL =
+      "http://rapideachat.sjpcommunity.cm/public/getsociete";
+  static final GETRESERVATION_URL =
       "http://rapideachat.sjpcommunity.cm/public/getreservation";
-       static final CONFIRM_URL =
+  static final CONFIRM_URL =
       "http://rapideachat.sjpcommunity.cm/public/confirm";
-       static final STRIPE_URL =
-      "http://rapideachat.sjpcommunity.cm/public/stripe";
-      static final GETDISTANCE_URL =
-      "http://rapideachat.sjpcommunity.cm/public/getd"; 
-      static final GETPAYPAL_URL =
-      "http://rapideachat.sjpcommunity.cm/public/paypalPay"; 
-      static final NOMINATIM_URL =
-      "https://nominatim.openstreetmap.org/reverse"; 
-        static final NOMINATIM_SEARCH_URL =
+  static final STRIPE_URL = "http://rapideachat.sjpcommunity.cm/public/stripe";
+  static final GETDISTANCE_URL =
+      "http://rapideachat.sjpcommunity.cm/public/getd";
+  static final GETPAYPAL_URL =
+      "http://rapideachat.sjpcommunity.cm/public/paypalPay";
+  static final NOMINATIM_URL = "https://nominatim.openstreetmap.org/reverse";
+  static final NOMINATIM_SEARCH_URL =
       "https://nominatim.openstreetmap.org/search";
-      static final PRODUIT_URL =
+  static final PRODUIT_URL =
       "https://www.rapide-achat.com/wp-json/public-woo/v1/products";
 
-
-   Future<ProduitResponse> getProduit(String categorie, String id) {
-    return http.get(PRODUIT_URL+"?"+categorie+"="+id).then((http.Response response) {
-       final String res = response.body;
+  Future<ProduitResponse> getProduit(String categorie, String id) {
+    return http
+        .get(PRODUIT_URL + "?" + categorie + "=" + id)
+        .then((http.Response response) {
+      final String res = response.body;
       if (response.statusCode == 200) {
-          return new ProduitResponse.fromMap(json.decode(res));
-        } else {
-          throw new Exception("Error while fetching data");
-        }
+        return new ProduitResponse.fromMap(json.decode(res));
+      } else {
+        throw new Exception("Error while fetching data");
+      }
     });
   }
 
-
-
-       Future<NominatimResponse> nominatim(String lat, String lon) {
-    return http.get(NOMINATIM_URL+"?"+"lat="+lat+"&lon="+lon+"&format=json&addressdetails=1").then((http.Response response) {
+  Future<NominatimResponse> nominatim(String lat, String lon) {
+    return http
+        .get(NOMINATIM_URL +
+            "?" +
+            "lat=" +
+            lat +
+            "&lon=" +
+            lon +
+            "&format=json&addressdetails=1")
+        .then((http.Response response) {
       final String res = response.body;
       if (response.statusCode == 200) {
         var j = json.decode(res);
@@ -72,27 +77,33 @@ class ApiRest {
     });
   }
 
-    Future<NominatimSearch> nominatimSearch(String search) {
-    return http.get(NOMINATIM_SEARCH_URL+"?"+"q="+search+"&format=json&polygon=0&addressdetails=1&countrycodes=fr").then((http.Response response) {
+  Future<NominatimSearch> nominatimSearch(String search) {
+    return http
+        .get(NOMINATIM_SEARCH_URL +
+            "?" +
+            "q=" +
+            search +
+            "&format=json&polygon=0&addressdetails=1&countrycodes=fr")
+        .then((http.Response response) {
       final String res = response.body;
       if (response.statusCode == 200) {
         var j = json.decode(res);
-          return new NominatimSearch.fromJson(json.decode(res));
-        } else {
-          throw new Exception("Error while fetching data");
-        }
-      
+        return new NominatimSearch.fromJson(json.decode(res));
+      } else {
+        throw new Exception("Error while fetching data");
+      }
     });
   }
 
-      Future<Response> registerF(String name, String email, String ville,String telephone,String date,String facebook_id) {
+  Future<Response> registerF(String name, String email, String ville,
+      String telephone, String date, String facebook_id) {
     return http.post(REGISTERF_URL, body: {
       "email": email,
       "ville": ville,
       "name": name,
-      "telephone":telephone,
-      "date":date,
-      "facebook_id":facebook_id
+      "telephone": telephone,
+      "date": date,
+      "facebook_id": facebook_id
     }).then((http.Response response) {
       final String res = response.body;
       if (response.statusCode == 201) {
@@ -109,13 +120,14 @@ class ApiRest {
     });
   }
 
-    Future<Response> register(String name, String email, String ville,String telephone,String date) {
+  Future<Response> register(
+      String name, String email, String ville, String telephone, String date) {
     return http.post(REGISTER_URL, body: {
       "email": email,
       "ville": ville,
       "name": name,
-      "telephone":telephone,
-      "date":date
+      "telephone": telephone,
+      "date": date
     }).then((http.Response response) {
       final String res = response.body;
       if (response.statusCode == 201) {
@@ -132,15 +144,16 @@ class ApiRest {
     });
   }
 
-     Future<Response> registerE(String ent, String email, String kbis,String rib,String id,String lng,String lat) {
+  Future<Response> registerE(String ent, String email, String kbis, String rib,
+      String id, String lng, String lat) {
     return http.post(REGISTERE_URL, body: {
       "entreprise": ent,
       "email": email,
       "kbis": kbis,
-      "rib":rib,
-      "lng":lng,
-      "lat":lat,
-      "id_facebook":id
+      "rib": rib,
+      "lng": lng,
+      "lat": lat,
+      "id_facebook": id
     }).then((http.Response response) {
       final String res = response.body;
       if (response.statusCode == 201) {
@@ -157,14 +170,15 @@ class ApiRest {
     });
   }
 
-       Future<Response> registerES(String ent, String email, String kbis,String rib,String lng,String lat) {
+  Future<Response> registerES(String ent, String email, String kbis, String rib,
+      String lng, String lat) {
     return http.post(REGISTERES_URL, body: {
       "entreprise": ent,
       "email": email,
       "kbis": kbis,
-      "rib":rib,
-      "lng":lng,
-      "lat":lat
+      "rib": rib,
+      "lng": lng,
+      "lat": lat
     }).then((http.Response response) {
       final String res = response.body;
       if (response.statusCode == 201) {
@@ -181,12 +195,13 @@ class ApiRest {
     });
   }
 
-    Future<Response> registerT(String nomT,String ent,String cv,String diplome) {
+  Future<Response> registerT(
+      String nomT, String ent, String cv, String diplome) {
     return http.post(REGISTERT_URL, body: {
       "entreprise": ent,
       "technicien": nomT,
       "cv": cv,
-      "diplome":diplome
+      "diplome": diplome
     }).then((http.Response response) {
       final String res = response.body;
       if (response.statusCode == 201) {
@@ -203,20 +218,32 @@ class ApiRest {
     });
   }
 
- Future<Response> reservation(String appareil, String email, String modele,String probleme,String assistance,String dateR, String token,String societe,String adresse,String code,String etage,String infos) {
+  Future<Response> reservation(
+      String appareil,
+      String email,
+      String modele,
+      String probleme,
+      String assistance,
+      String dateR,
+      String token,
+      String societe,
+      String adresse,
+      String code,
+      String etage,
+      String infos) {
     return http.post(RESERVATION_URL, body: {
       "email": email,
       "appareil": appareil,
       "modele": modele,
-      "probleme":probleme,
-      "assistance":assistance,
-      "dateR":dateR,
-      "token":token,
-      "societe" : societe,
-      "adresse" : adresse,
-      "code" : code,
-      "etage" : etage,
-      "infos":infos
+      "probleme": probleme,
+      "assistance": assistance,
+      "dateR": dateR,
+      "token": token,
+      "societe": societe,
+      "adresse": adresse,
+      "code": code,
+      "etage": etage,
+      "infos": infos
     }).then((http.Response response) {
       final String res = response.body;
       if (response.statusCode == 201) {
@@ -233,7 +260,7 @@ class ApiRest {
     });
   }
 
- /*   Future<SocieteResponse> getSociete(String lng, String lat) {
+  /*   Future<SocieteResponse> getSociete(String lng, String lat) {
     return http.post(GETSOCIETE_URL, body: {"lng": lng,"lat": lat}).then(
         (http.Response response) {
       final String res = response.body;
@@ -249,7 +276,7 @@ class ApiRest {
     });
     }*/
 
-     Future<SocieteResponse> getSociete(String societe) {
+  Future<SocieteResponse> getSociete(String societe) {
     return http.post(GETSOCIETE_URL, body: {"societe": "rapide achat"}).then(
         (http.Response response) {
       final String res = response.body;
@@ -265,9 +292,12 @@ class ApiRest {
     });
   }
 
-    Future<Dist> getd(String societe,String lng,String lat) {
-    return http.post(GETDISTANCE_URL, body: {"societe": societe,"lng":lng,"lat":lat}).then(
-        (http.Response response) {
+  Future<Dist> getd(String societe, String lng, String lat) {
+    return http.post(GETDISTANCE_URL, body: {
+      "societe": societe,
+      "lng": lng,
+      "lat": lat
+    }).then((http.Response response) {
       final String res = response.body;
       if (response.statusCode == 200) {
         var j = json.decode(res);
@@ -281,9 +311,10 @@ class ApiRest {
     });
   }
 
-   Future<Response> getPaypal(String prix,String probleme) {
-    return http.post(GETPAYPAL_URL, body: {"amount": prix,"probleme":probleme}).then(
-        (http.Response response) {
+  Future<Response> getPaypal(String prix, String probleme) {
+    return http
+        .post(GETPAYPAL_URL, body: {"amount": prix, "probleme": probleme}).then(
+            (http.Response response) {
       final String res = response.body;
       if (response.statusCode == 200) {
         var j = json.decode(res);
@@ -297,7 +328,7 @@ class ApiRest {
     });
   }
 
-     Future<ReservationResponse> getReseration(String societe) {
+  Future<ReservationResponse> getReseration(String societe) {
     return http.post(GETRESERVATION_URL, body: {"societe": societe}).then(
         (http.Response response) {
       final String res = response.body;
@@ -313,9 +344,9 @@ class ApiRest {
     });
   }
 
-    Future<Response> confirmer(String id) {
-    return http.post(CONFIRM_URL, body: {"id": id}).then(
-        (http.Response response) {
+  Future<Response> confirmer(String id) {
+    return http
+        .post(CONFIRM_URL, body: {"id": id}).then((http.Response response) {
       final String res = response.body;
       if (response.statusCode == 200) {
         var j = json.decode(res);
@@ -329,7 +360,7 @@ class ApiRest {
     });
   }
 
-    Future<Response> stripe(String token,String email,String prix) {
+  Future<Response> stripe(String token, String email, String prix) {
     return http.post(STRIPE_URL, body: {
       "token": token,
       "email": email,
@@ -349,5 +380,4 @@ class ApiRest {
       }
     });
   }
-
 }

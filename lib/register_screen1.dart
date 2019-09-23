@@ -14,7 +14,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:rapide_achat/register2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class RegisterScreen1 extends StatefulWidget {
@@ -36,32 +35,31 @@ class _RegisterScreenState1 extends State<RegisterScreen1>
   bool editable = true;
   DateTime date1;
 
-  String nom_entreprise,file,file1,tof1,tof2;
+  String nom_entreprise, file, file1, tof1, tof2;
 
   TextEditingController controllerName = new TextEditingController();
 
-  File kbis,rib;
+  File kbis, rib;
 
- 
   ApiRest api = new ApiRest();
 
+  String format(double n) {
+    return n.toStringAsFixed(n.truncateToDouble() == n ? 0 : 6);
+  }
 
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(
+        source: ImageSource.gallery, maxHeight: 250, maxWidth: 400);
 
-   String format(double n) {
-  return n.toStringAsFixed(n.truncateToDouble() == n ? 0 : 6);
-}
-
- Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery,maxHeight: 250,maxWidth:400);
-  
     setState(() {
       kbis = image;
     });
   }
 
-   Future getImage1() async {
-    var image1 = await ImagePicker.pickImage(source: ImageSource.gallery,maxHeight: 250,maxWidth:400);
-  
+  Future getImage1() async {
+    var image1 = await ImagePicker.pickImage(
+        source: ImageSource.gallery, maxHeight: 250, maxWidth: 400);
+
     setState(() {
       rib = image1;
     });
@@ -69,20 +67,21 @@ class _RegisterScreenState1 extends State<RegisterScreen1>
 
   register() async {
     setState(() => _isLoading = true);
-     List<int> imageBytes = await kbis.readAsBytesSync();
-     List<int> imageBytes1 = await rib.readAsBytesSync();
-      tof1 = base64Encode(imageBytes);
-      tof2 = base64Encode(imageBytes1);
-     nom_entreprise = controllerName.text;
-     file = kbis.path.split("/").last;
-     file1 = rib.path.split("/").last;
+    List<int> imageBytes = await kbis.readAsBytesSync();
+    List<int> imageBytes1 = await rib.readAsBytesSync();
+    tof1 = base64Encode(imageBytes);
+    tof2 = base64Encode(imageBytes1);
+    nom_entreprise = controllerName.text;
+    file = kbis.path.split("/").last;
+    file1 = rib.path.split("/").last;
 
-     Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-   double lng = position.longitude;
+    Position position = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    double lng = position.longitude;
     double lat = position.latitude;
-    
 
-    String l1 = format(lng); String l2 = format(lat);
+    String l1 = format(lng);
+    String l2 = format(lat);
 
     if (nom_entreprise.isEmpty) {
       setState(() => _isLoading = false);
@@ -97,7 +96,7 @@ class _RegisterScreenState1 extends State<RegisterScreen1>
     } else {
       final FirebaseUser currentUser = await _auth.currentUser();
 
-    /*  if (connectType == "facebook") {
+      /*  if (connectType == "facebook") {
         setState(() {
           if (currentUser != null) {
            
@@ -144,60 +143,60 @@ class _RegisterScreenState1 extends State<RegisterScreen1>
           }
         });
       } */
-      
-  //    else {
-        setState(() async {
-          if (currentUser != null) {
 
-          
-          
-     api.registerES(nom_entreprise,currentUser.email,"a,"+tof1, "a,"+tof2,l1,l2).then((Response response) async {
-      if (response.status == "success") {
-           setState(() => _isLoading = false);
-            Fluttertoast.showToast(
-                msg: "Enregistrement de l'entreprise terminé avec succès",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIos: 1,
-                backgroundColor: Colors.green[400],
-                textColor: Colors.white,
-                fontSize: 16.0);
+      //    else {
+      setState(() async {
+        if (currentUser != null) {
+          api
+              .registerES(nom_entreprise, currentUser.email, "a," + tof1,
+                  "a," + tof2, l1, l2)
+              .then((Response response) async {
+            if (response.status == "success") {
+              setState(() => _isLoading = false);
+              Fluttertoast.showToast(
+                  msg: "Enregistrement de l'entreprise terminé avec succès",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIos: 1,
+                  backgroundColor: Colors.green[400],
+                  textColor: Colors.white,
+                  fontSize: 16.0);
 
-                   SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.setString('ent', nom_entreprise);
-  await prefs.setString('compte', "ent");
-  
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => RegisterPage2(ent : nom_entreprise),
-              ),
-            );
-      } else {
-         setState(() => _isLoading = false);
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              await prefs.setString('ent', nom_entreprise);
+              await prefs.setString('compte', "ent");
+
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RegisterPage2(ent: nom_entreprise),
+                ),
+              );
+            } else {
+              setState(() => _isLoading = false);
+              Fluttertoast.showToast(
+                  msg: "Erreur lors de l'enregistrement",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIos: 1,
+                  backgroundColor: Colors.red[400],
+                  textColor: Colors.white,
+                  fontSize: 16.0);
+            }
+          });
+        } else {
+          setState(() => _isLoading = false);
           Fluttertoast.showToast(
-              msg: "Erreur lors de l'enregistrement",
+              msg: "Erreur de connexion au compte",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIos: 1,
               backgroundColor: Colors.red[400],
               textColor: Colors.white,
               fontSize: 16.0);
-      }
-    });
-          } else {
-            setState(() => _isLoading = false);
-            Fluttertoast.showToast(
-                msg: "Erreur de connexion au compte",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIos: 1,
-                backgroundColor: Colors.red[400],
-                textColor: Colors.white,
-                fontSize: 16.0);
-          }
-        });
-   //   }
+        }
+      });
+      //   }
     }
   }
 
@@ -216,14 +215,12 @@ class _RegisterScreenState1 extends State<RegisterScreen1>
         ),
         child: new Column(
           children: <Widget>[
-            
             Container(
               padding: EdgeInsets.all(80.0),
-              child: Center(
-                
-              ),
+              child: Center(),
             ),
-            Text("NB: Votre position actuelle sera utilisée comme position de votre entreprise"),
+            Text(
+                "NB: Votre position actuelle sera utilisée comme position de votre entreprise"),
             Divider(),
             new Row(
               children: <Widget>[
@@ -312,41 +309,44 @@ class _RegisterScreenState1 extends State<RegisterScreen1>
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                kbis == null ?  new Expanded(
-                    child:  TextField(
-                          keyboardType: TextInputType.text,
-                          onTap:getImage ,
-                          style: TextStyle(
-                              fontFamily: "WorkSansSemiBold",
-                              fontSize: 16.0,
-                              color: Colors.black),
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            icon: Icon(
-                              FontAwesomeIcons.file,
-                              color: Colors.black,
-                            ),
-                            hintText: file,
-                            hintStyle: TextStyle(
-                                fontFamily: "WorkSansSemiBold", fontSize: 16.0),
-                                suffixIcon: GestureDetector(
-                              onTap: getImage,
-                              child:  Icon(
-                                FontAwesomeIcons.image,
-                                size: 15.0,
+                  kbis == null
+                      ? new Expanded(
+                          child: TextField(
+                            keyboardType: TextInputType.text,
+                            onTap: getImage,
+                            style: TextStyle(
+                                fontFamily: "WorkSansSemiBold",
+                                fontSize: 16.0,
+                                color: Colors.black),
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              icon: Icon(
+                                FontAwesomeIcons.file,
                                 color: Colors.black,
                               ),
+                              hintText: file,
+                              hintStyle: TextStyle(
+                                  fontFamily: "WorkSansSemiBold",
+                                  fontSize: 16.0),
+                              suffixIcon: GestureDetector(
+                                onTap: getImage,
+                                child: Icon(
+                                  FontAwesomeIcons.image,
+                                  size: 15.0,
+                                  color: Colors.black,
+                                ),
+                              ),
                             ),
+                            onChanged: (dt) => setState(() => file = dt),
                           ),
-                          onChanged: (dt) => setState(() => file = dt),
-                        ), 
-                  ):  Container(
-              width: 100,
-              height: 100,
-              child: Card(
-              child:Image.file(kbis),
-            ),
-            ),
+                        )
+                      : Container(
+                          width: 100,
+                          height: 100,
+                          child: Card(
+                            child: Image.file(kbis),
+                          ),
+                        ),
                 ],
               ),
             ),
@@ -387,41 +387,44 @@ class _RegisterScreenState1 extends State<RegisterScreen1>
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                rib == null ?  new Expanded(
-                    child:  TextField(
-                      onTap:getImage1 ,
-                          keyboardType: TextInputType.text,
-                          style: TextStyle(
-                              fontFamily: "WorkSansSemiBold",
-                              fontSize: 16.0,
-                              color: Colors.black),
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            icon: Icon(
-                              FontAwesomeIcons.file,
-                              color: Colors.black,
-                            ),
-                            hintText: file1,
-                            hintStyle: TextStyle(
-                                fontFamily: "WorkSansSemiBold", fontSize: 16.0),
-                                suffixIcon: GestureDetector(
-                              onTap: getImage,
-                              child: Icon(
-                                FontAwesomeIcons.image,
-                                size: 15.0,
+                  rib == null
+                      ? new Expanded(
+                          child: TextField(
+                            onTap: getImage1,
+                            keyboardType: TextInputType.text,
+                            style: TextStyle(
+                                fontFamily: "WorkSansSemiBold",
+                                fontSize: 16.0,
+                                color: Colors.black),
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              icon: Icon(
+                                FontAwesomeIcons.file,
                                 color: Colors.black,
                               ),
+                              hintText: file1,
+                              hintStyle: TextStyle(
+                                  fontFamily: "WorkSansSemiBold",
+                                  fontSize: 16.0),
+                              suffixIcon: GestureDetector(
+                                onTap: getImage,
+                                child: Icon(
+                                  FontAwesomeIcons.image,
+                                  size: 15.0,
+                                  color: Colors.black,
+                                ),
+                              ),
                             ),
+                            onChanged: (dt) => setState(() => file1 = dt),
                           ),
-                          onChanged: (dt) => setState(() => file1 = dt),
+                        )
+                      : Container(
+                          width: 100,
+                          height: 100,
+                          child: Card(
+                            child: Image.file(rib),
+                          ),
                         ),
-                  ):  Container(
-              width: 100,
-              height: 100,
-              child: Card(
-              child:Image.file(rib),
-            ),
-            ),
                 ],
               ),
             ),
@@ -529,6 +532,4 @@ class _RegisterScreenState1 extends State<RegisterScreen1>
           scrollDirection: Axis.horizontal,
         ));
   }
-
- 
 }

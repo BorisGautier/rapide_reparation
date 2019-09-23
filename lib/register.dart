@@ -10,14 +10,14 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-   _RegisterPageState(this.connectType);
+  _RegisterPageState(this.connectType);
   final String connectType;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          child: RegisterScreen(connectType: connectType),
-        ),
+        child: RegisterScreen(connectType: connectType),
+      ),
     );
   }
 }

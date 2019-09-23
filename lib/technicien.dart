@@ -711,83 +711,86 @@ class _MyDialogContentState extends State<MyDialogContent> {
     return AlertDialog(
       title: Text('Adresse'),
       content: new Column(
-          children: <Widget>[
-            Expanded(
-                child: isLoading
-                    ? TypeAheadField(
-                        hideSuggestionsOnKeyboardHide: false,
-                        textFieldConfiguration: TextFieldConfiguration(
-                          autofocus: true,
-                          style: TextStyle(color: Colors.black, fontSize: 16.0),
-                          decoration: new InputDecoration(
-                            suffixIcon: GestureDetector(
-                              onTap: () {
-                                setState(() => isLoading = false);
-                                search();
-                              },
-                              child: Icon(
-                                FontAwesomeIcons.mapMarker,
-                                size: 15.0,
-                                color: Colors.black,
-                              ),
+        children: <Widget>[
+          Expanded(
+              child: isLoading
+                  ? TypeAheadField(
+                      hideSuggestionsOnKeyboardHide: false,
+                      textFieldConfiguration: TextFieldConfiguration(
+                        autofocus: true,
+                        style: TextStyle(color: Colors.black, fontSize: 16.0),
+                        decoration: new InputDecoration(
+                          suffixIcon: GestureDetector(
+                            onTap: () {
+                              setState(() => isLoading = false);
+                              search();
+                            },
+                            child: Icon(
+                              FontAwesomeIcons.mapMarker,
+                              size: 15.0,
+                              color: Colors.black,
                             ),
                           ),
-                          controller: adresseController,
                         ),
-                        suggestionsCallback: (pattern) async {
-                          return await getPlace(pattern);
-                        },
-                        itemBuilder: (context, suggestion) {
-                          return ListTile(
-                            leading: Icon(Icons.place),
-                            title: Text(suggestion.displayName),
-                          );
-                        },
-                        onSuggestionSelected: (suggestion) {
-                          adresseController.text = suggestion.displayName;
-                        },
-                      )
-                    : new Center(
-                        child: CircularProgressIndicator(),
-                      )),
-                      Divider(color: Colors.transparent,),
-            new Expanded(
-                child: new TextField(
-              keyboardType: TextInputType.text,
-              autofocus: true,
-              decoration: new InputDecoration(
-                  hintText: 'votre code',
-                  fillColor: Colors.red[900]),
-              onChanged: (value) {
-                code = value;
-              },
-            )),
-            Divider(color: Colors.transparent,),
-            new Expanded(
-                child: new TextField(
-              keyboardType: TextInputType.text,
-              autofocus: true,
-              decoration: new InputDecoration(
-                  hintText: 'votre étage',
-                  fillColor: Colors.red[900]),
-              onChanged: (value) {
-                etage = value;
-              },
-            )),
-            Divider(color: Colors.transparent,),
-            new Expanded(
-                child: new TextField(
-              keyboardType: TextInputType.text,
-              autofocus: true,
-              decoration: new InputDecoration(
-                  hintText: 'infos',
-                  fillColor: Colors.red[900]),
-              onChanged: (value) {
-                infos = value;
-              },
-            )),
-          ],
-        ),
+                        controller: adresseController,
+                      ),
+                      suggestionsCallback: (pattern) async {
+                        return await getPlace(pattern);
+                      },
+                      itemBuilder: (context, suggestion) {
+                        return ListTile(
+                          leading: Icon(Icons.place),
+                          title: Text(suggestion.displayName),
+                        );
+                      },
+                      onSuggestionSelected: (suggestion) {
+                        adresseController.text = suggestion.displayName;
+                      },
+                    )
+                  : new Center(
+                      child: CircularProgressIndicator(),
+                    )),
+          Divider(
+            color: Colors.transparent,
+          ),
+          new Expanded(
+              child: new TextField(
+            keyboardType: TextInputType.text,
+            autofocus: true,
+            decoration: new InputDecoration(
+                hintText: 'votre code', fillColor: Colors.red[900]),
+            onChanged: (value) {
+              code = value;
+            },
+          )),
+          Divider(
+            color: Colors.transparent,
+          ),
+          new Expanded(
+              child: new TextField(
+            keyboardType: TextInputType.text,
+            autofocus: true,
+            decoration: new InputDecoration(
+                hintText: 'votre étage', fillColor: Colors.red[900]),
+            onChanged: (value) {
+              etage = value;
+            },
+          )),
+          Divider(
+            color: Colors.transparent,
+          ),
+          new Expanded(
+              child: new TextField(
+            keyboardType: TextInputType.text,
+            autofocus: true,
+            decoration: new InputDecoration(
+                hintText: 'infos', fillColor: Colors.red[900]),
+            onChanged: (value) {
+              infos = value;
+            },
+          )),
+        ],
+      ),
       actions: <Widget>[
         FlatButton(
           child: Text('Valider', style: TextStyle(color: Colors.red[900])),

@@ -78,25 +78,21 @@ class _MyHomePageState extends State<MyHomePage> {
       FirebaseUser user = await _auth.currentUser();
       if (user != null) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
-  String compte = (prefs.getString('compte'));
+        String compte = (prefs.getString('compte'));
 
-  if(compte != null || compte == "ent") {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => AccueilProPage()), //MaterialPageRoute
-        );
-  }
-
-  else {
-   Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => AccueilPage()), //MaterialPageRoute
-        );
-  }
-
-     
+        if (compte != null || compte == "ent") {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => AccueilProPage()), //MaterialPageRoute
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => AccueilPage()), //MaterialPageRoute
+          );
+        }
       } else {
         Navigator.pushReplacement(
           context,

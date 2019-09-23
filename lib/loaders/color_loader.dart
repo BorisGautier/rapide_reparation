@@ -32,8 +32,6 @@ class _ColorLoaderState extends State<ColorLoader>
   void initState() {
     super.initState();
 
-
-
     controller = new AnimationController(
       vsync: this,
       duration: duration,

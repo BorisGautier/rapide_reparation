@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 
 class SimpleRoundButton extends StatelessWidget {
-
   final Color backgroundColor;
   final Text buttonText;
   final Color textColor;
   final Function onPressed;
 
-  SimpleRoundButton({
-    this.backgroundColor,
-    this.buttonText,
-    this.textColor,
-    this.onPressed
-  });
+  SimpleRoundButton(
+      {this.backgroundColor, this.buttonText, this.textColor, this.onPressed});
 
   @override
   Widget build(BuildContext context) {

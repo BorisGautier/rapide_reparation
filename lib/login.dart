@@ -11,8 +11,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          child: LoginScreen3(),
-        ),
+        child: LoginScreen3(),
+      ),
     );
   }
 }

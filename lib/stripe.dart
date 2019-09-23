@@ -1,4 +1,3 @@
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +40,10 @@ class StripePage extends StatefulWidget {
       this.date,
       this.societe,
       this.prix,
-      this.adresse,this.code,this.etage,this.infos})
+      this.adresse,
+      this.code,
+      this.etage,
+      this.infos})
       : super(key: key);
 
   final String appareil,
@@ -53,10 +55,25 @@ class StripePage extends StatefulWidget {
       date,
       societe,
       prix,
-      adresse,code,etage,infos;
+      adresse,
+      code,
+      etage,
+      infos;
   @override
   _StripePageState createState() => new _StripePageState(
-      appareil, modele, probleme, ecran, pb, rdv, date, societe, prix, adresse,code,etage,infos);
+      appareil,
+      modele,
+      probleme,
+      ecran,
+      pb,
+      rdv,
+      date,
+      societe,
+      prix,
+      adresse,
+      code,
+      etage,
+      infos);
 }
 
 class _StripePageState extends State<StripePage> {
@@ -73,8 +90,20 @@ class _StripePageState extends State<StripePage> {
     StripeSource.setPublishableKey("pk_test_yAUuyJ1BIf8WVbFOhiIX1etV");
   }
 
-  _StripePageState(this.appareil, this.modele, this.probleme, this.ecran,
-      this.pb, this.rdv, this.date, this.societe, this.prix, this.adresse,this.code,this.etage,this.infos);
+  _StripePageState(
+      this.appareil,
+      this.modele,
+      this.probleme,
+      this.ecran,
+      this.pb,
+      this.rdv,
+      this.date,
+      this.societe,
+      this.prix,
+      this.adresse,
+      this.code,
+      this.etage,
+      this.infos);
   String appareil,
       modele,
       probleme,
@@ -84,7 +113,10 @@ class _StripePageState extends State<StripePage> {
       date,
       societe,
       prix,
-      adresse,code,etage,infos;
+      adresse,
+      code,
+      etage,
+      infos;
   @override
   Widget build(BuildContext context) {
     logout() async {
@@ -152,9 +184,9 @@ class _StripePageState extends State<StripePage> {
                           padding: EdgeInsets.all(20.0),
                           child: Center(
                             child: Image.asset(
-                            "assets/images/icon/rr.jpg",
-                            height: 80,
-                          ),
+                              "assets/images/icon/rr.jpg",
+                              height: 80,
+                            ),
                           ),
                         ),
                         Divider(
@@ -233,7 +265,7 @@ class _StripePageState extends State<StripePage> {
                               color: Colors.red[900],
                               onPressed: () async {
                                 setState(() => _isLoading1 = true);
-                                  payPal();
+                                payPal();
                               },
                               child: _isLoading1
                                   ? new CircularProgressIndicator(
@@ -303,7 +335,7 @@ class _StripePageState extends State<StripePage> {
           if (response.status == "success") {
             api
                 .reservation(appareil, currentUser.email, modele, probleme, rdv,
-                    date, "token", societe, adresse,code,etage,infos)
+                    date, "token", societe, adresse, code, etage, infos)
                 .then((Response response) {
               if (response.status == "success") {
                 setState(() => _isLoading = false);
@@ -341,30 +373,27 @@ class _StripePageState extends State<StripePage> {
 
   payPal() async {
     final FirebaseUser currentUser = await _auth.currentUser();
-      api
-                .getPaypal(prix, probleme)
-                .then((Response response) {
-              if (response.status != "failed") {
-                setState(() => _isLoading1 = false);
-               
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PayPalPage(url : response.status),
-                  ),
-                );
-              }
-              else {
-                  setState(() => _isLoading1 = false);
-            Fluttertoast.showToast(
-                msg: "Erreur lors du paiement",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIos: 1,
-                backgroundColor: Colors.red[400],
-                textColor: Colors.white,
-                fontSize: 16.0);
-              }
-            });
+    api.getPaypal(prix, probleme).then((Response response) {
+      if (response.status != "failed") {
+        setState(() => _isLoading1 = false);
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PayPalPage(url: response.status),
+          ),
+        );
+      } else {
+        setState(() => _isLoading1 = false);
+        Fluttertoast.showToast(
+            msg: "Erreur lors du paiement",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIos: 1,
+            backgroundColor: Colors.red[400],
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
+    });
   }
 }

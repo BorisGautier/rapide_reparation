@@ -44,19 +44,57 @@ class SocietePage extends StatefulWidget {
       this.pb,
       this.rdv,
       this.date,
-      this.prix,this.adresse,this.code,this.etage,this.infos})
+      this.prix,
+      this.adresse,
+      this.code,
+      this.etage,
+      this.infos})
       : super(key: key);
 
-  final String appareil, modele, probleme, ecran, pb, rdv, date, prix,adresse,code,etage,infos;
+  final String appareil,
+      modele,
+      probleme,
+      ecran,
+      pb,
+      rdv,
+      date,
+      prix,
+      adresse,
+      code,
+      etage,
+      infos;
   @override
-  _SocietePage createState() =>
-      _SocietePage(appareil, modele, probleme, ecran, pb, rdv, date, prix,adresse,code,etage,infos);
+  _SocietePage createState() => _SocietePage(appareil, modele, probleme, ecran,
+      pb, rdv, date, prix, adresse, code, etage, infos);
 }
 
 class _SocietePage extends State<SocietePage> {
-  _SocietePage(this.appareil, this.modele, this.probleme, this.ecran, this.pb,
-      this.rdv, this.date, this.prix,this.adresse,this.code,this.etage,this.infos);
-  String appareil, modele, probleme, ecran, pb, societe, rdv, date, prix,adresse,code,etage,infos;
+  _SocietePage(
+      this.appareil,
+      this.modele,
+      this.probleme,
+      this.ecran,
+      this.pb,
+      this.rdv,
+      this.date,
+      this.prix,
+      this.adresse,
+      this.code,
+      this.etage,
+      this.infos);
+  String appareil,
+      modele,
+      probleme,
+      ecran,
+      pb,
+      societe,
+      rdv,
+      date,
+      prix,
+      adresse,
+      code,
+      etage,
+      infos;
   double long = 5.00000, lat = 5.00000, longd, latd;
   final String _simpleValue1 = 'logout';
   String _simpleValue;
@@ -70,7 +108,7 @@ class _SocietePage extends State<SocietePage> {
   String b;
 
   Future getSociete() async {
-      Position position = await Geolocator()
+    Position position = await Geolocator()
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     long = position.longitude;
     lat = position.latitude;
@@ -82,25 +120,22 @@ class _SocietePage extends State<SocietePage> {
       setState(() async {
         if (societeresponse.status == "success") {
           societeF = societeresponse.societe;
-        //  await getD(lo,la);
-      
+          //  await getD(lo,la);
+
         }
       });
     });
   }
 
- 
-
   @override
   void initState() {
     setState(() => _isLoading = true);
     super.initState();
-     Timer(new Duration(milliseconds: 1500), () async {
-        await getSociete();
+    Timer(new Duration(milliseconds: 1500), () async {
+      await getSociete();
 
-        setState(() => _isLoading = false);
+      setState(() => _isLoading = false);
     });
-    
   }
 
   @override
@@ -144,80 +179,82 @@ class _SocietePage extends State<SocietePage> {
           PopupMenuButton<String>(
             onSelected: showMenuSelection,
             itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
-                  const PopupMenuItem<String>(
-                      value: 'logout', child: Text('Deconnexion')),
-                  /*  const PopupMenuItem<String>(
+              const PopupMenuItem<String>(
+                  value: 'logout', child: Text('Deconnexion')),
+              /*  const PopupMenuItem<String>(
                       value: 'setting', child: Text('Paramètres')),*/
-                ],
+            ],
           )
         ],
       ),
-      body: _isLoading ? Center(child:new CircularProgressIndicator()) : ListView.builder(
-          itemCount: societeF.length,
-          itemBuilder: (context, index) {
-            void eventDetail() async {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => DetailPage(
-                          appareil: appareil,
-                          ecran: ecran,
-                          modele: modele,
-                          pb: pb,
-                          probleme: probleme,
-                          societe: societeF[index].nom,
-                          rdv: rdv,
-                          date: date,
-                          prix: prix,
-                          adresse : adresse,
-                          code:code,
-                          etage:etage,
-                          infos:infos
-                         // b: b,
-                        )), //MaterialPageRoute
-              );
-            }
+      body: _isLoading
+          ? Center(child: new CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: societeF.length,
+              itemBuilder: (context, index) {
+                void eventDetail() async {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DetailPage(
+                            appareil: appareil,
+                            ecran: ecran,
+                            modele: modele,
+                            pb: pb,
+                            probleme: probleme,
+                            societe: societeF[index].nom,
+                            rdv: rdv,
+                            date: date,
+                            prix: prix,
+                            adresse: adresse,
+                            code: code,
+                            etage: etage,
+                            infos: infos
+                            // b: b,
+                            )), //MaterialPageRoute
+                  );
+                }
 
-            return Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                image: DecorationImage(
-                  colorFilter: new ColorFilter.mode(
-                      Colors.black.withOpacity(0.10), BlendMode.dstATop),
-                  image: AssetImage('assets/images/12.jpg'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: Column(
-                children: <Widget>[
-                  autoPlayDemo,
-                  Divider(color: Colors.transparent, height: 20),
-                  Text(
-                    "Entreprise pour réparation à domicile",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red[900],
-                      fontSize: 15,
+                return Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    image: DecorationImage(
+                      colorFilter: new ColorFilter.mode(
+                          Colors.black.withOpacity(0.10), BlendMode.dstATop),
+                      image: AssetImage('assets/images/12.jpg'),
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  Divider(color: Colors.transparent, height: 40),
-                  Card(
-                    elevation: 5.0,
-                    child: ListTile(
-                      title: Text(
-                        societeF[index].nom,
+                  child: Column(
+                    children: <Widget>[
+                      autoPlayDemo,
+                      Divider(color: Colors.transparent, height: 20),
+                      Text(
+                        "Entreprise pour réparation à domicile",
+                        textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontStyle: FontStyle.italic,
-                            fontWeight: FontWeight.bold),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red[900],
+                          fontSize: 15,
+                        ),
                       ),
-                      onTap: eventDetail,
-                    ),
+                      Divider(color: Colors.transparent, height: 40),
+                      Card(
+                        elevation: 5.0,
+                        child: ListTile(
+                          title: Text(
+                            societeF[index].nom,
+                            style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          onTap: eventDetail,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            );
-          }),
+                );
+              }),
       /* Container(
         decoration: BoxDecoration(
           color: Colors.white,

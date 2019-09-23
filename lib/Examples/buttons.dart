@@ -14,46 +14,45 @@ class ButtonExample extends StatelessWidget {
         children: <Widget>[
           SimpleRoundButton(
             backgroundColor: Colors.redAccent,
-            buttonText: Text("LOGIN", style: TextStyle(
-                color: Colors.white
-            ),),
+            buttonText: Text(
+              "LOGIN",
+              style: TextStyle(color: Colors.white),
+            ),
             textColor: Colors.white,
           ),
-
           SimpleRoundIconButton(
             backgroundColor: Colors.orangeAccent,
-            buttonText: Text("SEND EMAIL", style: TextStyle(
-                color: Colors.white
-            ),),
+            buttonText: Text(
+              "SEND EMAIL",
+              style: TextStyle(color: Colors.white),
+            ),
             textColor: Colors.white,
             icon: Icon(Icons.email),
           ),
-
           SimpleRoundIconButton(
             backgroundColor: Colors.pinkAccent,
-            buttonText: Text("LISTEN TO MUSIC", style: TextStyle(
-                color: Colors.white
-            ),),
+            buttonText: Text(
+              "LISTEN TO MUSIC",
+              style: TextStyle(color: Colors.white),
+            ),
             textColor: Colors.white,
             icon: Icon(Icons.headset_mic),
             iconAlignment: Alignment.centerRight,
           ),
-
           SimpleRoundIconButton(
             backgroundColor: Colors.deepOrangeAccent,
-            buttonText: Text("SHARE ON SOCIAL", style: TextStyle(
-                color: Colors.white
-            ),),
+            buttonText: Text(
+              "SHARE ON SOCIAL",
+              style: TextStyle(color: Colors.white),
+            ),
             textColor: Colors.white,
             icon: Icon(Icons.share),
           ),
-
           SimpleRoundOnlyIconButton(
             backgroundColor: Colors.lightGreen,
             icon: Icon(Icons.share),
             iconAlignment: Alignment.center,
           ),
-
           new Row(
             children: <Widget>[
               new Container(
@@ -64,7 +63,6 @@ class ButtonExample extends StatelessWidget {
                   iconAlignment: Alignment.center,
                 ),
               ),
-
               new Container(
                 width: MediaQuery.of(context).size.width * 0.5,
                 child: SimpleRoundOnlyIconButton(
@@ -73,54 +71,48 @@ class ButtonExample extends StatelessWidget {
                   iconAlignment: Alignment.center,
                 ),
               ),
-
             ],
           ),
-
           SimpleRoundOnlyIconButton(
             backgroundColor: Colors.green,
             icon: Icon(Icons.message),
             iconColor: Colors.redAccent,
             iconAlignment: Alignment.centerRight,
           ),
-
           SimpleRoundOnlyIconButton(
             backgroundColor: Colors.redAccent,
             icon: Icon(Icons.details),
             iconColor: Colors.redAccent,
             iconAlignment: Alignment.centerLeft,
           ),
-
-
           new Row(
             children: <Widget>[
               new Container(
                 width: MediaQuery.of(context).size.width * 0.66,
                 child: SimpleRoundIconButton(
                   backgroundColor: Colors.deepOrangeAccent,
-                  buttonText: Text("PLAY", style: TextStyle(
-                      color: Colors.white
-                  ),),
+                  buttonText: Text(
+                    "PLAY",
+                    style: TextStyle(color: Colors.white),
+                  ),
                   textColor: Colors.white,
                   icon: Icon(Icons.play_arrow),
                   iconAlignment: Alignment.centerRight,
                 ),
               ),
-
               new Container(
                 width: MediaQuery.of(context).size.width * 0.33,
                 child: SimpleRoundButton(
                   backgroundColor: Colors.greenAccent,
-                  buttonText: Text("OK", style: TextStyle(
-                      color: Colors.green
-                  ),),
+                  buttonText: Text(
+                    "OK",
+                    style: TextStyle(color: Colors.green),
+                  ),
                   textColor: Colors.white,
                 ),
               ),
             ],
           ),
-
-
         ],
       ),
     );

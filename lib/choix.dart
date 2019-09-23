@@ -42,7 +42,7 @@ class _ChoixPage extends State<ChoixPage> {
       );
     }
 
-   /* toast() {
+    /* toast() {
         Fluttertoast.showToast(
                     msg: "Bientot disponible",
                     toastLength: Toast.LENGTH_LONG,
@@ -58,15 +58,13 @@ class _ChoixPage extends State<ChoixPage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => TelephonePage(
-                  )), //MaterialPageRoute
+              builder: (context) => TelephonePage()), //MaterialPageRoute
         );
       } else if (i == 2) {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => OrdiPage(
-                  )), //MaterialPageRoute
+              builder: (context) => OrdiPage()), //MaterialPageRoute
         );
       } else if (i == 3) {
         Navigator.pushReplacement(
@@ -97,11 +95,11 @@ class _ChoixPage extends State<ChoixPage> {
           PopupMenuButton<String>(
             onSelected: showMenuSelection,
             itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
-                  const PopupMenuItem<String>(
-                      value: 'logout', child: Text('Deconnexion')),
-                  /*  const PopupMenuItem<String>(
+              const PopupMenuItem<String>(
+                  value: 'logout', child: Text('Deconnexion')),
+              /*  const PopupMenuItem<String>(
                       value: 'setting', child: Text('Paramètres')),*/
-                ],
+            ],
           )
         ],
       ),
@@ -134,7 +132,7 @@ class _ChoixPage extends State<ChoixPage> {
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center)),
-                      ), 
+                      ),
                       Container(
                         padding: EdgeInsets.all(05.0),
                         child: Center(
@@ -144,7 +142,6 @@ class _ChoixPage extends State<ChoixPage> {
                                     fontStyle: FontStyle.italic, fontSize: 15),
                                 textAlign: TextAlign.center)),
                       ),
-                      
                       Divider(color: Colors.transparent, height: 15),
                       new Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -216,7 +213,7 @@ class _ChoixPage extends State<ChoixPage> {
                                           child: InkWell(
                                             onTap: () {
                                               goTomodele(2);
-                                             //toast();
+                                              //toast();
                                             },
                                             child: null,
                                           ),
@@ -265,7 +262,7 @@ class _ChoixPage extends State<ChoixPage> {
                                           child: InkWell(
                                             onTap: () {
                                               goTomodele(3);
-                                            //toast();
+                                              //toast();
                                             },
                                             child: null,
                                           ),
