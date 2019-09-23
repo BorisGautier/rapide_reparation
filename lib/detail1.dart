@@ -59,16 +59,12 @@ class _Detail1Page extends State<Detail1Page> {
   bool _isLoading1 = false;
   ApiRest api = new ApiRest();
   String d;
-  int pri, x;
+  int pri;
   DateTime day;
 
   @override
   void initState() {
     super.initState();
-
-    setState(() {
-      x = int.parse(prix) + 20;
-    });
     setState(() => _isLoading = true);
     day = DateTime.parse(date);
     Timer(new Duration(milliseconds: 1500), () async {
@@ -95,7 +91,7 @@ class _Detail1Page extends State<Detail1Page> {
         r = "Rendez-vous à la boutique";
         rd = false;
       }
-      pri = int.parse(prix);
+      pri = int.parse(prix) + 20;
       setState(() => _isLoading = false);
     });
   }
@@ -139,7 +135,7 @@ class _Detail1Page extends State<Detail1Page> {
               probleme: probleme,
               rdv: rdv,
               societe: societe,
-              prix: x.toString()),
+              prix: pri.toString()),
         ),
       );
 
@@ -394,7 +390,7 @@ class _Detail1Page extends State<Detail1Page> {
                                             ),
                                           ),
                                         ]),
-                                         TableRow(children: [
+                                        TableRow(children: [
                                           TableCell(
                                             child: Row(
                                               mainAxisAlignment:
@@ -485,7 +481,7 @@ class _Detail1Page extends State<Detail1Page> {
                                                   MainAxisAlignment.start,
                                               children: <Widget>[
                                                 new Text(
-                                                  " " + x.toString() + "€",
+                                                  " " + pri.toString() + "€",
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.red[900],

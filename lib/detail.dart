@@ -110,15 +110,13 @@ class _DetailPage extends State<DetailPage> {
   bool rd1 = false;
   bool rd2 = false;
   DateTime day;
-  Geolocator _geolocator;
+  bool isLocationEnabled;
 
   String format(double n) {
     return n.toStringAsFixed(n.truncateToDouble() == n ? 0 : 6);
   }
 
   getD() async {
-    bool isLocationEnabled = await Geolocator().isLocationServiceEnabled();
-
     if (isLocationEnabled == true) {
       Position position = await Geolocator()
           .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
@@ -163,6 +161,7 @@ class _DetailPage extends State<DetailPage> {
 
     timer = new Timer.periodic(new Duration(milliseconds: 500),
         (Timer timer) async {
+      isLocationEnabled = await Geolocator().isLocationServiceEnabled();
       await getD();
     });
 
