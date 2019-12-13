@@ -29,7 +29,7 @@ dependencies:
   geolocator: ^5.1.5
   flutter_map: ^0.6.0
   flutter_image: ^2.0.0
-  cached_network_image: ^2.0.0-rc
+  cached_network_image: ^0.8.0
   autocomplete_textfield: ^1.7.3
   search_widget: ^1.0.0
   flutter_typeahead: ^1.7.0
