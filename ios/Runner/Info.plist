@@ -73,5 +73,28 @@
 </array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+
+	 <!-- Facebook Login configuration -->
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>fb302562930408857</string>
+            </array>
+        </dict>
+    </array>
+    <key>FacebookAppID</key>
+    <string>302562930408857</string>
+    <key>FacebookDisplayName</key>
+    <string>rapide_achat</string>
+    
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>fbapi</string>
+        <string>fb-messenger-share-api</string>
+        <string>fbauth2</string>
+        <string>fbshareextension</string>
+    </array>
 </dict>
 </plist>
