@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rapide_achat/choix.dart';
 import 'package:rapide_achat/home.dart';
+import 'package:rapide_achat/login.dart';
 import 'package:rapide_achat/phoneList.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -104,7 +105,7 @@ class _OrdiPage extends State<OrdiPage> {
     await FirebaseAuth.instance.signOut();
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => HomeScreen()), //MaterialPageRoute
+      MaterialPageRoute(builder: (context) => LoginPage()), //MaterialPageRoute
     );
   }
 

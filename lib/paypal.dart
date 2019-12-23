@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:rapide_achat/home.dart';
+import 'package:rapide_achat/login.dart';
 
 class PayPalPage extends StatefulWidget {
   PayPalPage({Key key, this.url}) : super(key: key);
@@ -29,7 +30,7 @@ class _PayPalPage extends State<PayPalPage> {
     await FirebaseAuth.instance.signOut();
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => HomeScreen()), //MaterialPageRoute
+      MaterialPageRoute(builder: (context) => LoginPage()), //MaterialPageRoute
     );
   }
 

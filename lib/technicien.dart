@@ -16,6 +16,7 @@ import 'package:rapide_achat/choix.dart';
 import 'package:rapide_achat/detail.dart';
 import 'package:rapide_achat/detail1.dart';
 import 'package:rapide_achat/home.dart';
+import 'package:rapide_achat/login.dart';
 import 'package:rapide_achat/models/nominatimResponse.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/widgets.dart';
@@ -237,7 +238,7 @@ class _TechnicienPage extends State<TechnicienPage> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => HomeScreen()), //MaterialPageRoute
+            builder: (context) => LoginPage()), //MaterialPageRoute
       );
     }
 

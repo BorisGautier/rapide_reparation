@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix0;
 import 'package:rapide_achat/api/api.dart';
 import 'package:rapide_achat/home.dart';
+import 'package:rapide_achat/login.dart';
 import 'package:rapide_achat/models/produitResponse.dart';
 import 'package:http/http.dart' as http;
 import 'package:rapide_achat/technicien.dart';
@@ -91,7 +92,7 @@ class _PhoneListPage extends State<PhoneListPage> {
     await FirebaseAuth.instance.signOut();
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => HomeScreen()), //MaterialPageRoute
+      MaterialPageRoute(builder: (context) => LoginPage()), //MaterialPageRoute
     );
   }
 

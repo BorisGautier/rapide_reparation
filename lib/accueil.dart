@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:rapide_achat/choix.dart';
 import 'package:rapide_achat/home.dart';
+import 'package:rapide_achat/login.dart';
 
 final List<String> itemList = [
   'assets/images/11.jpg',
@@ -36,7 +37,7 @@ class _AccueilPage extends State<AccueilPage> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => HomeScreen()), //MaterialPageRoute
+            builder: (context) => LoginPage()), //MaterialPageRoute
       );
     }
 

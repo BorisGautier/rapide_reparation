@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rapide_achat/accueil.dart';
 import 'package:rapide_achat/api/api.dart';
 import 'package:rapide_achat/home.dart';
+import 'package:rapide_achat/login.dart';
 import 'package:rapide_achat/models/response.dart';
 import 'package:rapide_achat/models/vivawallet.dart';
 import 'package:rapide_achat/paypal.dart';
@@ -125,7 +126,7 @@ class _StripePageState extends State<StripePage> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => HomeScreen()), //MaterialPageRoute
+            builder: (context) => LoginPage()), //MaterialPageRoute
       );
     }
 

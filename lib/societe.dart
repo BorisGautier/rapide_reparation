@@ -11,6 +11,7 @@ import 'package:rapide_achat/api/api.dart';
 import 'package:rapide_achat/detail.dart';
 import 'package:rapide_achat/detail1.dart';
 import 'package:rapide_achat/home.dart';
+import 'package:rapide_achat/login.dart';
 import 'package:rapide_achat/models/distance.dart';
 import 'package:rapide_achat/models/societeResponse.dart';
 import 'package:rapide_achat/technicien.dart';
@@ -155,7 +156,7 @@ class _SocietePage extends State<SocietePage> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => HomeScreen()), //MaterialPageRoute
+            builder: (context) => LoginPage()), //MaterialPageRoute
       );
     }
 

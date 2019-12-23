@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:rapide_achat/home.dart';
+import 'package:rapide_achat/login.dart';
 import 'package:rapide_achat/ordi.dart';
 import 'package:rapide_achat/tablette.dart';
 import 'package:rapide_achat/telephone.dart';
@@ -38,7 +39,7 @@ class _ChoixPage extends State<ChoixPage> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => HomeScreen()), //MaterialPageRoute
+            builder: (context) => LoginPage()), //MaterialPageRoute
       );
     }
 

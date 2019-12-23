@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:rapide_achat/home.dart';
 import 'package:rapide_achat/api/api.dart';
+import 'package:rapide_achat/login.dart';
 import 'package:rapide_achat/stripe.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -183,7 +184,7 @@ class _Detail1Page extends State<Detail1Page> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => HomeScreen()), //MaterialPageRoute
+            builder: (context) => LoginPage()), //MaterialPageRoute
       );
     }
 
