@@ -114,6 +114,7 @@ class _DetailPage extends State<DetailPage> {
   bool rd2 = false;
   DateTime day;
   bool isLocationEnabled;
+  String ville,telephone;
 
   String format(double n) {
     return n.toStringAsFixed(n.truncateToDouble() == n ? 0 : 6);
@@ -223,10 +224,20 @@ class _DetailPage extends State<DetailPage> {
       );
     } else {
       final FirebaseUser currentUser = await _auth.currentUser();
+
+Firestore.instance
+    .collection('users').document(currentUser.uid).get().then((DocumentSnapshot ds) {
+      setState(() {
+        telephone = ds.data['telephone'];
+        ville = ds.data['ville'];
+      });
+        
+    });
+
       setState(() {
         api
             .reservation(appareil, currentUser.email, modele, probleme, rdv,
-                date, "token", societe, "Rapide Achat", "", "", "")
+                date, "token", societe, "Rapide Achat", "", "", "",ville,telephone)
             .then((Response response) {
           if (response.status == "success") {}
         });

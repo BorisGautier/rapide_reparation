@@ -84,6 +84,7 @@ class _StripePageState extends State<StripePage> {
   bool _isLoading1 = false;
   final String _simpleValue1 = 'logout';
   String _simpleValue;
+  String ville,telephone;
 
   @override
   initState() {
@@ -329,8 +330,19 @@ class _StripePageState extends State<StripePage> {
   _sendOnline(String token) async {
     setState(() => _isLoading = true);
 
+   
+
     print(token);
     final FirebaseUser currentUser = await _auth.currentUser();
+
+     Firestore.instance
+    .collection('users').document(currentUser.uid).get().then((DocumentSnapshot ds) {
+      setState(() {
+        telephone = ds.data['telephone'];
+        ville = ds.data['ville'];
+      });
+        
+    });
 
     setState(() {
       if (currentUser != null) {
@@ -338,7 +350,7 @@ class _StripePageState extends State<StripePage> {
           if (response.status == "success") {
             api
                 .reservation(appareil, currentUser.email, modele, probleme, rdv,
-                    date, "token", societe, adresse, code, etage, infos)
+                    date, "token", societe, adresse, code, etage, infos,ville,telephone)
                 .then((Response response) {
               if (response.status == "success") {
                 setState(() => _isLoading = false);
@@ -403,6 +415,17 @@ class _StripePageState extends State<StripePage> {
   vivaWallet() async {
     setState(() => _isLoading = true);
     final FirebaseUser currentUser = await _auth.currentUser();
+
+Firestore.instance
+    .collection('users').document(currentUser.uid).get().then((DocumentSnapshot ds) {
+      setState(() {
+        telephone = ds.data['telephone'];
+        ville = ds.data['ville'];
+      });
+        
+    });
+
+
     double p = double.parse(prix);
     double pf = p * 100;
 
@@ -424,7 +447,7 @@ class _StripePageState extends State<StripePage> {
 
     api
         .reservation(appareil, currentUser.email, modele, probleme, rdv, date,
-            "token", societe, adresse, code, etage, infos)
+            "token", societe, adresse, code, etage, infos,ville,telephone)
         .then((Response response) {
       if (response.status == "success") {}
     });

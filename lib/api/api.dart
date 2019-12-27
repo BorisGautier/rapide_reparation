@@ -263,7 +263,9 @@ class ApiRest {
       String adresse,
       String code,
       String etage,
-      String infos) {
+      String infos,
+      String ville,
+      String telephone) {
     return http.post(RESERVATION_URL, body: {
       "email": email,
       "appareil": appareil,
@@ -276,7 +278,9 @@ class ApiRest {
       "adresse": adresse,
       "code": code,
       "etage": etage,
-      "infos": infos
+      "infos": infos,
+      "ville" : ville,
+      "telephone" : telephone
     }).then((http.Response response) {
       final String res = response.body;
       if (response.statusCode == 201) {
