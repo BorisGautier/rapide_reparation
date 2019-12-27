@@ -250,6 +250,8 @@ Firestore.instance
           'rdv': rdv,
           'date': date,
           'societe': societe,
+          'ville' : ville,
+          'telephone' : telephone
         });
 
         setState(() => _isLoading1 = false);

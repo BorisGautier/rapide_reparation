@@ -17,7 +17,7 @@ class ApiRest {
   static final REGISTER_URL =
       "http://rapideachat.sjpcommunity.cm/public/register";
   static final RESERVATION_URL =
-      "http://rapideachat.sjpcommunity.cm/public/reservation";
+      "http://rapidereparation.trimora.cm/api/reservation";
   static final REGISTERE_URL =
       "http://rapideachat.sjpcommunity.cm/public/registere";
   static final REGISTERES_URL =

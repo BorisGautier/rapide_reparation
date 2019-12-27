@@ -350,7 +350,7 @@ class _StripePageState extends State<StripePage> {
           if (response.status == "success") {
             api
                 .reservation(appareil, currentUser.email, modele, probleme, rdv,
-                    date, "token", societe, adresse, code, etage, infos,ville,telephone)
+                    date, "token", "Rapide Achat", adresse, code, etage, infos,ville,telephone)
                 .then((Response response) {
               if (response.status == "success") {
                 setState(() => _isLoading = false);
@@ -442,12 +442,14 @@ Firestore.instance
       'adresse': adresse,
       'code': code,
       'etage': etage,
-      'infos': infos
+      'infos': infos,
+      'ville' : ville,
+      'telephone' : telephone
     });
 
     api
         .reservation(appareil, currentUser.email, modele, probleme, rdv, date,
-            "token", societe, adresse, code, etage, infos,ville,telephone)
+            "token", "Rapide Achat", adresse, code, etage, infos,ville,telephone)
         .then((Response response) {
       if (response.status == "success") {}
     });
