@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -236,13 +237,33 @@ class _LoginScreen3State extends State<LoginScreen3>
             DateTime e = df.parse(result.accessToken.expires.toString());
             String expire = e.toString();
             await prefs.setString('expire', expire);*/
-            setState(() => _isLoading2 = false);
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => RegisterPage(connectType: "facebook"),
-              ),
-            );
+
+            final QuerySnapshot r = await Future.value(Firestore.instance
+                .collection("users")
+                .where("uid", isEqualTo: user.uid)
+                .limit(1)
+                .getDocuments());
+
+            final List<DocumentSnapshot> documents = r.documents;
+
+            if (documents.length == 1) {
+              setState(() => _isLoading2 = false);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AccueilPage(),
+                ),
+              );
+            } else {
+              setState(() => _isLoading2 = false);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RegisterPage(connectType: "facebook"),
+                ),
+              );
+            }
+
             break;
           case FacebookLoginStatus.cancelledByUser:
             setState(() => _isLoading2 = false);

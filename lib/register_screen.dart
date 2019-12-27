@@ -76,7 +76,8 @@ class _RegisterScreenState extends State<RegisterScreen>
               'ville': ville,
               'telephone': telephone,
               'date': date,
-              'facebook_id': currentUser.uid
+              'facebook_id': currentUser.uid,
+              'uid' : currentUser.uid
             });
 
             setState(() => _isLoading = false);
@@ -121,7 +122,8 @@ class _RegisterScreenState extends State<RegisterScreen>
               'email': currentUser.email,
               'ville': ville,
               'telephone': telephone,
-              'date': date
+              'date': date,
+              'uid' : currentUser.uid
             });
 
             setState(() => _isLoading = false);
