@@ -3,11 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rapide_achat/choix.dart';
-import 'package:rapide_achat/home.dart';
 import 'package:rapide_achat/login.dart';
 import 'package:rapide_achat/phoneList.dart';
-
-final FirebaseAuth _auth = FirebaseAuth.instance;
 
 List samsung = ["J", "Trend", "A", "Ace", "Core", "Xcover"];
 
@@ -40,14 +37,14 @@ class TablettePage extends StatefulWidget {
 
 class _TablettePage extends State<TablettePage> {
   final String _simpleValue1 = 'logout';
-  String _simpleValue;
+  String simpleValue;
   String modele, val;
   bool a = false;
   bool bu = false;
 
   bool i = false, h = false, ht = false, b = false, s = false;
 
-  static final PRODUIT_URL =
+  static final produitUrl =
       "https://www.rapide-achat.com/wp-json/public-woo/v1/products";
 
   @override
@@ -71,11 +68,12 @@ class _TablettePage extends State<TablettePage> {
         items.add(new DropdownMenuItem(value: mod, child: new Text(mod)));
       }
       return items;
-    }
+    } else
+      return null;
   }
 
   void showMenuSelection(String value) async {
-    if (<String>[_simpleValue1].contains(value)) _simpleValue = value;
+    if (<String>[_simpleValue1].contains(value)) simpleValue = value;
 
     // Navigator.pushNamed(_context,"/$_simpleValue");
     if (value == "logout") {

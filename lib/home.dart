@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:rapide_achat/login.dart';
 import 'package:rapide_achat/loginEnt.dart';
 
@@ -144,4 +144,4 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           scrollDirection: Axis.horizontal,
         ));
   }
-}
+}*/

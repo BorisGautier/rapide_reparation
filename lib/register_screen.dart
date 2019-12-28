@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:rapide_achat/accueil.dart';
 import 'package:rapide_achat/api/api.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
-import 'package:rapide_achat/models/response.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -77,7 +76,7 @@ class _RegisterScreenState extends State<RegisterScreen>
               'telephone': telephone,
               'date': date,
               'facebook_id': currentUser.uid,
-              'uid' : currentUser.uid
+              'uid': currentUser.uid
             });
 
             setState(() => _isLoading = false);
@@ -123,7 +122,7 @@ class _RegisterScreenState extends State<RegisterScreen>
               'ville': ville,
               'telephone': telephone,
               'date': date,
-              'uid' : currentUser.uid
+              'uid': currentUser.uid
             });
 
             setState(() => _isLoading = false);
@@ -157,7 +156,7 @@ class _RegisterScreenState extends State<RegisterScreen>
     }
   }
 
-  Widget SignupPage() {
+  Widget signupPage() {
     return new SingleChildScrollView(
       child: Container(
         height: MediaQuery.of(context).size.height,
@@ -435,7 +434,7 @@ class _RegisterScreenState extends State<RegisterScreen>
         child: PageView(
           controller: _controller,
           physics: new AlwaysScrollableScrollPhysics(),
-          children: <Widget>[SignupPage()],
+          children: <Widget>[signupPage()],
           scrollDirection: Axis.horizontal,
         ));
   }

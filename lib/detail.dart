@@ -7,7 +7,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:rapide_achat/accueil.dart';
-import 'package:rapide_achat/home.dart';
 import 'package:rapide_achat/api/api.dart';
 import 'package:rapide_achat/login.dart';
 import 'package:rapide_achat/models/response.dart';
@@ -99,7 +98,7 @@ class _DetailPage extends State<DetailPage> {
       etage,
       infos;
   final String _simpleValue1 = 'logout';
-  String _simpleValue, email, r, t;
+  String simpleValue, email, r, t;
   bool e, p, m = false;
   bool rd = false;
   Timer timer;
@@ -114,7 +113,8 @@ class _DetailPage extends State<DetailPage> {
   bool rd2 = false;
   DateTime day;
   bool isLocationEnabled;
-  String ville,telephone;
+  String ville, telephone;
+  FirebaseUser user;
 
   String format(double n) {
     return n.toStringAsFixed(n.truncateToDouble() == n ? 0 : 6);
@@ -171,7 +171,19 @@ class _DetailPage extends State<DetailPage> {
 
     setState(() => _isLoading = true);
     Timer(new Duration(milliseconds: 2000), () async {
-      FirebaseUser user = await _auth.currentUser();
+      user = await _auth.currentUser();
+
+      Firestore.instance
+          .collection('users')
+          .document(user.uid)
+          .get()
+          .then((DocumentSnapshot ds) {
+        setState(() {
+          telephone = ds.data['telephone'];
+          ville = ds.data['ville'];
+        });
+      });
+
       email = user.email;
       if (modele == null) {
         modele = "";
@@ -208,36 +220,42 @@ class _DetailPage extends State<DetailPage> {
         context,
         MaterialPageRoute(
             builder: (context) => StripePage(
-                appareil: appareil,
-                date: date,
-                ecran: ecran,
-                modele: modele,
-                pb: pb,
-                probleme: probleme,
-                rdv: rdv,
-                societe: societe,
-                adresse: adresse,
-                prix: pr.toString(),
-                code: code,
-                etage: etage,
-                infos: infos)),
+                  appareil: appareil,
+                  date: date,
+                  ecran: ecran,
+                  modele: modele,
+                  pb: pb,
+                  probleme: probleme,
+                  rdv: rdv,
+                  societe: societe,
+                  adresse: adresse,
+                  prix: pr.toString(),
+                  code: code,
+                  etage: etage,
+                  infos: infos,
+                  user: user,
+                )),
       );
     } else {
       final FirebaseUser currentUser = await _auth.currentUser();
 
-Firestore.instance
-    .collection('users').document(currentUser.uid).get().then((DocumentSnapshot ds) {
-      setState(() {
-        telephone = ds.data['telephone'];
-        ville = ds.data['ville'];
-      });
-        
-    });
-
       setState(() {
         api
-            .reservation(appareil, currentUser.email, modele, probleme, rdv,
-                date, "token", societe, "Rapide Achat", "", "", "",ville,telephone)
+            .reservation(
+                appareil,
+                currentUser.email,
+                modele,
+                probleme,
+                rdv,
+                date,
+                "token",
+                societe,
+                "Rapide Achat",
+                "",
+                "",
+                "",
+                ville,
+                telephone)
             .then((Response response) {
           if (response.status == "success") {}
         });
@@ -250,8 +268,8 @@ Firestore.instance
           'rdv': rdv,
           'date': date,
           'societe': societe,
-          'ville' : ville,
-          'telephone' : telephone
+          'ville': ville,
+          'telephone': telephone
         });
 
         setState(() => _isLoading1 = false);
@@ -297,7 +315,7 @@ Firestore.instance
     }
 
     void showMenuSelection(String value) async {
-      if (<String>[_simpleValue1].contains(value)) _simpleValue = value;
+      if (<String>[_simpleValue1].contains(value)) simpleValue = value;
 
       // Navigator.pushNamed(_context,"/$_simpleValue");
       if (value == "logout") {

@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rapide_achat/choix.dart';
-import 'package:rapide_achat/home.dart';
 import 'package:rapide_achat/login.dart';
 import 'package:rapide_achat/technicien.dart';
 
@@ -16,7 +15,7 @@ final List<String> itemList = [
 
 List _modelePhone = ["Iphone5"];
 
-List _modeleOrdi = [];
+// List _modeleOrdi = [];
 
 List _modeleTab = [];
 
@@ -46,7 +45,7 @@ class _ModelePage extends State<ModelePage> {
   _ModelePage(this.appareil);
   final String appareil;
   final String _simpleValue1 = 'logout';
-  String _simpleValue;
+  String simpleValue;
   String modele, probleme, ecran, pb, prix;
   bool blanc = false;
   bool noir = false;
@@ -83,6 +82,8 @@ class _ModelePage extends State<ModelePage> {
         items.add(new DropdownMenuItem(value: mod, child: new Text(mod)));
       }
       return items;
+    } else {
+      return null;
     }
   }
 
@@ -231,7 +232,7 @@ class _ModelePage extends State<ModelePage> {
     }
 
     void showMenuSelection(String value) async {
-      if (<String>[_simpleValue1].contains(value)) _simpleValue = value;
+      if (<String>[_simpleValue1].contains(value)) simpleValue = value;
 
       // Navigator.pushNamed(_context,"/$_simpleValue");
       if (value == "logout") {

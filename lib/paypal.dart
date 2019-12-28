@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-import 'package:rapide_achat/home.dart';
 import 'package:rapide_achat/login.dart';
 
 class PayPalPage extends StatefulWidget {
@@ -15,10 +14,10 @@ class _PayPalPage extends State<PayPalPage> {
   _PayPalPage(this.url);
   String url;
   final String _simpleValue1 = 'logout';
-  String _simpleValue;
+  String simpleValue;
 
   void showMenuSelection(String value) async {
-    if (<String>[_simpleValue1].contains(value)) _simpleValue = value;
+    if (<String>[_simpleValue1].contains(value)) simpleValue = value;
 
     // Navigator.pushNamed(_context,"/$_simpleValue");
     if (value == "logout") {
@@ -36,7 +35,6 @@ class _PayPalPage extends State<PayPalPage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return new WebviewScaffold(
       url: url,
       appBar: AppBar(

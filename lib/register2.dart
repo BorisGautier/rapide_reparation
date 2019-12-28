@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:rapide_achat/register_screen2.dart';
 
 class RegisterPage2 extends StatefulWidget {
@@ -20,4 +20,4 @@ class _RegisterPageState2 extends State<RegisterPage2> {
       ),
     );
   }
-}
+}*/

@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:rapide_achat/choix.dart';
-import 'package:rapide_achat/home.dart';
 import 'package:rapide_achat/login.dart';
 
 final List<String> itemList = [
@@ -29,7 +28,7 @@ class AccueilPage extends StatefulWidget {
 
 class _AccueilPage extends State<AccueilPage> {
   final String _simpleValue1 = 'logout';
-  String _simpleValue;
+  String simpleValue;
   @override
   Widget build(BuildContext context) {
     logout() async {
@@ -42,8 +41,7 @@ class _AccueilPage extends State<AccueilPage> {
     }
 
     void showMenuSelection(String value) async {
-      if (<String>[_simpleValue1].contains(value)) _simpleValue = value;
-
+      if (<String>[_simpleValue1].contains(value)) simpleValue = value;
       // Navigator.pushNamed(_context,"/$_simpleValue");
       if (value == "logout") {
         logout();

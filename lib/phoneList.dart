@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix0;
 import 'package:rapide_achat/api/api.dart';
-import 'package:rapide_achat/home.dart';
 import 'package:rapide_achat/login.dart';
 import 'package:rapide_achat/models/produitResponse.dart';
 import 'package:http/http.dart' as http;
@@ -46,17 +45,17 @@ class _PhoneListPage extends State<PhoneListPage> {
   var product = new List<ProduitResponse>();
   ApiRest api = new ApiRest();
   final String _simpleValue1 = 'logout';
-  String _simpleValue;
+  String simpleValue;
   Timer timer;
   List<ProduitResponse> _produit;
 
-  static final PRODUIT_URL =
+  static final produitUrl =
       "https://www.rapide-achat.com/wp-json/public-woo/v1/products";
 
   Future<List<ProduitResponse>> _fetchProduit(
       String categorie, String id) async {
     var response = await http.get(
-        PRODUIT_URL + "?" + categorie + "=" + id + "&page=" + page.toString());
+        produitUrl + "?" + categorie + "=" + id + "&page=" + page.toString());
 
     if (response.statusCode == 200) {
       final items = json.decode(response.body).cast<Map<String, dynamic>>();
@@ -80,7 +79,7 @@ class _PhoneListPage extends State<PhoneListPage> {
   }
 
   void showMenuSelection(String value) async {
-    if (<String>[_simpleValue1].contains(value)) _simpleValue = value;
+    if (<String>[_simpleValue1].contains(value)) simpleValue = value;
 
     // Navigator.pushNamed(_context,"/$_simpleValue");
     if (value == "logout") {

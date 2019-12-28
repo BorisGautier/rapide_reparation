@@ -15,14 +15,11 @@ import 'package:rapide_achat/api/api.dart';
 import 'package:rapide_achat/choix.dart';
 import 'package:rapide_achat/detail.dart';
 import 'package:rapide_achat/detail1.dart';
-import 'package:rapide_achat/home.dart';
 import 'package:rapide_achat/login.dart';
 import 'package:rapide_achat/models/nominatimResponse.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/widgets.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-
-final FirebaseAuth _auth = FirebaseAuth.instance;
 
 final List<String> itemList = [
   'assets/images/11.jpg',
@@ -63,7 +60,7 @@ class _TechnicienPage extends State<TechnicienPage> {
       this.pb, this.prix);
   String appareil, modele, probleme, ecran, pb, prix;
   final String _simpleValue1 = 'logout';
-  String _simpleValue, date;
+  String simpleValue, date;
   bool e = false;
 
   InputType inputType = InputType.both;
@@ -243,7 +240,7 @@ class _TechnicienPage extends State<TechnicienPage> {
     }
 
     void showMenuSelection(String value) async {
-      if (<String>[_simpleValue1].contains(value)) _simpleValue = value;
+      if (<String>[_simpleValue1].contains(value)) simpleValue = value;
 
       // Navigator.pushNamed(_context,"/$_simpleValue");
       if (value == "logout") {
@@ -251,7 +248,6 @@ class _TechnicienPage extends State<TechnicienPage> {
       } else {}
     }
 
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         leading: new Container(

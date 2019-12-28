@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:rapide_achat/home.dart';
 import 'package:rapide_achat/api/api.dart';
 import 'package:rapide_achat/login.dart';
 import 'package:rapide_achat/stripe.dart';
@@ -52,7 +51,7 @@ class _Detail1Page extends State<Detail1Page> {
       this.rdv, this.date, this.societe, this.prix);
   String appareil, modele, probleme, ecran, pb, rdv, date, societe, prix;
   final String _simpleValue1 = 'logout';
-  String _simpleValue, email, r, t;
+  String simpleValue, email, r, t;
   bool e, p, m = false;
   bool rd = false;
   Timer timer;
@@ -63,6 +62,7 @@ class _Detail1Page extends State<Detail1Page> {
   int pri;
   double pr = 0;
   DateTime day;
+  FirebaseUser user;
 
   @override
   void initState() {
@@ -70,7 +70,7 @@ class _Detail1Page extends State<Detail1Page> {
     setState(() => _isLoading = true);
     day = DateTime.parse(date);
     Timer(new Duration(milliseconds: 1500), () async {
-      FirebaseUser user = await _auth.currentUser();
+      user = await _auth.currentUser();
       email = user.email;
       if (modele == null) {
         modele = "";
@@ -107,15 +107,17 @@ class _Detail1Page extends State<Detail1Page> {
         context,
         MaterialPageRoute(
           builder: (context) => StripePage(
-              appareil: appareil,
-              date: date,
-              ecran: ecran,
-              modele: modele,
-              pb: pb,
-              probleme: probleme,
-              rdv: rdv,
-              societe: societe,
-              prix: prix),
+            appareil: appareil,
+            date: date,
+            ecran: ecran,
+            modele: modele,
+            pb: pb,
+            probleme: probleme,
+            rdv: rdv,
+            societe: societe,
+            prix: prix,
+            user: user,
+          ),
         ),
       );
     } else {
@@ -125,19 +127,21 @@ class _Detail1Page extends State<Detail1Page> {
         context,
         MaterialPageRoute(
           builder: (context) => StripePage(
-              appareil: appareil,
-              date: date,
-              adresse: "",
-              code: "",
-              etage: "",
-              infos: "",
-              ecran: ecran,
-              modele: modele,
-              pb: pb,
-              probleme: probleme,
-              rdv: rdv,
-              societe: societe,
-              prix: pr.toString()),
+            appareil: appareil,
+            date: date,
+            adresse: "",
+            code: "",
+            etage: "",
+            infos: "",
+            ecran: ecran,
+            modele: modele,
+            pb: pb,
+            probleme: probleme,
+            rdv: rdv,
+            societe: societe,
+            prix: pr.toString(),
+            user: user,
+          ),
         ),
       );
 
@@ -189,7 +193,7 @@ class _Detail1Page extends State<Detail1Page> {
     }
 
     void showMenuSelection(String value) async {
-      if (<String>[_simpleValue1].contains(value)) _simpleValue = value;
+      if (<String>[_simpleValue1].contains(value)) simpleValue = value;
 
       // Navigator.pushNamed(_context,"/$_simpleValue");
       if (value == "logout") {

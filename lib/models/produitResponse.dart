@@ -4,11 +4,11 @@
 
 import 'dart:convert';
 
-List<ProduitResponse> ProduitResponseFromJson(String str) =>
+List<ProduitResponse> produitResponseFromJson(String str) =>
     new List<ProduitResponse>.from(
         json.decode(str).map((x) => ProduitResponse.fromMap(x)));
 
-String ProduitResponseToJson(List<ProduitResponse> data) =>
+String produitResponseToJson(List<ProduitResponse> data) =>
     json.encode(new List<dynamic>.from(data.map((x) => x.toMap())));
 
 class ProduitResponse {

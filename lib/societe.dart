@@ -1,20 +1,13 @@
-import 'dart:async';
+/*import 'dart:async';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong/latlong.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:rapide_achat/api/api.dart';
 import 'package:rapide_achat/detail.dart';
-import 'package:rapide_achat/detail1.dart';
-import 'package:rapide_achat/home.dart';
 import 'package:rapide_achat/login.dart';
-import 'package:rapide_achat/models/distance.dart';
 import 'package:rapide_achat/models/societeResponse.dart';
-import 'package:rapide_achat/technicien.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -372,3 +365,4 @@ class _SocietePage extends State<SocietePage> {
     ),
   );
 }
+*/

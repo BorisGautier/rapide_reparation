@@ -3,9 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:rapide_achat/accueil.dart';
 import 'package:rapide_achat/api/api.dart';
-import 'package:rapide_achat/home.dart';
 import 'package:rapide_achat/login.dart';
 import 'package:rapide_achat/models/response.dart';
 import 'package:rapide_achat/models/vivawallet.dart';
@@ -45,7 +43,8 @@ class StripePage extends StatefulWidget {
       this.adresse,
       this.code,
       this.etage,
-      this.infos})
+      this.infos,
+      this.user})
       : super(key: key);
 
   final String appareil,
@@ -61,6 +60,7 @@ class StripePage extends StatefulWidget {
       code,
       etage,
       infos;
+  final FirebaseUser user;
   @override
   _StripePageState createState() => new _StripePageState(
       appareil,
@@ -75,20 +75,31 @@ class StripePage extends StatefulWidget {
       adresse,
       code,
       etage,
-      infos);
+      infos,
+      user);
 }
 
 class _StripePageState extends State<StripePage> {
   ApiRest api = new ApiRest();
   bool _isLoading = false;
-  bool _isLoading1 = false;
   final String _simpleValue1 = 'logout';
-  String _simpleValue;
-  String ville,telephone;
+  String simpleValue;
+  String ville, telephone;
 
   @override
   initState() {
     super.initState();
+
+    Firestore.instance
+        .collection('users')
+        .document(user.uid)
+        .get()
+        .then((DocumentSnapshot ds) {
+      setState(() {
+        telephone = ds.data['telephone'];
+        ville = ds.data['ville'];
+      });
+    });
 
     // StripeSource.setPublishableKey("pk_test_yAUuyJ1BIf8WVbFOhiIX1etV");
   }
@@ -106,7 +117,8 @@ class _StripePageState extends State<StripePage> {
       this.adresse,
       this.code,
       this.etage,
-      this.infos);
+      this.infos,
+      this.user);
   String appareil,
       modele,
       probleme,
@@ -120,6 +132,8 @@ class _StripePageState extends State<StripePage> {
       code,
       etage,
       infos;
+
+  FirebaseUser user;
   @override
   Widget build(BuildContext context) {
     logout() async {
@@ -132,7 +146,7 @@ class _StripePageState extends State<StripePage> {
     }
 
     void showMenuSelection(String value) async {
-      if (<String>[_simpleValue1].contains(value)) _simpleValue = value;
+      if (<String>[_simpleValue1].contains(value)) simpleValue = value;
 
       // Navigator.pushNamed(_context,"/$_simpleValue");
       if (value == "logout") {
@@ -327,7 +341,7 @@ class _StripePageState extends State<StripePage> {
     ),
   );
 
-  _sendOnline(String token) async {
+  /* _sendOnline(String token) async {
     setState(() => _isLoading = true);
 
    
@@ -384,9 +398,9 @@ class _StripePageState extends State<StripePage> {
         });
       }
     });
-  }
+  }*/
 
-  payPal() async {
+  /* payPal() async {
     final FirebaseUser currentUser = await _auth.currentUser();
     api.getPaypal(prix, probleme).then((Response response) {
       if (response.status != "failed") {
@@ -410,21 +424,11 @@ class _StripePageState extends State<StripePage> {
             fontSize: 16.0);
       }
     });
-  }
+  }*/
 
   vivaWallet() async {
     setState(() => _isLoading = true);
     final FirebaseUser currentUser = await _auth.currentUser();
-
-Firestore.instance
-    .collection('users').document(currentUser.uid).get().then((DocumentSnapshot ds) {
-      setState(() {
-        telephone = ds.data['telephone'];
-        ville = ds.data['ville'];
-      });
-        
-    });
-
 
     double p = double.parse(prix);
     double pf = p * 100;
@@ -443,13 +447,26 @@ Firestore.instance
       'code': code,
       'etage': etage,
       'infos': infos,
-      'ville' : ville,
-      'telephone' : telephone
+      'ville': ville,
+      'telephone': telephone
     });
 
     api
-        .reservation(appareil, currentUser.email, modele, probleme, rdv, date,
-            "token", "Rapide Achat", adresse, code, etage, infos,ville,telephone)
+        .reservation(
+            appareil,
+            currentUser.email,
+            modele,
+            probleme,
+            rdv,
+            date,
+            "token",
+            "Rapide Achat",
+            adresse,
+            code,
+            etage,
+            infos,
+            ville,
+            telephone)
         .then((Response response) {
       if (response.status == "success") {}
     });
@@ -481,5 +498,4 @@ Firestore.instance
       }
     });
   }
-
 }

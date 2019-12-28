@@ -1,49 +1,27 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:rapide_achat/models/distance.dart';
 import 'package:rapide_achat/models/nominatimResponse.dart';
 import 'package:rapide_achat/models/nominatimSearch.dart';
 import 'package:rapide_achat/models/produitResponse.dart';
-import 'package:rapide_achat/models/reservationResponse.dart';
 import 'package:rapide_achat/models/response.dart';
-import 'package:rapide_achat/models/societeResponse.dart';
 import 'package:rapide_achat/models/vivawallet.dart';
 
 class ApiRest {
-  static final REGISTERF_URL =
-      "http://rapideachat.sjpcommunity.cm/public/registerf";
-  static final REGISTER_URL =
-      "http://rapideachat.sjpcommunity.cm/public/register";
-  static final RESERVATION_URL =
+  static final reservationUrl =
       "http://rapidereparation.trimora.cm/api/reservation";
-  static final REGISTERE_URL =
-      "http://rapideachat.sjpcommunity.cm/public/registere";
-  static final REGISTERES_URL =
-      "http://rapideachat.sjpcommunity.cm/public/registeres";
-  static final REGISTERT_URL =
-      "http://rapideachat.sjpcommunity.cm/public/registeret";
-  static final GETSOCIETE_URL =
-      "http://rapideachat.sjpcommunity.cm/public/getsociete";
-  static final GETRESERVATION_URL =
-      "http://rapideachat.sjpcommunity.cm/public/getreservation";
-  static final CONFIRM_URL =
-      "http://rapideachat.sjpcommunity.cm/public/confirm";
-  static final STRIPE_URL = "http://rapideachat.sjpcommunity.cm/public/stripe";
-  static final GETDISTANCE_URL =
+  static final distanceUrl =
       "http://rapideachat.sjpcommunity.cm/public/getd";
-  static final GETPAYPAL_URL =
-      "http://rapideachat.sjpcommunity.cm/public/paypalPay";
-  static final NOMINATIM_URL = "https://nominatim.openstreetmap.org/reverse";
-  static final NOMINATIM_SEARCH_URL =
+  static final nominatimUrl = "https://nominatim.openstreetmap.org/reverse";
+  static final nominatimSearchUrl =
       "https://nominatim.openstreetmap.org/search";
-  static final PRODUIT_URL =
+  static final produitUrl=
       "https://www.rapide-achat.com/wp-json/public-woo/v1/products";
 
   Future<ProduitResponse> getProduit(String categorie, String id) {
     return http
-        .get(PRODUIT_URL + "?" + categorie + "=" + id)
+        .get(produitUrl+ "?" + categorie + "=" + id)
         .then((http.Response response) {
       final String res = response.body;
       if (response.statusCode == 200) {
@@ -56,7 +34,7 @@ class ApiRest {
 
   Future<NominatimResponse> nominatim(String lat, String lon) {
     return http
-        .get(NOMINATIM_URL +
+        .get(nominatimUrl +
             "?" +
             "lat=" +
             lat +
@@ -81,7 +59,7 @@ class ApiRest {
 
   Future<NominatimSearch> nominatimSearch(String search) {
     return http
-        .get(NOMINATIM_SEARCH_URL +
+        .get(nominatimSearchUrl +
             "?" +
             "q=" +
             search +
@@ -89,7 +67,6 @@ class ApiRest {
         .then((http.Response response) {
       final String res = response.body;
       if (response.statusCode == 200) {
-        var j = json.decode(res);
         return new NominatimSearch.fromJson(json.decode(res));
       } else {
         throw new Exception("Error while fetching data");
@@ -97,13 +74,17 @@ class ApiRest {
     });
   }
 
-  Map<String,String> headers = {"Content-Type": "application/json","cache-control": "no-cache","authorization":"Basic OTdiMGE5YzMtNWI5ZS00OGVjLTkyMTMtNjU1YTM3MDc2ZjU5OkZoOXpZaDk2NXQydzByNTc1WEc2MmhrNWpocXUyRQ=="};
-
+  Map<String, String> headers = {
+    "Content-Type": "application/json",
+    "cache-control": "no-cache",
+    "authorization":
+        "Basic OTdiMGE5YzMtNWI5ZS00OGVjLTkyMTMtNjU1YTM3MDc2ZjU5OkZoOXpZaDk2NXQydzByNTc1WEc2MmhrNWpocXUyRQ=="
+  };
 
   Future<VivaWallet> getVivawallet(
       String fullName, String email, int amount, String produit) {
-
-        final msg = jsonEncode({"Email": email,
+    final msg = jsonEncode({
+      "Email": email,
       "FullName": fullName,
       "PaymentTimeOut": 300,
       "RequestLang": "fr",
@@ -112,144 +93,23 @@ class ApiRest {
       "IsPreAuth": true,
       "Amount": amount,
       "MerchantTrns": "Paiement pour Rapide Réparation",
-      "CustomerTrns": produit});
+      "CustomerTrns": produit
+    });
 
-
-    return http.post("https://www.vivapayments.com/api/orders", headers: headers, body: msg).then((http.Response response) {
+    return http
+        .post("https://www.vivapayments.com/api/orders",
+            headers: headers, body: msg)
+        .then((http.Response response) {
       final String res = response.body;
       if (response.statusCode == 200) {
-        var j = json.decode(res);
 
-          return new VivaWallet.fromJson(json.decode(res));
-       
+        return new VivaWallet.fromJson(json.decode(res));
       } else {
         throw new Exception("Error while fetching data");
       }
     });
   }
 
-  Future<Response> registerF(String name, String email, String ville,
-      String telephone, String date, String facebook_id) {
-    return http.post(REGISTERF_URL, body: {
-      "email": email,
-      "ville": ville,
-      "name": name,
-      "telephone": telephone,
-      "date": date,
-      "facebook_id": facebook_id
-    }).then((http.Response response) {
-      final String res = response.body;
-      if (response.statusCode == 201) {
-        var j = json.decode(res);
-        String status = j['status'];
-        if (status == "success") {
-          return new Response.fromJson(json.decode(res));
-        } else {
-          return new Response.fromJson(json.decode(res));
-        }
-      } else {
-        throw new Exception("Error while fetching data");
-      }
-    });
-  }
-
-  Future<Response> register(
-      String name, String email, String ville, String telephone, String date) {
-    return http.post(REGISTER_URL, body: {
-      "email": email,
-      "ville": ville,
-      "name": name,
-      "telephone": telephone,
-      "date": date
-    }).then((http.Response response) {
-      final String res = response.body;
-      if (response.statusCode == 201) {
-        var j = json.decode(res);
-        String status = j['status'];
-        if (status == "success") {
-          return new Response.fromJson(json.decode(res));
-        } else {
-          return new Response.fromJson(json.decode(res));
-        }
-      } else {
-        throw new Exception("Error while fetching data");
-      }
-    });
-  }
-
-  Future<Response> registerE(String ent, String email, String kbis, String rib,
-      String id, String lng, String lat) {
-    return http.post(REGISTERE_URL, body: {
-      "entreprise": ent,
-      "email": email,
-      "kbis": kbis,
-      "rib": rib,
-      "lng": lng,
-      "lat": lat,
-      "id_facebook": id
-    }).then((http.Response response) {
-      final String res = response.body;
-      if (response.statusCode == 201) {
-        var j = json.decode(res);
-        String status = j['status'];
-        if (status == "success") {
-          return new Response.fromJson(json.decode(res));
-        } else {
-          return new Response.fromJson(json.decode(res));
-        }
-      } else {
-        throw new Exception("Error while fetching data");
-      }
-    });
-  }
-
-  Future<Response> registerES(String ent, String email, String kbis, String rib,
-      String lng, String lat) {
-    return http.post(REGISTERES_URL, body: {
-      "entreprise": ent,
-      "email": email,
-      "kbis": kbis,
-      "rib": rib,
-      "lng": lng,
-      "lat": lat
-    }).then((http.Response response) {
-      final String res = response.body;
-      if (response.statusCode == 201) {
-        var j = json.decode(res);
-        String status = j['status'];
-        if (status == "success") {
-          return new Response.fromJson(json.decode(res));
-        } else {
-          return new Response.fromJson(json.decode(res));
-        }
-      } else {
-        throw new Exception("Error while fetching data");
-      }
-    });
-  }
-
-  Future<Response> registerT(
-      String nomT, String ent, String cv, String diplome) {
-    return http.post(REGISTERT_URL, body: {
-      "entreprise": ent,
-      "technicien": nomT,
-      "cv": cv,
-      "diplome": diplome
-    }).then((http.Response response) {
-      final String res = response.body;
-      if (response.statusCode == 201) {
-        var j = json.decode(res);
-        String status = j['status'];
-        if (status == "success") {
-          return new Response.fromJson(json.decode(res));
-        } else {
-          return new Response.fromJson(json.decode(res));
-        }
-      } else {
-        throw new Exception("Error while fetching data");
-      }
-    });
-  }
 
   Future<Response> reservation(
       String appareil,
@@ -266,7 +126,7 @@ class ApiRest {
       String infos,
       String ville,
       String telephone) {
-    return http.post(RESERVATION_URL, body: {
+    return http.post(reservationUrl, body: {
       "email": email,
       "appareil": appareil,
       "modele": modele,
@@ -279,8 +139,8 @@ class ApiRest {
       "code": code,
       "etage": etage,
       "infos": infos,
-      "ville" : ville,
-      "telephone" : telephone
+      "ville": ville,
+      "telephone": telephone
     }).then((http.Response response) {
       final String res = response.body;
       if (response.statusCode == 201) {
@@ -313,24 +173,9 @@ class ApiRest {
     });
     }*/
 
-  Future<SocieteResponse> getSociete(String societe) {
-    return http.post(GETSOCIETE_URL, body: {"societe": "rapide achat"}).then(
-        (http.Response response) {
-      final String res = response.body;
-      if (response.statusCode == 200) {
-        var j = json.decode(res);
-        String status = j['status'];
-        if (status == "success") {
-          return new SocieteResponse.fromJson(json.decode(res));
-        } else {
-          return new SocieteResponse.fromJson(json.decode(res));
-        }
-      } else {}
-    });
-  }
 
   Future<Dist> getd(String societe, String lng, String lat) {
-    return http.post(GETDISTANCE_URL, body: {
+    return http.post(distanceUrl, body: {
       "societe": societe,
       "lng": lng,
       "lat": lat
@@ -344,77 +189,11 @@ class ApiRest {
         } else {
           return new Dist.fromJson(json.decode(res));
         }
-      } else {}
-    });
-  }
-
-  Future<Response> getPaypal(String prix, String probleme) {
-    return http
-        .post(GETPAYPAL_URL, body: {"amount": prix, "probleme": probleme}).then(
-            (http.Response response) {
-      final String res = response.body;
-      if (response.statusCode == 200) {
-        var j = json.decode(res);
-        String status = j['status'];
-        if (status == "success") {
-          return new Response.fromJson(json.decode(res));
-        } else {
-          return new Response.fromJson(json.decode(res));
-        }
-      } else {}
-    });
-  }
-
-  Future<ReservationResponse> getReseration(String societe) {
-    return http.post(GETRESERVATION_URL, body: {"societe": societe}).then(
-        (http.Response response) {
-      final String res = response.body;
-      if (response.statusCode == 200) {
-        var j = json.decode(res);
-        String status = j['status'];
-        if (status == "success") {
-          return new ReservationResponse.fromJson(json.decode(res));
-        } else {
-          return new ReservationResponse.fromJson(json.decode(res));
-        }
-      } else {}
-    });
-  }
-
-  Future<Response> confirmer(String id) {
-    return http
-        .post(CONFIRM_URL, body: {"id": id}).then((http.Response response) {
-      final String res = response.body;
-      if (response.statusCode == 200) {
-        var j = json.decode(res);
-        String status = j['status'];
-        if (status == "success") {
-          return new Response.fromJson(json.decode(res));
-        } else {
-          return new Response.fromJson(json.decode(res));
-        }
-      } else {}
-    });
-  }
-
-  Future<Response> stripe(String token, String email, String prix) {
-    return http.post(STRIPE_URL, body: {
-      "token": token,
-      "email": email,
-      "prix": prix
-    }).then((http.Response response) {
-      final String res = response.body;
-      if (response.statusCode == 200) {
-        var j = json.decode(res);
-        String status = j['status'];
-        if (status == "success") {
-          return new Response.fromJson(json.decode(res));
-        } else {
-          return new Response.fromJson(json.decode(res));
-        }
       } else {
-        throw new Exception("Error while fetching data");
+        return null;
       }
     });
   }
+
+
 }

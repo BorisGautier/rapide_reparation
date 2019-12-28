@@ -1,4 +1,4 @@
-import 'dart:async';
+/*import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +68,7 @@ class _AccueilProPage extends State<AccueilProPage> {
   }
 
   final String _simpleValue1 = 'logout';
-  String _simpleValue;
+  String simpleValue;
   @override
   Widget build(BuildContext context) {
     logout() async {
@@ -81,7 +81,7 @@ class _AccueilProPage extends State<AccueilProPage> {
     }
 
     void showMenuSelection(String value) async {
-      if (<String>[_simpleValue1].contains(value)) _simpleValue = value;
+      if (<String>[_simpleValue1].contains(value)) simpleValue = value;
 
       // Navigator.pushNamed(_context,"/$_simpleValue");
       if (value == "logout") {
@@ -345,3 +345,4 @@ class _AccueilProPage extends State<AccueilProPage> {
     ),
   );
 }
+*/

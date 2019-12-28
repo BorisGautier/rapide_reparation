@@ -2,13 +2,9 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:rapide_achat/accueil.dart';
-import 'package:rapide_achat/accueilPro.dart';
-import 'package:rapide_achat/home.dart';
 import 'package:rapide_achat/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -69,11 +65,11 @@ class _MyHomePageState extends State<MyHomePage> {
         String compte = (prefs.getString('compte'));
 
         if (compte != null || compte == "ent") {
-          Navigator.pushReplacement(
+          /* Navigator.pushReplacement(
             context,
             MaterialPageRoute(
                 builder: (context) => AccueilProPage()), //MaterialPageRoute
-          );
+          );*/
         } else {
           Navigator.pushReplacement(
             context,
@@ -83,10 +79,10 @@ class _MyHomePageState extends State<MyHomePage> {
         }
       } else {
         Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => LoginPage()) //MaterialPageRoute
-        );
+            context,
+            MaterialPageRoute(
+                builder: (context) => LoginPage()) //MaterialPageRoute
+            );
       }
     });
   }
