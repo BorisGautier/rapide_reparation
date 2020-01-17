@@ -134,13 +134,15 @@ class _DetailPage extends State<DetailPage> {
         if (distance.status == "success") {
           dist = distance.distance;
           if (dist > 5) {
-            setState(() {
-              pr = double.parse(prix) + 30;
+            setState(() { 
+              double p = (pr*20)/100;
+              pr = double.parse(prix) + 30 + p;
               rd2 = true;
             });
           } else {
             setState(() {
-              pr = double.parse(prix) + 20;
+              double p = (pr*20)/100;
+              pr = double.parse(prix) + 20 + p;
             });
           }
         }

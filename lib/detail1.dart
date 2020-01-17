@@ -93,7 +93,8 @@ class _Detail1Page extends State<Detail1Page> {
         r = "Rendez-vous à la boutique";
         rd = false;
       }
-      pr = double.parse(prix) + 20;
+      double p1 = (pr*20)/100;
+      pr = double.parse(prix) + 20 + p1;
       setState(() => _isLoading = false);
     });
   }
